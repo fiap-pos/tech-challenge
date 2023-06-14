@@ -8,7 +8,7 @@ CREATE TABLE produto (
     preco double not null,
     descricao text not null,
     imagem blob,
-	primary key (id)
+    primary key (id)
 );
 
 INSERT INTO produto (id, nome, categoria, preco, descricao) value (1, 'Hamburguer', 'Lanche', 10.99, 'Hamburguer teste');
