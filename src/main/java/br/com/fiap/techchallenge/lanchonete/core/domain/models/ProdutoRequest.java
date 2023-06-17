@@ -1,14 +1,29 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
+
 public class ProdutoRequest {
 
+    @NotBlank(message = "O campo 'nome' é obrigatório")
     private String nome;
+
+    @NotNull(message = "O campo 'categoria' é obrigatório")
     private Categoria categoria;
-    private Double preco;
+
+    @NotNull(message = "O campo 'preco' é obrigatório")
+    @DecimalMin(value = "0.0", message = "Informe um valor maior que 0.0")
+    private BigDecimal preco;
+
+    @NotBlank(message = "O campo 'descricao' é obrigatório")
     private String descricao;
+
     private byte[] imagem;
 
-    public ProdutoRequest(String nome, Categoria categoria, Double preco, String descricao, byte[] imagem) {
+    public ProdutoRequest(String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco;
@@ -32,11 +47,11 @@ public class ProdutoRequest {
         this.categoria = categoria;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

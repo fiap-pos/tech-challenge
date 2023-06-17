@@ -4,6 +4,8 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 public class Produto {
 
@@ -17,13 +19,13 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    private Double preco;
+    private BigDecimal preco;
 
     private String descricao;
 
     private byte[] imagem;
 
-    public Produto(String nome, Categoria categoria, Double preco, String descricao, byte[] imagem) {
+    public Produto(String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco;
@@ -43,7 +45,7 @@ public class Produto {
         return categoria;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 

@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaProdutoPriceInputPort;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class ProdutoController {
     }
 
     @PostMapping("/produto")
-    public ResponseEntity<ProdutoResponse> salvar(@RequestBody ProdutoRequest produtoRequest) {
+    public ResponseEntity<Void> salvar(@Valid @RequestBody ProdutoRequest produtoRequest) {
         var response = produtoPriceInputPort.criar(produtoRequest);
 
         var uri = ServletUriComponentsBuilder

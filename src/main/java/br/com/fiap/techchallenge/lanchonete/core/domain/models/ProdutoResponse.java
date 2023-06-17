@@ -1,15 +1,17 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
+import java.math.BigDecimal;
+
 public class ProdutoResponse {
 
     private Integer id;
     private String nome;
     private Categoria categoria;
-    private Double preco;
+    private BigDecimal preco;
     private String descricao;
     private byte[] imagem;
 
-    public ProdutoResponse(Integer id, String nome, Categoria categoria, Double preco, String descricao, byte[] imagem) {
+    public ProdutoResponse(Integer id, String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
@@ -42,11 +44,11 @@ public class ProdutoResponse {
         this.categoria = categoria;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
