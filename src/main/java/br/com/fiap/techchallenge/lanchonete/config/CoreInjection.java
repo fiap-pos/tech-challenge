@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.config;
 
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaProdutoPriceInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvaProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaProdutoUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.ProdutoUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class CoreInjection {
 
     @Bean
-    CriaProdutoPriceInputPort criarProduto(SalvaProdutoOutputPort salvaProdutoOutputPort) {
-        return new CriaProdutoUseCase(salvaProdutoOutputPort);
+    CriaProdutoInputPort criarProduto(SalvaProdutoOutputPort salvaProdutoOutputPort) {
+        return new ProdutoUseCase(salvaProdutoOutputPort);
     }
 }

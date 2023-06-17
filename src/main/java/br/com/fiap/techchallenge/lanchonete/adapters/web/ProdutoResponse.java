@@ -1,17 +1,20 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.models;
+package br.com.fiap.techchallenge.lanchonete.adapters.web;
+
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 
 import java.math.BigDecimal;
 
-public class ProdutoResponse {
+public class ProdutoResponse implements ProdutoOut {
 
-    private Integer id;
+    private Long id;
     private String nome;
     private Categoria categoria;
     private BigDecimal preco;
     private String descricao;
     private byte[] imagem;
 
-    public ProdutoResponse(Integer id, String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
+    public ProdutoResponse(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
         this.id = id;
         this.nome = nome;
         this.categoria = categoria;
@@ -20,11 +23,11 @@ public class ProdutoResponse {
         this.imagem = imagem;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

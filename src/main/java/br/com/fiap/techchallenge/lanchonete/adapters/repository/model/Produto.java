@@ -12,7 +12,7 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer id;
+    private Long id;
 
     private String nome;
 
@@ -33,7 +33,7 @@ public class Produto {
         this.imagem = imagem;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

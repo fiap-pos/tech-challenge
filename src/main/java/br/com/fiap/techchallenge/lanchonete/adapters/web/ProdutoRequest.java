@@ -1,26 +1,16 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.models;
+package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 
 import java.math.BigDecimal;
 
-public class ProdutoRequest {
+public class ProdutoRequest implements ProdutoIn {
 
-    @NotBlank(message = "O campo 'nome' é obrigatório")
     private String nome;
-
-    @NotNull(message = "O campo 'categoria' é obrigatório")
     private Categoria categoria;
-
-    @NotNull(message = "O campo 'preco' é obrigatório")
-    @DecimalMin(value = "0.0", message = "Informe um valor maior que 0.0")
     private BigDecimal preco;
-
-    @NotBlank(message = "O campo 'descricao' é obrigatório")
     private String descricao;
-
     private byte[] imagem;
 
     public ProdutoRequest(String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
