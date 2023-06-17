@@ -23,14 +23,17 @@ public class Produto {
 
     private String descricao;
 
+    @Lob
     private byte[] imagem;
 
-    public Produto(String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
+    public Produto() {
+    }
+
+    public Produto(String nome, Categoria categoria, BigDecimal preco, String descricao) {
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco;
         this.descricao = descricao;
-        this.imagem = imagem;
     }
 
     public Long getId() {
@@ -41,19 +44,39 @@ public class Produto {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public Categoria getCategoria() {
         return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public BigDecimal getPreco() {
         return preco;
     }
 
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
     public String getDescricao() {
         return descricao;
     }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public byte[] getImagem() {
         return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 }

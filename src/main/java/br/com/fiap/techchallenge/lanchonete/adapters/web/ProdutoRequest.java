@@ -5,8 +5,7 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 
 import java.math.BigDecimal;
 
-public record ProdutoRequest(String nome, Categoria categoria, BigDecimal preco, String descricao,
-                             byte[] imagem) implements ProdutoIn {
+public record ProdutoRequest(String nome, Categoria categoria, BigDecimal preco, String descricao) implements ProdutoIn {
 
     @Override
     public String getNome() {
@@ -26,10 +25,5 @@ public record ProdutoRequest(String nome, Categoria categoria, BigDecimal preco,
     @Override
     public String getDescricao() {
         return descricao;
-    }
-
-    @Override
-    public byte[] getImagem() {
-        return imagem;
     }
 }

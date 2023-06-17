@@ -6,10 +6,20 @@ import java.util.stream.Stream;
 
 public enum Categoria {
 
-    LANCHE,
-    ACOMPANHAMENTO,
-    BEBIDA,
-    SOBREMESA;
+    LANCHE("Lanche"),
+    ACOMPANHAMENTO("Acompanhamento"),
+    BEBIDA("Bebida"),
+    SOBREMESA("Sobremesa");
+
+    private final String descricao;
+
+    Categoria(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 
     @JsonCreator
     public static Categoria fromString(String value) {

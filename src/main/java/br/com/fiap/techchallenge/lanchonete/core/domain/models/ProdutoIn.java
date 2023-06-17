@@ -12,6 +12,4 @@ public interface ProdutoIn {
 
     String getDescricao();
 
-    byte[] getImagem();
-
 }
