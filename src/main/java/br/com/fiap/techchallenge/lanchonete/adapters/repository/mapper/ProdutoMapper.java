@@ -16,8 +16,7 @@ public class ProdutoMapper {
 
     public ProdutoOut toProdutoResponse(Produto produto) {
         return new ProdutoResponse(produto.getId(), produto.getNome(), produto.getCategoria(), produto.getPreco(),
-                produto.getDescricao(), produto.getImagem()) {
-        };
+                produto.getDescricao(), produto.getImagem());
     }
 
 }

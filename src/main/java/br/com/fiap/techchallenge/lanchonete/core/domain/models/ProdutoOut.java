@@ -4,11 +4,16 @@ import java.math.BigDecimal;
 
 public interface ProdutoOut {
 
-    public Long getId();
-    public String getNome();
-    public Categoria getCategoria();
-    public BigDecimal getPreco();
-    public String getDescricao();
-    public byte[] getImagem();
+    Long getId();
+
+    String getNome();
+
+    Categoria getCategoria();
+
+    BigDecimal getPreco();
+
+    String getDescricao();
+
+    byte[] getImagem();
 
 }

@@ -19,7 +19,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
-        var errorDetails = new ErrorDetails()
+        var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(e.getAllErrors().get(0).getDefaultMessage())
                 .timestamp(System.currentTimeMillis())
@@ -30,7 +30,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorDetails> handlerHttpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request) {
-        var errorDetails = new ErrorDetails()
+        var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(Objects.requireNonNull(e.getRootCause()).getMessage())
                 .timestamp(System.currentTimeMillis())
@@ -41,7 +41,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorDetails> handlerBadRequestException(BadRequestException e, HttpServletRequest request) {
-        var errorDetails = new ErrorDetails()
+        var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(e.getMessage())
                 .timestamp(System.currentTimeMillis())
@@ -52,7 +52,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(EntityAlreadyExistException.class)
     public ResponseEntity<ErrorDetails> handlerEntityAlreadyExistException(EntityAlreadyExistException e, HttpServletRequest request) {
-        var errorDetails = new ErrorDetails()
+        var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.CONFLICT.value())
                 .message(e.getMessage())
                 .timestamp(System.currentTimeMillis())
@@ -63,7 +63,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorDetails> handlerEntityNotFoundException(EntityNotFoundException e, HttpServletRequest request) {
-        var errorDetails = new ErrorDetails()
+        var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .message(e.getMessage())
                 .timestamp(System.currentTimeMillis())
@@ -74,7 +74,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handlerException(Exception e, HttpServletRequest request) {
-        var errorDetails = new ErrorDetails()
+        var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message(e.getMessage())
                 .timestamp(System.currentTimeMillis())
