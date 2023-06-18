@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record ProdutoRequest(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao) implements ProdutoIn {
+public record ProdutoRequest(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao,
+                             byte[] imagem) implements ProdutoIn {
 
     @Override
     public Long getId() {
@@ -38,5 +39,10 @@ public record ProdutoRequest(Long id, String nome, Categoria categoria, BigDecim
     @Override
     public String getDescricao() {
         return descricao;
+    }
+
+    @Override
+    public byte[] getImagem() {
+        return imagem;
     }
 }

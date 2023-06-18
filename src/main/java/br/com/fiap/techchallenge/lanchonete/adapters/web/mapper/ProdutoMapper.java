@@ -13,9 +13,13 @@ public class ProdutoMapper {
                 produtoOut.getPreco(), produtoOut.getDescricao(), produtoOut.getImagem());
     }
 
-    public ProdutoRequest toProdutoResponse(Long id, ProdutoRequest produtoRequest) {
+    public ProdutoRequest toProdutoRequest(Long id, ProdutoRequest produtoRequest) {
         return new ProdutoRequest(id, produtoRequest.getNome(), produtoRequest.getCategoria(), produtoRequest.getPreco(),
-                produtoRequest.getDescricao());
+                produtoRequest.getDescricao(), produtoRequest.imagem());
+    }
+
+    public ProdutoRequest toProdutoRequest(Long id, byte[] imagem) {
+        return new ProdutoRequest(id, null, null, null, null, imagem);
     }
 
 }
