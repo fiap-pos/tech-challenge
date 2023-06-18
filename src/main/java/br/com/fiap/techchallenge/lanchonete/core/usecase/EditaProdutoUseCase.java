@@ -2,10 +2,8 @@ package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.EditaProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.EditaProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvaProdutoOutputPort;
 
 public class EditaProdutoUseCase implements EditaProdutoInputPort {
 

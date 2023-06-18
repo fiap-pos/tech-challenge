@@ -8,12 +8,12 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.ImagemProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.EditaProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvaImagemProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvaProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaImagemProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaProdutoOutputPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemProdutoOutputPort, EditaProdutoOutputPort {
+public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort {
 
     ProdutoJpaRepository produtoJpaRepository;
     ProdutoMapper produtoMapper;
@@ -24,7 +24,7 @@ public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemPro
     }
 
     @Override
-    public ProdutoOut salvar(ProdutoIn produtoIn) {
+    public ProdutoOut criar(ProdutoIn produtoIn) {
         var produto = produtoMapper.toProduto(produtoIn);
         var produtoSalvo = produtoJpaRepository.save(produto);
 
@@ -32,7 +32,7 @@ public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemPro
     }
 
     @Override
-    public ProdutoOut salvar(ImagemProdutoIn imagemProdutoIn) {
+    public ProdutoOut criar(ImagemProdutoIn imagemProdutoIn) {
         var produto = buscaProdutoPorId(imagemProdutoIn.getId());
 
         produto.setImagem(imagemProdutoIn.getImagem());
@@ -45,7 +45,7 @@ public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemPro
     public ProdutoOut editar(ProdutoIn produtoIn) {
         buscaProdutoPorId(produtoIn.getId());
 
-        return salvar(produtoIn);
+        return criar(produtoIn);
     }
 
     private Produto buscaProdutoPorId(Long id) {

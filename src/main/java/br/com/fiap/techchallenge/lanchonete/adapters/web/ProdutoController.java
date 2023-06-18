@@ -35,7 +35,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoResponse> salvar(@Valid @RequestBody ProdutoRequest produtoRequest) {
+    public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody ProdutoRequest produtoRequest) {
         var produtoOut = criaProdutoInputPort.criar(produtoRequest);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
 
@@ -61,7 +61,7 @@ public class ProdutoController {
     }
 
     @PutMapping(value = "/{id}")
-    public @ResponseBody ResponseEntity<ProdutoResponse> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest produtoRequest) {
+    public @ResponseBody ResponseEntity<ProdutoResponse> editar(@PathVariable("id") Long id, @RequestBody ProdutoRequest produtoRequest) {
         var produtoRequestMapper = produtoMapper.toProdutoResponse(id, produtoRequest);
         var produtoOut = editaProdutoInputPort.editar(produtoRequestMapper);
 

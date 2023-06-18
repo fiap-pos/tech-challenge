@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.core.port.out;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 
-public interface SalvaProdutoOutputPort {
+public interface CriaProdutoOutputPort {
 
-    ProdutoOut salvar(ProdutoIn produtoIn);
+    ProdutoOut criar(ProdutoIn produtoIn);
 }
