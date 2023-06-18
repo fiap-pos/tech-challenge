@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ProdutoMapper;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
@@ -10,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,18 +23,22 @@ public class ProdutoController {
     RemoveProdutoInputPort removeProdutoInputPort;
     BuscaProdutoPorIdInputPort buscaProdutoPorIdInputPort;
     BuscaTodosProdutosInputPort buscaTodosProdutosInputPort;
+    BuscaProdutoPorCategoriaInputPort buscaProdutoPorCategoriaInputPort;
     ProdutoMapper produtoMapper;
 
     public ProdutoController(CriaProdutoInputPort criaProdutoInputPort, CriaImagemProdutoInputPort criaImagemProdutoInputPort,
                              EditaProdutoInputPort editaProdutoInputPort, RemoveProdutoInputPort removeProdutoInputPort,
                              BuscaProdutoPorIdInputPort buscaProdutoPorIdInputPort,
-                             BuscaTodosProdutosInputPort buscaTodosProdutosInputPort, ProdutoMapper produtoMapper) {
+                             BuscaTodosProdutosInputPort buscaTodosProdutosInputPort,
+                             BuscaProdutoPorCategoriaInputPort buscaProdutoPorCategoriaInputPort,
+                             ProdutoMapper produtoMapper) {
         this.criaProdutoInputPort = criaProdutoInputPort;
         this.criaImagemProdutoInputPort = criaImagemProdutoInputPort;
         this.editaProdutoInputPort = editaProdutoInputPort;
         this.removeProdutoInputPort = removeProdutoInputPort;
         this.buscaProdutoPorIdInputPort = buscaProdutoPorIdInputPort;
         this.buscaTodosProdutosInputPort = buscaTodosProdutosInputPort;
+        this.buscaProdutoPorCategoriaInputPort = buscaProdutoPorCategoriaInputPort;
         this.produtoMapper = produtoMapper;
     }
 
@@ -93,10 +97,17 @@ public class ProdutoController {
 
     @GetMapping
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarTodos() {
-        List<ProdutoResponse> produtosResponse = new ArrayList<>();
-
         var produtosOut = buscaTodosProdutosInputPort.buscartodos();
-        produtosOut.forEach(produtoOut -> produtosResponse.add(produtoMapper.toProdutoResponse(produtoOut)));
+        var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
+
+        return ResponseEntity.ok(produtosResponse);
+    }
+
+    @GetMapping(value = "/categoria/{categoria}")
+    public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
+        var produtoRequest = produtoMapper.toProdutoRequest(Categoria.fromString(categoria));
+        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(produtoRequest);
+        var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
 
         return ResponseEntity.ok(produtosResponse);
     }

@@ -31,6 +31,10 @@ public class ProdutoRequest extends ProdutoIn {
         setId(id);
     }
 
+    public ProdutoRequest(Categoria categoria) {
+        setCategoria(categoria);
+    }
+
     @Override
     public Long getId() {
         return super.getId();

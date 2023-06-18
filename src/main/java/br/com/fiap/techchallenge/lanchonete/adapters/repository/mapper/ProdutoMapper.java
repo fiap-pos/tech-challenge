@@ -6,6 +6,9 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ProdutoMapper {
 
@@ -17,6 +20,12 @@ public class ProdutoMapper {
     public ProdutoOut toProdutoResponse(Produto produto) {
         return new ProdutoResponse(produto.getId(), produto.getNome(), produto.getCategoria(), produto.getPreco(),
                 produto.getDescricao(), produto.getImagem());
+    }
+
+    public List<ProdutoOut> toProdutosResponse(List<Produto> produtos) {
+        List<ProdutoOut> produtosOut = new ArrayList<>();
+        produtos.forEach(produto -> produtosOut.add(toProdutoResponse(produto)));
+        return produtosOut;
     }
 
 }

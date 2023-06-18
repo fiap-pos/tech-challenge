@@ -39,4 +39,9 @@ public class CoreInjection {
         return new BuscaTodosProdutosUseCase(buscaProdutoPorIdOutputPort);
     }
 
+    @Bean
+    BuscaProdutoPorCategoriaInputPort buscarPorCategoria(BuscaProdutoPorCategoriaOutputPort buscaProdutoPorIdOutputPort) {
+        return new BuscaProdutoPorCategoriaUseCase(buscaProdutoPorIdOutputPort);
+    }
+
 }

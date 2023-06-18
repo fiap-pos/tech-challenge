@@ -9,12 +9,11 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort,
-        RemoveProdutoOutputPort, BuscaProdutoPorIdOutputPort, BuscaTodosProdutosOutputPort {
+        RemoveProdutoOutputPort, BuscaProdutoPorIdOutputPort, BuscaTodosProdutosOutputPort, BuscaProdutoPorCategoriaOutputPort {
 
     ProdutoJpaRepository produtoJpaRepository;
     ProdutoMapper produtoMapper;
@@ -73,11 +72,13 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
 
     @Override
     public List<ProdutoOut> buscarTodos() {
-        List<ProdutoOut> produtosOut = new ArrayList<>();
-
         var produtos = produtoJpaRepository.findAll();
-        produtos.forEach(produto -> produtosOut.add(produtoMapper.toProdutoResponse(produto)));
+        return produtoMapper.toProdutosResponse(produtos);
+    }
 
-        return produtosOut;
+    @Override
+    public List<ProdutoOut> buscarPorCategoria(ProdutoIn produtoIn) {
+        var produtos = produtoJpaRepository.findByCategoria(produtoIn.getCategoria());
+        return produtoMapper.toProdutosResponse(produtos);
     }
 }
