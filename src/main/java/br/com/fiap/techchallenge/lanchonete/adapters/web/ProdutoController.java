@@ -4,6 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaImagemProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.EditaProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.RemoveProdutoInputPort;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,16 @@ public class ProdutoController {
     CriaProdutoInputPort criaProdutoInputPort;
     CriaImagemProdutoInputPort criaImagemProdutoInputPort;
     EditaProdutoInputPort editaProdutoInputPort;
+    RemoveProdutoInputPort removeProdutoInputPort;
     ProdutoMapper produtoMapper;
 
     public ProdutoController(CriaProdutoInputPort criaProdutoInputPort, CriaImagemProdutoInputPort criaImagemProdutoInputPort,
-                             EditaProdutoInputPort editaProdutoInputPort, ProdutoMapper produtoMapper) {
+                             EditaProdutoInputPort editaProdutoInputPort, RemoveProdutoInputPort removeProdutoInputPort,
+                             ProdutoMapper produtoMapper) {
         this.criaProdutoInputPort = criaProdutoInputPort;
         this.criaImagemProdutoInputPort = criaImagemProdutoInputPort;
         this.editaProdutoInputPort = editaProdutoInputPort;
+        this.removeProdutoInputPort = removeProdutoInputPort;
         this.produtoMapper = produtoMapper;
     }
 
@@ -62,7 +66,16 @@ public class ProdutoController {
         var produtoOut = editaProdutoInputPort.editar(produtoRequestMapper);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
 
-        return ResponseEntity.ok().body(produtoResponse);
+        return ResponseEntity.ok(produtoResponse);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public @ResponseBody ResponseEntity<ProdutoResponse> remover(@PathVariable("id") Long id) {
+        var produtoRequest = produtoMapper.toProdutoRequest(id);
+        var produtoOut = removeProdutoInputPort.remover(produtoRequest);
+        var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
+
+        return ResponseEntity.ok(produtoResponse);
 
     }
 

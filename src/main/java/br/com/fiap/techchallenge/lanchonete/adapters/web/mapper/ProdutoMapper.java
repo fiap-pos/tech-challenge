@@ -22,4 +22,8 @@ public class ProdutoMapper {
         return new ProdutoRequest(id, imagem);
     }
 
+    public ProdutoRequest toProdutoRequest(Long id) {
+        return new ProdutoRequest(id);
+    }
+
 }

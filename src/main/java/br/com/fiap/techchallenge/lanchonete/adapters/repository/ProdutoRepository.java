@@ -6,13 +6,14 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.EditaProdutoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaImagemProdutoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.EditaProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.RemoveProdutoOutputPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort {
+public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort, RemoveProdutoOutputPort {
 
     ProdutoJpaRepository produtoJpaRepository;
     ProdutoMapper produtoMapper;
@@ -33,8 +34,8 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
     @Override
     public ProdutoOut criarImagem(ProdutoIn produtoIn) {
         var produto = buscaProdutoPorId(produtoIn.getId());
-
         produto.setImagem(produtoIn.getImagem());
+
         var produtoSalvo = produtoJpaRepository.save(produto);
 
         return produtoMapper.toProdutoResponse(produtoSalvo);
@@ -45,6 +46,16 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
         buscaProdutoPorId(produtoIn.getId());
 
         return criar(produtoIn);
+    }
+
+    @Override
+    public ProdutoOut remover(ProdutoIn produtoIn) {
+        var produto = buscaProdutoPorId(produtoIn.getId());
+
+        produtoJpaRepository.delete(produto);
+        produto.setImagem(null);
+
+        return produtoMapper.toProdutoResponse(produto);
     }
 
     private Produto buscaProdutoPorId(Long id) {

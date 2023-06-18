@@ -27,6 +27,10 @@ public class ProdutoRequest extends ProdutoIn {
         setImagem(imagem);
     }
 
+    public ProdutoRequest(Long id) {
+        setId(id);
+    }
+
     @Override
     public Long getId() {
         return super.getId();
