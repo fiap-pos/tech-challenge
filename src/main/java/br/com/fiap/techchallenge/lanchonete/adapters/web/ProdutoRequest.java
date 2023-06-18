@@ -8,41 +8,57 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record ProdutoRequest(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao,
-                             byte[] imagem) implements ProdutoIn {
+public class ProdutoRequest extends ProdutoIn {
+
+    public ProdutoRequest() {
+    }
+
+    public ProdutoRequest(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
+        setId(id);
+        setNome(nome);
+        setCategoria(categoria);
+        setPreco(preco);
+        setDescricao(descricao);
+        setImagem(imagem);
+    }
+
+    public ProdutoRequest(Long id, byte[] imagem) {
+        setId(id);
+        setImagem(imagem);
+    }
 
     @Override
     public Long getId() {
-        return id;
+        return super.getId();
     }
 
     @NotBlank(message = "O campo 'nome' é obrigatório")
     @Override
     public String getNome() {
-        return nome;
+        return super.getNome();
     }
 
     @NotNull(message = "O campo 'categoria' é obrigatório")
     @Override
     public Categoria getCategoria() {
-        return categoria;
+        return super.getCategoria();
     }
 
     @NotNull(message = "O campo 'preco' é obrigatório")
     @DecimalMin(value = "0.0", message = "Informe um valor maior que 0.0")
     @Override
     public BigDecimal getPreco() {
-        return preco;
+        return super.getPreco();
     }
 
     @NotBlank(message = "O campo 'descricao' é obrigatório")
     @Override
     public String getDescricao() {
-        return descricao;
+        return super.getDescricao();
     }
 
     @Override
     public byte[] getImagem() {
-        return imagem;
+        return super.getImagem();
     }
 }

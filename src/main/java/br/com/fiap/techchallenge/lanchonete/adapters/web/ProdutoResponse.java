@@ -5,36 +5,18 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 
 import java.math.BigDecimal;
 
-public record ProdutoResponse(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao,
-                              byte[] imagem) implements ProdutoOut {
+public class ProdutoResponse extends ProdutoOut {
 
-    @Override
-    public Long getId() {
-        return id;
+    public ProdutoResponse() {
     }
 
-    @Override
-    public String getNome() {
-        return nome;
+    public ProdutoResponse(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
+        setId(id);
+        setNome(nome);
+        setCategoria(categoria);
+        setPreco(preco);
+        setDescricao(descricao);
+        setImagem(imagem);
     }
 
-    @Override
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    @Override
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    @Override
-    public String getDescricao() {
-        return descricao;
-    }
-
-    @Override
-    public byte[] getImagem() {
-        return imagem;
-    }
 }
