@@ -8,7 +8,12 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record ProdutoRequest(String nome, Categoria categoria, BigDecimal preco, String descricao) implements ProdutoIn {
+public record ProdutoRequest(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao) implements ProdutoIn {
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     @NotBlank(message = "O campo 'nome' é obrigatório")
     @Override

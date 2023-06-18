@@ -4,6 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ImagemProdutoMap
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaImagemProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.EditaProdutoInputPort;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,16 @@ public class ProdutoController {
 
     CriaProdutoInputPort criaProdutoInputPort;
     CriaImagemProdutoInputPort criaImagemProdutoInputPort;
+    EditaProdutoInputPort editaProdutoInputPort;
     ProdutoMapper produtoMapper;
     ImagemProdutoMapper imagemProdutoMapper;
 
     public ProdutoController(CriaProdutoInputPort criaProdutoInputPort, CriaImagemProdutoInputPort criaImagemProdutoInputPort,
-                             ProdutoMapper produtoMapper, ImagemProdutoMapper imagemProdutoMapper) {
+                             EditaProdutoInputPort editaProdutoInputPort, ProdutoMapper produtoMapper,
+                             ImagemProdutoMapper imagemProdutoMapper) {
         this.criaProdutoInputPort = criaProdutoInputPort;
         this.criaImagemProdutoInputPort = criaImagemProdutoInputPort;
+        this.editaProdutoInputPort = editaProdutoInputPort;
         this.produtoMapper = produtoMapper;
         this.imagemProdutoMapper = imagemProdutoMapper;
     }
@@ -50,10 +54,22 @@ public class ProdutoController {
             var imagemProdutoRequest = imagemProdutoMapper.toProdutoResponse(id, image.getBytes());
             criaImagemProdutoInputPort.criar(imagemProdutoRequest);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         } catch (IOException e) {
             throw new RuntimeException("Erro ao salvar a imagem: " + e.getMessage());
         }
+    }
+
+    @PutMapping(value = "/{id}")
+    public @ResponseBody ResponseEntity<ProdutoResponse> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest produtoRequest) {
+        var produtoRequestMapper = produtoMapper.toProdutoResponse(id, produtoRequest);
+        var produtoOut = editaProdutoInputPort.editar(produtoRequestMapper);
+
+//        representation.setIdentifier(id);
+//        avariaService.update(AvariaRepresentation.build(representation));
+
+        return ResponseEntity.noContent().build();
+
     }
 
 }

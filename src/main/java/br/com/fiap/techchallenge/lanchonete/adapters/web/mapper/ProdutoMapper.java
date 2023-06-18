@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.mapper;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.web.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.ProdutoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import org.springframework.stereotype.Component;
@@ -8,8 +9,13 @@ import org.springframework.stereotype.Component;
 public class ProdutoMapper {
 
     public ProdutoResponse toProdutoResponse(ProdutoOut produtoOut) {
-        return new ProdutoResponse(produtoOut.getId(), produtoOut.getNome(), produtoOut.getCategoria(), produtoOut.getPreco(),
-                produtoOut.getDescricao(), produtoOut.getImagem());
+        return new ProdutoResponse(produtoOut.getId(), produtoOut.getNome(), produtoOut.getCategoria(),
+                produtoOut.getPreco(), produtoOut.getDescricao(), produtoOut.getImagem());
+    }
+
+    public ProdutoRequest toProdutoResponse(Long id, ProdutoRequest produtoRequest) {
+        return new ProdutoRequest(id, produtoRequest.getNome(), produtoRequest.getCategoria(), produtoRequest.getPreco(),
+                produtoRequest.getDescricao());
     }
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ProdutoMapper {
 
     public Produto toProduto(ProdutoIn produtoIn) {
-        return new Produto(produtoIn.getNome(), produtoIn.getCategoria(), produtoIn.getPreco(),
+        return new Produto(produtoIn.getId(), produtoIn.getNome(), produtoIn.getCategoria(), produtoIn.getPreco(),
                 produtoIn.getDescricao());
     }
 

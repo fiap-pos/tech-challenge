@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 public interface ProdutoIn {
 
+    Long getId();
+
     String getNome();
 
     Categoria getCategoria();

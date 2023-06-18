@@ -2,16 +2,18 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ProdutoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ImagemProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.EditaProdutoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvaImagemProdutoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvaProdutoOutputPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemProdutoOutputPort {
+public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemProdutoOutputPort, EditaProdutoOutputPort {
 
     ProdutoJpaRepository produtoJpaRepository;
     ProdutoMapper produtoMapper;
@@ -31,14 +33,23 @@ public class ProdutoRepository implements SalvaProdutoOutputPort, SalvaImagemPro
 
     @Override
     public ProdutoOut salvar(ImagemProdutoIn imagemProdutoIn) {
-        var produtoOptional = produtoJpaRepository.findById(imagemProdutoIn.getId());
+        var produto = buscaProdutoPorId(imagemProdutoIn.getId());
 
-        var produto = produtoOptional.orElseThrow(() ->
-                new EntityNotFoundException("Produto com o id " + imagemProdutoIn.getId() + " não existe"));
         produto.setImagem(imagemProdutoIn.getImagem());
         var produtoSalvo = produtoJpaRepository.save(produto);
 
         return produtoMapper.toProdutoResponse(produtoSalvo);
     }
 
+    @Override
+    public ProdutoOut editar(ProdutoIn produtoIn) {
+        buscaProdutoPorId(produtoIn.getId());
+
+        return salvar(produtoIn);
+    }
+
+    private Produto buscaProdutoPorId(Long id) {
+        return produtoJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Produto com o id " + id + " não existe"));
+    }
 }
