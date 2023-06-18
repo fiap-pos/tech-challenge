@@ -6,14 +6,15 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaImagemProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.EditaProdutoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.RemoveProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
-public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort, RemoveProdutoOutputPort {
+public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort,
+        RemoveProdutoOutputPort, BuscaProdutoPorIdOutputPort, BuscaTodosProdutosOutputPort {
 
     ProdutoJpaRepository produtoJpaRepository;
     ProdutoMapper produtoMapper;
@@ -61,5 +62,22 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
     private Produto buscaProdutoPorId(Long id) {
         return produtoJpaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Produto com o id " + id + " não existe"));
+    }
+
+    @Override
+    public ProdutoOut buscarPorId(ProdutoIn produtoIn) {
+        var produto = buscaProdutoPorId(produtoIn.getId());
+
+        return produtoMapper.toProdutoResponse(produto);
+    }
+
+    @Override
+    public List<ProdutoOut> buscarTodos() {
+        List<ProdutoOut> produtosOut = new ArrayList<>();
+
+        var produtos = produtoJpaRepository.findAll();
+        produtos.forEach(produto -> produtosOut.add(produtoMapper.toProdutoResponse(produto)));
+
+        return produtosOut;
     }
 }
