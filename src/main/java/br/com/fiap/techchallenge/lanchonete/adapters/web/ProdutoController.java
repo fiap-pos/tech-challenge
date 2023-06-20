@@ -3,6 +3,8 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.util.List;
 
+@Tag(name = "Produto", description = "APIs para gerenciamento de Produto")
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -42,6 +45,7 @@ public class ProdutoController {
         this.produtoMapper = produtoMapper;
     }
 
+    @Operation(summary = "Cria um novo Produto")
     @PostMapping
     public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody ProdutoRequest produtoRequest) {
         var produtoOut = criaProdutoInputPort.criar(produtoRequest);
@@ -56,6 +60,7 @@ public class ProdutoController {
         return ResponseEntity.created(uri).body(produtoResponse);
     }
 
+    @Operation(summary = "Atualiza a imagem de um Produto")
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> upload(@PathVariable("id") Long id, @RequestPart("imagem") MultipartFile image) {
         try {
@@ -68,6 +73,7 @@ public class ProdutoController {
         }
     }
 
+    @Operation(summary = "Edita um Produto por Id")
     @PutMapping(value = "/{id}")
     public @ResponseBody ResponseEntity<ProdutoResponse> editar(@PathVariable("id") Long id, @RequestBody ProdutoRequest produtoRequest) {
         var produtoRequestMapper = produtoMapper.toProdutoRequest(id, produtoRequest);
@@ -77,6 +83,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoResponse);
     }
 
+    @Operation(summary = "Remove um Produto por Id")
     @DeleteMapping(value = "/{id}")
     public @ResponseBody ResponseEntity<ProdutoResponse> remover(@PathVariable("id") Long id) {
         var produtoOut = removeProdutoInputPort.remover(id);
@@ -85,6 +92,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoResponse);
     }
 
+    @Operation(summary = "Busca um Produto por Id")
     @GetMapping(value = "/{id}")
     public @ResponseBody ResponseEntity<ProdutoResponse> buscarPorId(@PathVariable("id") Long id) {
         var produtoOut = buscaProdutoPorIdInputPort.buscarPorId(id);
@@ -93,6 +101,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoResponse);
     }
 
+    @Operation(summary = "Busca todos os produtos")
     @GetMapping
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarTodos() {
         var produtosOut = buscaTodosProdutosInputPort.buscartodos();
@@ -101,6 +110,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtosResponse);
     }
 
+    @Operation(summary = "Busca um Produto por Categoria")
     @GetMapping(value = "/categoria/{categoria}")
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
         var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(Categoria.fromString(categoria));
