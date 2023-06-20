@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.mapper;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.ProdutoResponse;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import org.springframework.stereotype.Component;
 
@@ -30,14 +29,6 @@ public class ProdutoMapper {
 
     public ProdutoRequest toProdutoRequest(Long id, byte[] imagem) {
         return new ProdutoRequest(id, imagem);
-    }
-
-    public ProdutoRequest toProdutoRequest(Long id) {
-        return new ProdutoRequest(id);
-    }
-
-    public ProdutoRequest toProdutoRequest(Categoria categoria) {
-        return new ProdutoRequest(categoria);
     }
 
 }

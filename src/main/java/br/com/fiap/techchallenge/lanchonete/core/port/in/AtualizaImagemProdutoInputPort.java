@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.core.port.in;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 
-public interface CriaImagemProdutoInputPort {
+public interface AtualizaImagemProdutoInputPort {
 
-    ProdutoOut criarImagem(ProdutoIn produtoIn);
+    ProdutoOut atualizar(ProdutoIn produtoIn);
 }

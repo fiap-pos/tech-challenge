@@ -4,6 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRe
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdutoOutputPort, EditaProdutoOutputPort,
+public class ProdutoRepository implements CriaProdutoOutputPort, AtualizaImagemProdutoOutputPort, EditaProdutoOutputPort,
         RemoveProdutoOutputPort, BuscaProdutoPorIdOutputPort, BuscaTodosProdutosOutputPort, BuscaProdutoPorCategoriaOutputPort {
 
     ProdutoJpaRepository produtoJpaRepository;
@@ -32,7 +33,7 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
     }
 
     @Override
-    public ProdutoOut criarImagem(ProdutoIn produtoIn) {
+    public ProdutoOut atualizar(ProdutoIn produtoIn) {
         var produto = buscaProdutoPorId(produtoIn.getId());
         produto.setImagem(produtoIn.getImagem());
 
@@ -49,8 +50,8 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
     }
 
     @Override
-    public ProdutoOut remover(ProdutoIn produtoIn) {
-        var produto = buscaProdutoPorId(produtoIn.getId());
+    public ProdutoOut remover(Long id) {
+        var produto = buscaProdutoPorId(id);
 
         produtoJpaRepository.delete(produto);
         produto.setImagem(null);
@@ -64,8 +65,8 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
     }
 
     @Override
-    public ProdutoOut buscarPorId(ProdutoIn produtoIn) {
-        var produto = buscaProdutoPorId(produtoIn.getId());
+    public ProdutoOut buscarPorId(Long id) {
+        var produto = buscaProdutoPorId(id);
 
         return produtoMapper.toProdutoResponse(produto);
     }
@@ -77,8 +78,8 @@ public class ProdutoRepository implements CriaProdutoOutputPort, CriaImagemProdu
     }
 
     @Override
-    public List<ProdutoOut> buscarPorCategoria(ProdutoIn produtoIn) {
-        var produtos = produtoJpaRepository.findByCategoria(produtoIn.getCategoria());
+    public List<ProdutoOut> buscarPorCategoria(Categoria categoria) {
+        var produtos = produtoJpaRepository.findByCategoria(categoria);
         return produtoMapper.toProdutosResponse(produtos);
     }
 }

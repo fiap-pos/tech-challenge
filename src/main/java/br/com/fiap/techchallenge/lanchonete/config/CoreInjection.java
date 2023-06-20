@@ -15,8 +15,8 @@ public class CoreInjection {
     }
 
     @Bean
-    CriaImagemProdutoInputPort criarImagemProduto(CriaImagemProdutoOutputPort criaImagemProdutoOutputPort) {
-        return new CriaImagemProdutoUseCase(criaImagemProdutoOutputPort);
+    AtualizaImagemProdutoInputPort criarImagemProduto(AtualizaImagemProdutoOutputPort atualizaImagemProdutoOutputPort) {
+        return new AtualizaImagemProdutoUseCase(atualizaImagemProdutoOutputPort);
     }
 
     @Bean

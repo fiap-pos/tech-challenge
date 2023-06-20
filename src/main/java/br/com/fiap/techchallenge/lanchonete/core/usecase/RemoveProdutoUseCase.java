@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.RemoveProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.RemoveProdutoOutputPort;
@@ -14,7 +13,7 @@ public class RemoveProdutoUseCase implements RemoveProdutoInputPort {
     }
 
     @Override
-    public ProdutoOut remover(ProdutoIn produtoIn) {
-        return removeProdutoOutputPort.remover(produtoIn);
+    public ProdutoOut remover(Long id) {
+        return removeProdutoOutputPort.remover(id);
     }
 }

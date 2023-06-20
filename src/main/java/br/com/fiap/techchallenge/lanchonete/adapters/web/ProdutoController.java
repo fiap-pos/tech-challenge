@@ -18,7 +18,7 @@ import java.util.List;
 public class ProdutoController {
 
     CriaProdutoInputPort criaProdutoInputPort;
-    CriaImagemProdutoInputPort criaImagemProdutoInputPort;
+    AtualizaImagemProdutoInputPort atualizaImagemProdutoInputPort;
     EditaProdutoInputPort editaProdutoInputPort;
     RemoveProdutoInputPort removeProdutoInputPort;
     BuscaProdutoPorIdInputPort buscaProdutoPorIdInputPort;
@@ -26,14 +26,14 @@ public class ProdutoController {
     BuscaProdutoPorCategoriaInputPort buscaProdutoPorCategoriaInputPort;
     ProdutoMapper produtoMapper;
 
-    public ProdutoController(CriaProdutoInputPort criaProdutoInputPort, CriaImagemProdutoInputPort criaImagemProdutoInputPort,
+    public ProdutoController(CriaProdutoInputPort criaProdutoInputPort, AtualizaImagemProdutoInputPort atualizaImagemProdutoInputPort,
                              EditaProdutoInputPort editaProdutoInputPort, RemoveProdutoInputPort removeProdutoInputPort,
                              BuscaProdutoPorIdInputPort buscaProdutoPorIdInputPort,
                              BuscaTodosProdutosInputPort buscaTodosProdutosInputPort,
                              BuscaProdutoPorCategoriaInputPort buscaProdutoPorCategoriaInputPort,
                              ProdutoMapper produtoMapper) {
         this.criaProdutoInputPort = criaProdutoInputPort;
-        this.criaImagemProdutoInputPort = criaImagemProdutoInputPort;
+        this.atualizaImagemProdutoInputPort = atualizaImagemProdutoInputPort;
         this.editaProdutoInputPort = editaProdutoInputPort;
         this.removeProdutoInputPort = removeProdutoInputPort;
         this.buscaProdutoPorIdInputPort = buscaProdutoPorIdInputPort;
@@ -60,7 +60,7 @@ public class ProdutoController {
     public ResponseEntity<Void> upload(@PathVariable("id") Long id, @RequestPart("imagem") MultipartFile image) {
         try {
             var produtoRequest = produtoMapper.toProdutoRequest(id, image.getBytes());
-            criaImagemProdutoInputPort.criarImagem(produtoRequest);
+            atualizaImagemProdutoInputPort.atualizar(produtoRequest);
 
             return ResponseEntity.noContent().build();
         } catch (IOException e) {
@@ -79,8 +79,7 @@ public class ProdutoController {
 
     @DeleteMapping(value = "/{id}")
     public @ResponseBody ResponseEntity<ProdutoResponse> remover(@PathVariable("id") Long id) {
-        var produtoRequest = produtoMapper.toProdutoRequest(id);
-        var produtoOut = removeProdutoInputPort.remover(produtoRequest);
+        var produtoOut = removeProdutoInputPort.remover(id);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
 
         return ResponseEntity.ok(produtoResponse);
@@ -88,8 +87,7 @@ public class ProdutoController {
 
     @GetMapping(value = "/{id}")
     public @ResponseBody ResponseEntity<ProdutoResponse> buscarPorId(@PathVariable("id") Long id) {
-        var produtoRequest = produtoMapper.toProdutoRequest(id);
-        var produtoOut = buscaProdutoPorIdInputPort.buscarPorId(produtoRequest);
+        var produtoOut = buscaProdutoPorIdInputPort.buscarPorId(id);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
 
         return ResponseEntity.ok(produtoResponse);
@@ -105,8 +103,7 @@ public class ProdutoController {
 
     @GetMapping(value = "/categoria/{categoria}")
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
-        var produtoRequest = produtoMapper.toProdutoRequest(Categoria.fromString(categoria));
-        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(produtoRequest);
+        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(Categoria.fromString(categoria));
         var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
 
         return ResponseEntity.ok(produtosResponse);
