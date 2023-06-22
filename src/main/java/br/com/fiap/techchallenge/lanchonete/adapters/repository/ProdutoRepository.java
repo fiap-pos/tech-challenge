@@ -59,7 +59,7 @@ public class ProdutoRepository implements CriaProdutoOutputPort, AtualizaImagemP
         return produtoMapper.toProdutoResponse(produto);
     }
 
-    private Produto buscaProdutoPorId(Long id) {
+    public Produto buscaProdutoPorId(Long id) {
         return produtoJpaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Produto com o id " + id + " não existe"));
     }

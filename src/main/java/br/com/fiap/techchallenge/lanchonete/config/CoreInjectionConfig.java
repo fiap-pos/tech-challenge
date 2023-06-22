@@ -44,4 +44,23 @@ public class CoreInjectionConfig {
         return new BuscaProdutoPorCategoriaUseCase(buscaProdutoPorIdOutputPort);
     }
 
+    @Bean
+    CriaPedidoInputPort criarPedido(CriaPedidoOutputPort criaPedidoOutputPort) {
+        return new CriaPedidoUseCase(criaPedidoOutputPort);
+    }
+
+    @Bean
+    BuscaTodosPedidosInputPort buscarTodosPedidos(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
+        return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
+    }
+
+    @Bean
+    BuscaPedidoPorClienteIdInputPort buscaPedidoPorCliente(BuscaPedidoPorClienteIdOutputPort buscaPedidoPorClienteIdOutputPort){
+        return new BuscaPedidoPorClienteIdUseCase(buscaPedidoPorClienteIdOutputPort);
+    }
+
+    @Bean
+    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort){
+        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort);
+    }
 }
