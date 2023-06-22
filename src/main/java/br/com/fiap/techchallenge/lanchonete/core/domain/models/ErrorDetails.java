@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.exception;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
 public record ErrorDetails(String message, int status, long timestamp) {
 

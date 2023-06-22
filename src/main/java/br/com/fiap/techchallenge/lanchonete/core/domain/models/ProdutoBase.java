@@ -1,12 +1,14 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
+
 import java.math.BigDecimal;
 
 public abstract class ProdutoBase {
 
     private Long id;
     private String nome;
-    private Categoria categoria;
+    private CategoriaEnum categoriaEnum;
     private BigDecimal preco;
     private String descricao;
     private byte[] imagem;
@@ -27,12 +29,12 @@ public abstract class ProdutoBase {
         this.nome = nome;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public CategoriaEnum getCategoria() {
+        return categoriaEnum;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoria(CategoriaEnum categoriaEnum) {
+        this.categoriaEnum = categoriaEnum;
     }
 
     public BigDecimal getPreco() {

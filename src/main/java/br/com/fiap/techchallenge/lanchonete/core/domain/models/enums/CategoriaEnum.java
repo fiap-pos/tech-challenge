@@ -1,10 +1,10 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.models;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.stream.Stream;
 
-public enum Categoria {
+public enum CategoriaEnum {
 
     LANCHE("Lanche"),
     ACOMPANHAMENTO("Acompanhamento"),
@@ -13,7 +13,7 @@ public enum Categoria {
 
     private final String descricao;
 
-    Categoria(String descricao) {
+    CategoriaEnum(String descricao) {
         this.descricao = descricao;
     }
 
@@ -22,7 +22,7 @@ public enum Categoria {
     }
 
     @JsonCreator
-    public static Categoria fromString(String value) {
+    public static CategoriaEnum fromString(String value) {
         return Stream.of(values())
                 .filter(categoria -> categoria.name().equalsIgnoreCase(value))
                 .findFirst()

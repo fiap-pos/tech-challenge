@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.model;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class Produto {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private Categoria categoria;
+    private CategoriaEnum categoria;
 
     private BigDecimal preco;
 
@@ -27,10 +27,10 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao) {
+    public Produto(Long id, String nome, CategoriaEnum categoriaEnum, BigDecimal preco, String descricao) {
         this.id = id;
         this.nome = nome;
-        this.categoria = categoria;
+        this.categoria = categoriaEnum;
         this.preco = preco;
         this.descricao = descricao;
     }
@@ -47,12 +47,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    public Categoria getCategoria() {
+    public CategoriaEnum getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoria(CategoriaEnum categoriaEnum) {
+        this.categoria = categoriaEnum;
     }
 
     public BigDecimal getPreco() {

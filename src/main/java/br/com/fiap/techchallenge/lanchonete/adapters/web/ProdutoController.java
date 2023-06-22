@@ -1,7 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ProdutoMapper;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -113,7 +115,7 @@ public class ProdutoController {
     @Operation(summary = "Busca um Produto por Categoria")
     @GetMapping(value = "/categoria/{categoria}")
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
-        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(Categoria.fromString(categoria));
+        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(CategoriaEnum.fromString(categoria));
         var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
 
         return ResponseEntity.ok(produtosResponse);

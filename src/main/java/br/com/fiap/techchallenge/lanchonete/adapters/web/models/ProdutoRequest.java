@@ -1,6 +1,6 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.web;
+package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -13,10 +13,10 @@ public class ProdutoRequest extends ProdutoIn {
     public ProdutoRequest() {
     }
 
-    public ProdutoRequest(Long id, String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
+    public ProdutoRequest(Long id, String nome, CategoriaEnum categoriaEnum, BigDecimal preco, String descricao, byte[] imagem) {
         setId(id);
         setNome(nome);
-        setCategoria(categoria);
+        setCategoria(categoriaEnum);
         setPreco(preco);
         setDescricao(descricao);
         setImagem(imagem);
@@ -40,7 +40,7 @@ public class ProdutoRequest extends ProdutoIn {
 
     @NotNull(message = "O campo 'categoria' é obrigatório")
     @Override
-    public Categoria getCategoria() {
+    public CategoriaEnum getCategoria() {
         return super.getCategoria();
     }
 

@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.core.domain.handler;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.BadRequestException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityAlreadyExistException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.ErrorDetails;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ErrorDetails;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

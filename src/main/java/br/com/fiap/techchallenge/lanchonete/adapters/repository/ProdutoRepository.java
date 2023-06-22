@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRe
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
@@ -78,8 +78,8 @@ public class ProdutoRepository implements CriaProdutoOutputPort, AtualizaImagemP
     }
 
     @Override
-    public List<ProdutoOut> buscarPorCategoria(Categoria categoria) {
-        var produtos = produtoJpaRepository.findByCategoria(categoria);
+    public List<ProdutoOut> buscarPorCategoria(CategoriaEnum categoriaEnum) {
+        var produtos = produtoJpaRepository.findByCategoria(categoriaEnum);
         return produtoMapper.toProdutosResponse(produtos);
     }
 }
