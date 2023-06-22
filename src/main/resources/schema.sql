@@ -27,3 +27,14 @@ CREATE TABLE IF NOT EXISTS cobranca (
     primary key (id),
     index(status)
 );
+CREATE TABLE IF NOT EXISTS pedido (
+    id int NOT NULL AUTO_INCREMENT,
+    status enum ('PENDENTE_DE_PAGAMENTO', 'PAGO','RECEBIDO','EM_PREPARACAO','PRONTO','FINALIZADO') NOT NULL,
+    clienteid int NOT NULL,
+    produtoid int NOT NULL,
+    quantidade int NOT NULL,
+    FOREIGN KEY (produtoid) REFERENCES produto(id),
+	primary key (id)
+);
+
+
