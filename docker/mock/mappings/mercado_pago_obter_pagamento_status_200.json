@@ -1,0 +1,23 @@
+{
+  "request" : {
+    "url" : "/api.mercadopago.com/v1/payments/123",
+    "method" : "GET",
+	"headers" : {
+		"Authorization" : {
+			"equalTo": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTU5ODMwOTM2NywiZXhwIjoxNTk4MzA5OTY3fQ.s2GCh1bZhi5vUap8xZmRlWDCW6m2mnaeUqdrxDZZfFcniQAReoQiw9tTBINTk1UL_poRakehXaDoFNRqrlrKrQ"
+		}
+	}
+  },
+  "response" : {
+    "status" : 200, 
+    "bodyFileName" : "mercado_pago_obter_pagamento_status_200.json",
+    "headers" : {
+      "Content-Type" : "application/json; charset=UTF-8",
+	  "Access-Control-Allow-Origin": "*",
+	  "Access-Control-Allow-Headers": "origin, content-type, accept, x-auth-token",
+	  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD",	  
+      "Keep-Alive" : "timeout=360",
+      "Connection" : "Keep-Alive"
+    }
+  } 
+}

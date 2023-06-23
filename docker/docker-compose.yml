@@ -14,3 +14,13 @@ services:
       - 3306:3306
     expose:
       - 3306
+  mock:
+    build:
+      context: ./mock
+    image: wiremock/wiremock
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./mock/__files:/home/wiremock/__files
+      - ./mock/mappings:/home/wiremock/mappings
+      - ./mock/logs:/home/wiremock/logs
