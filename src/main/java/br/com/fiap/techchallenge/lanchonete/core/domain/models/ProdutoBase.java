@@ -1,24 +1,24 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.web;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 
 import java.math.BigDecimal;
 
-public class ProdutoRequest implements ProdutoIn {
+public abstract class ProdutoBase {
 
+    private Long id;
     private String nome;
-    private Categoria categoria;
+    private CategoriaEnum categoriaEnum;
     private BigDecimal preco;
     private String descricao;
     private byte[] imagem;
 
-    public ProdutoRequest(String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
-        this.nome = nome;
-        this.categoria = categoria;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.imagem = imagem;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -29,12 +29,12 @@ public class ProdutoRequest implements ProdutoIn {
         this.nome = nome;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public CategoriaEnum getCategoria() {
+        return categoriaEnum;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoria(CategoriaEnum categoriaEnum) {
+        this.categoriaEnum = categoriaEnum;
     }
 
     public BigDecimal getPreco() {
