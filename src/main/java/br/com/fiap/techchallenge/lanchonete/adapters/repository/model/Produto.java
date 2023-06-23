@@ -1,7 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.model;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.Categoria;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -11,26 +10,29 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
 
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private Categoria categoria;
+    private CategoriaEnum categoria;
 
     private BigDecimal preco;
 
     private String descricao;
 
+    @Lob
     private byte[] imagem;
 
-    public Produto(String nome, Categoria categoria, BigDecimal preco, String descricao, byte[] imagem) {
+    public Produto() {
+    }
+
+    public Produto(Long id, String nome, CategoriaEnum categoriaEnum, BigDecimal preco, String descricao) {
+        this.id = id;
         this.nome = nome;
-        this.categoria = categoria;
+        this.categoria = categoriaEnum;
         this.preco = preco;
         this.descricao = descricao;
-        this.imagem = imagem;
     }
 
     public Long getId() {
@@ -41,19 +43,39 @@ public class Produto {
         return nome;
     }
 
-    public Categoria getCategoria() {
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public CategoriaEnum getCategoria() {
         return categoria;
+    }
+
+    public void setCategoria(CategoriaEnum categoriaEnum) {
+        this.categoria = categoriaEnum;
     }
 
     public BigDecimal getPreco() {
         return preco;
     }
 
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
     public String getDescricao() {
         return descricao;
     }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public byte[] getImagem() {
         return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 }

@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS produto (
     id int NOT NULL AUTO_INCREMENT,
     nome varchar(30) NOT NULL,
-    categoria enum ('Lanche', 'Acompanhamento', 'Bebida', 'Sobremesa') NOT NULL,
+    categoria enum ('LANCHE', 'ACOMPANHAMENTO', 'BEBIDA', 'SOBREMESA') NOT NULL,
     preco double NOT NULL,
     descricao text NOT NULL,
-    imagem blob,
+    imagem LONGBLOB,
 	primary key (id)
 );
