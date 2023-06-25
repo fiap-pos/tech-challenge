@@ -1,6 +1,6 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.models.cobranca;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.cobranca.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusCobrancaEnum;
 import java.math.BigDecimal;
 
 public class CobrancaBase implements CobrancaOut {

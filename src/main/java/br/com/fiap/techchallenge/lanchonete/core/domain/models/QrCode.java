@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.models.cobranca;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

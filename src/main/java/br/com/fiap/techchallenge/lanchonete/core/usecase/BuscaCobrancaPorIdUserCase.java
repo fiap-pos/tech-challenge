@@ -1,8 +1,8 @@
-package br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca;
+package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.cobranca.CobrancaOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.BuscaCobrancaPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.BuscaCobrancaPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;
 
 public class BuscaCobrancaPorIdUserCase implements BuscaCobrancaPorIdInputPort {
 

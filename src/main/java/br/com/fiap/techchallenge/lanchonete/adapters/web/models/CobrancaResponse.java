@@ -1,16 +1,22 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.QrCode;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusCobrancaEnum;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
-public class CobrancaResponse {
+public class CobrancaResponse implements CobrancaOut {
 
     private Long id;
     private Long pedidoId;
-    private String status;
+    private StatusCobrancaEnum status;
     private BigDecimal valor;
-    private String qrCode;
+    private QrCode qrCode;
 
-    public CobrancaResponse(Long id, Long pedidoId, String status, BigDecimal valor, String qrCode) {
+    public CobrancaResponse(Long id, Long pedidoId, StatusCobrancaEnum status, BigDecimal valor, QrCode qrCode) {
         this.id = id;
         this.pedidoId = pedidoId;
         this.status = status;
@@ -26,7 +32,7 @@ public class CobrancaResponse {
         return pedidoId;
     }
 
-    public String getStatus() {
+    public StatusCobrancaEnum getStatus() {
         return status;
     }
 
@@ -34,7 +40,13 @@ public class CobrancaResponse {
         return valor;
     }
 
-    public String getQrCode() {
+    @JsonIgnore
+    public QrCode getQrCode() {
         return qrCode;
+    }
+
+    @JsonGetter(value = "qrCode")
+    public String getQrCodeAsBase64String() {
+        return qrCode.getEncodedBase64Value();
     }
 }

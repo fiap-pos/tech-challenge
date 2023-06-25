@@ -1,15 +1,15 @@
 package br.com.fiap.techchallenge.lanchonete.config;
 
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.BuscaCobrancaPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.CriaCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.BuscaCobrancaPorIdOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.CriaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.*;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.BuscaCobrancaPorIdUserCase;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.CriaCobrancaUseCase;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.CriaQrCodeUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.BuscaCobrancaPorIdUserCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaCobrancaUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaQrCodeUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -52,8 +52,13 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    CriaCobrancaInputPort criarCobranca(CriaCobrancaOutputPort criaCobrancaOutputPort) {
-        return new CriaCobrancaUseCase(criaCobrancaOutputPort, new CriaQrCodeUseCase());
+    CriaQrCodeInputPort criaQrCodeInputPort(){
+        return new CriaQrCodeUseCase();
+    }
+
+    @Bean
+    CriaCobrancaInputPort criarCobranca(CriaCobrancaOutputPort criaCobrancaOutputPort, CriaQrCodeInputPort criaQrCodeInputPort) {
+        return new CriaCobrancaUseCase(criaCobrancaOutputPort, criaQrCodeInputPort);
     }
 
     @Bean

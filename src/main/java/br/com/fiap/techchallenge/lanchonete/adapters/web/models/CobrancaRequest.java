@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.cobranca.CobrancaIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaIn;
 import jakarta.validation.constraints.NotNull;
 
 public class CobrancaRequest implements CobrancaIn {
