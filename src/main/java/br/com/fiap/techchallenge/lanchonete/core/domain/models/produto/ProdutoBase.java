@@ -1,42 +1,24 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.repository.model;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models.produto;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.enums.CategoriaEnum;
-import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
-@Entity
-public class Produto {
+public abstract class ProdutoBase {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
-
-    @Enumerated(EnumType.STRING)
-    private CategoriaEnum categoria;
-
+    private CategoriaEnum categoriaEnum;
     private BigDecimal preco;
-
     private String descricao;
-
-    @Lob
     private byte[] imagem;
-
-    public Produto() {
-    }
-
-    public Produto(Long id, String nome, CategoriaEnum categoriaEnum, BigDecimal preco, String descricao) {
-        this.id = id;
-        this.nome = nome;
-        this.categoria = categoriaEnum;
-        this.preco = preco;
-        this.descricao = descricao;
-    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -48,11 +30,11 @@ public class Produto {
     }
 
     public CategoriaEnum getCategoria() {
-        return categoria;
+        return categoriaEnum;
     }
 
     public void setCategoria(CategoriaEnum categoriaEnum) {
-        this.categoria = categoriaEnum;
+        this.categoriaEnum = categoriaEnum;
     }
 
     public BigDecimal getPreco() {

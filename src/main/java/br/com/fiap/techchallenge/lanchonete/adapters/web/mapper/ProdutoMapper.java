@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.mapper;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoResponse;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.ProdutoOut;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
