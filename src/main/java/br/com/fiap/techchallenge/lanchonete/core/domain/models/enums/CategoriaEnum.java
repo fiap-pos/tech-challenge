@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.enums;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

@@ -1,15 +1,15 @@
 package br.com.fiap.techchallenge.lanchonete.config;
 
+import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.BuscaCobrancaPorIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.CriaCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.BuscaCobrancaPorIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.CriaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.*;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.BuscaCobrancaPorIdUserCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.CriaCobrancaUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.CriaQrCodeUseCase;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.produto.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

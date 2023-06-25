@@ -1,8 +1,8 @@
-package br.com.fiap.techchallenge.lanchonete.core.usecase.produto;
+package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.produto.RemoveProdutoInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.produto.RemoveProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.RemoveProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.RemoveProdutoOutputPort;
 
 public class RemoveProdutoUseCase implements RemoveProdutoInputPort {
 

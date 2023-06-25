@@ -1,8 +1,8 @@
-package br.com.fiap.techchallenge.lanchonete.core.usecase.produto;
+package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.produto.BuscaTodosProdutosInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.produto.BuscaTodosProdutosOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaTodosProdutosInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaTodosProdutosOutputPort;
 
 import java.util.List;
 

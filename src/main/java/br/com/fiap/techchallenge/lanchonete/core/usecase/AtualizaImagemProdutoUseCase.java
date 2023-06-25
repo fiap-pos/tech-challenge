@@ -1,9 +1,9 @@
-package br.com.fiap.techchallenge.lanchonete.core.usecase.produto;
+package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.ProdutoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.produto.AtualizaImagemProdutoInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.produto.AtualizaImagemProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaImagemProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaImagemProdutoOutputPort;
 
 public class AtualizaImagemProdutoUseCase implements AtualizaImagemProdutoInputPort {
 

@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.produto.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
