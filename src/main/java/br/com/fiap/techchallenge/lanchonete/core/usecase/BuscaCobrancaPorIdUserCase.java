@@ -12,7 +12,7 @@ public class BuscaCobrancaPorIdUserCase implements BuscaCobrancaPorIdInputPort {
         this.buscaCobrancaPorIdOutputPort = buscaCobrancaPorIdOutputPort;
     }
     @Override
-    public CobrancaOut buscaPorId(Long id) {
-        return buscaCobrancaPorIdOutputPort.buscaPorId(id);
+    public CobrancaOut buscarPorId(Long id) {
+        return buscaCobrancaPorIdOutputPort.buscarPorId(id);
     }
 }

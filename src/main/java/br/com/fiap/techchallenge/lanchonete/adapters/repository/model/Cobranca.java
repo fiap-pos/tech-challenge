@@ -74,6 +74,10 @@ public class Cobranca {
         return status;
     }
 
+    public void setStatus(StatusCobrancaEnum status) {
+        this.status = status;
+    }
+
     public BigDecimal getValor() {
         return valor;
     }

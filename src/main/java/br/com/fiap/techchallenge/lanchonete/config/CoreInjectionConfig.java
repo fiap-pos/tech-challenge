@@ -66,5 +66,13 @@ public class CoreInjectionConfig {
         return new BuscaCobrancaPorIdUserCase(buscaCobrancaPorIdOutputPort);
     }
 
+    @Bean
+    AtualizaStatusCobrancaInputPort atualiStatusCobranca(
+            AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
+            BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort
+    ) {
+        return new AtualizaStatusCobrancaUseCase(buscaCobrancaPorIdOutputPort, atualizaStatusCobrancaOutputPort);
+    }
+
 
 }
