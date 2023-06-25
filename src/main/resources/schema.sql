@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS produto (
 CREATE TABLE IF NOT EXISTS cobranca (
     id bigint NOT NULL AUTO_INCREMENT,
     id_pedido bigint  NOT NULL,
-    status enum ('Pendente', 'Pago', 'Cancelado')  NOT NULL,
+    status enum ('PENDENTE', 'PAGO', 'CANCELADO')  NOT NULL,
     valor double NOT NULL,
     qr_code text NOT NULL,
     created_at timestamp NOT NULL,

@@ -41,6 +41,9 @@ public class Cobranca {
         updatedAt = LocalDateTime.now();
     }
 
+    public Cobranca() {
+    }
+
     public Cobranca(Long pedidoId, StatusCobrancaEnum status, BigDecimal valor, String qrCode) {
         this.pedidoId = pedidoId;
         this.status = status;

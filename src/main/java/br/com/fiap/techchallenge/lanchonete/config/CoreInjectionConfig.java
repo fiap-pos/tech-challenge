@@ -1,9 +1,12 @@
 package br.com.fiap.techchallenge.lanchonete.config;
 
+import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.BuscaCobrancaPorIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.cobranca.CriaCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.BuscaCobrancaPorIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.cobranca.CriaCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.BuscaCobrancaPorIdUserCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.CriaCobrancaUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.cobranca.CriaQrCodeUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.produto.*;
@@ -52,5 +55,11 @@ public class CoreInjectionConfig {
     CriaCobrancaInputPort criarCobranca(CriaCobrancaOutputPort criaCobrancaOutputPort) {
         return new CriaCobrancaUseCase(criaCobrancaOutputPort, new CriaQrCodeUseCase());
     }
+
+    @Bean
+    BuscaCobrancaPorIdInputPort buscaCobrancaPorId(BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort) {
+        return new BuscaCobrancaPorIdUserCase(buscaCobrancaPorIdOutputPort);
+    }
+
 
 }
