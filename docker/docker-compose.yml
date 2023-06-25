@@ -5,8 +5,6 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-#    volumes:
-#      - ./docker/load:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: lanchonete_db
@@ -16,11 +14,11 @@ services:
       - 3306
   mock:
     build:
-      context: ./docker/mock
+      context: ./mock
     image: wiremock/wiremock
     ports:
       - "8081:8080"
     volumes:
-      - ./docker/mock/__files:/home/wiremock/__files
-      - ./docker/mock/mappings:/home/wiremock/mappings
-      - ./docker/mock/logs:/home/wiremock/logs
+      - ./mock/__files:/home/wiremock/__files
+      - ./mock/mappings:/home/wiremock/mappings
+      - ./mock/logs:/home/wiremock/logs
