@@ -100,19 +100,21 @@ public class ProdutoController extends ControllerBase {
     @Operation(summary = "Busca todos os produtos")
     @GetMapping
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarTodos() {
-        var produtosOut = buscaTodosProdutosInputPort.buscartodos();
-        var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
+        var produtos = buscaTodosProdutosInputPort.buscartodos().stream()
+                .map(produtoMapper::toProdutoResponse)
+                .toList();
 
-        return ResponseEntity.ok(produtosResponse);
+        return ResponseEntity.ok(produtos);
     }
 
     @Operation(summary = "Busca um Produto por Categoria")
     @GetMapping(value = "/categoria/{categoria}")
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
-        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(CategoriaEnum.fromString(categoria));
-        var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
+        var produtos = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(CategoriaEnum.fromString(categoria)).stream()
+                .map(produtoMapper::toProdutoResponse)
+                .toList();
 
-        return ResponseEntity.ok(produtosResponse);
+        return ResponseEntity.ok(produtos);
     }
 
 }
