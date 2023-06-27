@@ -1,0 +1,9 @@
+.idea
+docker-compose.yml
+target
+wiremock
+.dockerignore
+**/*.log
+Dockerfile
+.git
+.gitignore
