@@ -4,9 +4,9 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRe
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
 import org.springframework.stereotype.Repository;
 
@@ -73,13 +73,15 @@ public class ProdutoRepository implements CriaProdutoOutputPort, AtualizaImagemP
 
     @Override
     public List<ProdutoOut> buscarTodos() {
-        var produtos = produtoJpaRepository.findAll();
-        return produtoMapper.toProdutosResponse(produtos);
+        return produtoJpaRepository.findAll().stream()
+                .map(produtoMapper::toProdutoResponse)
+                .toList();
     }
 
     @Override
     public List<ProdutoOut> buscarPorCategoria(CategoriaEnum categoriaEnum) {
-        var produtos = produtoJpaRepository.findByCategoria(categoriaEnum);
-        return produtoMapper.toProdutosResponse(produtos);
+        return produtoJpaRepository.findByCategoria(categoriaEnum).stream()
+                .map(produtoMapper::toProdutoResponse)
+                .toList();
     }
 }

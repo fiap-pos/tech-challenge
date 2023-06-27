@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
 @Tag(name = "Produto", description = "APIs para gerenciamento de Produto")
 @RestController
 @RequestMapping("/produto")
-public class ProdutoController {
+public class ProdutoController extends ControllerBase {
 
     CriaProdutoInputPort criaProdutoInputPort;
     AtualizaImagemProdutoInputPort atualizaImagemProdutoInputPort;
@@ -52,12 +51,7 @@ public class ProdutoController {
     public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody ProdutoRequest produtoRequest) {
         var produtoOut = criaProdutoInputPort.criar(produtoRequest);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
-
-        var uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(produtoResponse.getId())
-                .toUri();
+        var uri = getExpandedCurrentUri("/{id}", produtoResponse.getId());
 
         return ResponseEntity.created(uri).body(produtoResponse);
     }
@@ -106,19 +100,21 @@ public class ProdutoController {
     @Operation(summary = "Busca todos os produtos")
     @GetMapping
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarTodos() {
-        var produtosOut = buscaTodosProdutosInputPort.buscartodos();
-        var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
+        var produtos = buscaTodosProdutosInputPort.buscartodos().stream()
+                .map(produtoMapper::toProdutoResponse)
+                .toList();
 
-        return ResponseEntity.ok(produtosResponse);
+        return ResponseEntity.ok(produtos);
     }
 
     @Operation(summary = "Busca um Produto por Categoria")
     @GetMapping(value = "/categoria/{categoria}")
     public @ResponseBody ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable("categoria") String categoria) {
-        var produtosOut = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(CategoriaEnum.fromString(categoria));
-        var produtosResponse = produtoMapper.toProdutosResponse(produtosOut);
+        var produtos = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(CategoriaEnum.fromString(categoria)).stream()
+                .map(produtoMapper::toProdutoResponse)
+                .toList();
 
-        return ResponseEntity.ok(produtosResponse);
+        return ResponseEntity.ok(produtos);
     }
 
 }
