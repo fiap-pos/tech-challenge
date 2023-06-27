@@ -1,43 +1,27 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.repository.model;
+package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cliente;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.ItemPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import java.util.List;
-@Entity
-public class Pedido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Enumerated(EnumType.STRING)
+public abstract class PedidoBase {
+    private Long id;
     private StatusPedidoEnum status;
-    @Column(name = "valor_total")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private Cliente cliente;
+    private List<ItemPedido> itens = new ArrayList<>();
     private BigDecimal valorTotal;
 
-    private LocalDateTime data;
-    @ManyToOne
-    private Cliente cliente;
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.MERGE, targetEntity = ItemPedido.class)
-    private List<ItemPedido> itens = new ArrayList<>();
-
-    @PrePersist
-    protected void onCreate() {
-        data = LocalDateTime.now();
-        status = StatusPedidoEnum.PENDENTE_DE_PAGAMENTO;
-        setValorTotal();
-    }
-
-    public Pedido() {
-    }
-
-    public Pedido(StatusPedidoEnum status, LocalDateTime data, Cliente cliente, List<ItemPedido> itens) {
+    public PedidoBase(Long id, StatusPedidoEnum status, LocalDateTime dataCriacao, Cliente cliente, List<ItemPedido> itens) {
+        this.id = id;
         this.status = status;
-        this.data = data;
+        this.dataCriacao = dataCriacao;
         this.cliente = cliente;
         this.itens = itens;
     }
@@ -57,12 +41,13 @@ public class Pedido {
     public void setStatus(StatusPedidoEnum status) {
         this.status = status;
     }
-    public LocalDateTime getData() {
-        return data;
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public Cliente getCliente() {
@@ -78,18 +63,16 @@ public class Pedido {
     }
 
     public void setItens(List<ItemPedido> itens) {
-        this.itens = itens;
+        this.itens = itens.stream().map(itemPedido ->
+                new ItemPedido(itemPedido.getId(), itemPedido.getPedido(), itemPedido.getProduto(), itemPedido.getQuantidade())
+        ).toList();
     }
 
     public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal() {
         if (itens.isEmpty()){
-            valorTotal = BigDecimal.ZERO;
+            return BigDecimal.ZERO;
         }
-        valorTotal = itens.stream()
+        return itens.stream()
                 .map(itemPedido -> itemPedido.getProduto().getPreco()
                         .multiply(BigDecimal.valueOf(itemPedido.getQuantidade())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

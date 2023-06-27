@@ -100,17 +100,32 @@ public class CoreInjectionConfig {
     }
 
     @Bean
+    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort){
+        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort);
+    }
+
+    @Bean
+    BuscarPedidoPorIdInputPort buscarPedidoPorId(BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort){
+        return new BuscarPedidoPorIdUseCase(buscarPedidoPorIdOutputPort);
+    }
+    @Bean
     BuscaTodosPedidosInputPort buscarTodosPedidos(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
         return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
     }
-
     @Bean
-    BuscaPedidoPorClienteIdInputPort buscaPedidoPorCliente(BuscaPedidoPorClienteIdOutputPort buscaPedidoPorClienteIdOutputPort){
-        return new BuscaPedidoPorClienteIdUseCase(buscaPedidoPorClienteIdOutputPort);
+    EditarPedidoInputPort editarPedido(EditarPedidoOutputPort editarPedidoOutputPort){
+        return new EditaPedidoUseCase(editarPedidoOutputPort);
     }
-
     @Bean
-    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort){
-        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort);
+    RemoverPedidoInputPort removerPedido(RemoverPedidoOutputPort removerPedidoOutputPort){
+        return new RemovePedidoUseCase(removerPedidoOutputPort);
+    }
+    @Bean
+    BuscarItensPorPedidoIdInputPort buscarItensDoPedido(BuscarItensPorPedidoIdOutputPort buscarItensPorPedidoIdOutputPort) {
+        return new BuscarItensPorPedidoIdUseCase(buscarItensPorPedidoIdOutputPort);
+    }
+    @Bean
+    EditarItemPedidoInputPort editarItensDoPedido(EditarItemPedidoOutputPort editarItemPedidoOutputPort) {
+        return new EditarItemPedidoUseCase(editarItemPedidoOutputPort);
     }
 }

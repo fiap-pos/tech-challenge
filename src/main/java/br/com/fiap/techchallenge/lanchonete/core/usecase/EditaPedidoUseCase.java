@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.pedido.PedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.pedido.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.EditarPedidoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.EditarPedidoOutputPort;
 

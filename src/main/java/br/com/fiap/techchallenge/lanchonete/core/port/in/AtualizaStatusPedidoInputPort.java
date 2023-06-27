@@ -1,8 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.core.port.in;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.pedido.PedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.pedido.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 
 public interface AtualizaStatusPedidoInputPort {
-    PedidoOut atualizarStatus(PedidoIn pedidoIn);
+    PedidoOut atualizarStatus(Long id, StatusPedidoEnum status);
 }
