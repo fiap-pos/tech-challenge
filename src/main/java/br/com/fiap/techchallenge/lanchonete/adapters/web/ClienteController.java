@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
-public class ClienteController {
+public class ClienteController extends ControllerBase {
 
 
     private final AtualizaClienteInputPort atualizaClienteInputPort;
@@ -62,11 +62,7 @@ public class ClienteController {
         ClienteOut clienteOut = cadastraClienteInputPort.cadastrar(clienteRequest);
         ClienteResponse clienteResponse = mapperWeb.toClienteResponse(clienteOut);
 
-        var uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(clienteResponse.getId())
-                .toUri();
+        var uri = getExpandedCurrentUri("/{id}", clienteResponse.getId());
 
         return ResponseEntity
                 .created(uri)
