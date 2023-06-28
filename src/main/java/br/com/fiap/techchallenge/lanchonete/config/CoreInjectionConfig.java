@@ -52,6 +52,26 @@ public class CoreInjectionConfig {
     }
 
     @Bean
+    AtualizaClienteInputPort atualizaCliente(AtualizaClienteOutputPort atualizaClienteOutputPort) {
+        return new AtualizaClienteUseCase(atualizaClienteOutputPort);
+    }
+
+    @Bean
+    BuscaClientePorCpfInputPort buscaClientePorCpf(BuscaClientePorCpfOutputPort buscaClientePorCpfOutputPort) {
+        return new BuscaClientePorCpfUseCase(buscaClientePorCpfOutputPort);
+    }
+
+    @Bean
+    BuscaTodosClientesInputPort buscaTodosClientes(BuscaTodosClientesOutputPort buscaTodosClientesOutputPort) {
+        return new BuscaTodosClientesUseCase(buscaTodosClientesOutputPort);
+    }
+
+    @Bean
+    CadastraClienteInputPort cadastraCliente(CadastraClienteOutputPort cadastraClienteOutputPort) {
+        return new CadastraClienteUseCase(cadastraClienteOutputPort);
+    }
+
+    @Bean
     CriaQrCodeInputPort criaQrCodeInputPort(){
         return new CriaQrCodeUseCase();
     }
@@ -73,6 +93,4 @@ public class CoreInjectionConfig {
     ) {
         return new AtualizaStatusCobrancaUseCase(buscaCobrancaPorIdOutputPort, atualizaStatusCobrancaOutputPort);
     }
-
-
 }
