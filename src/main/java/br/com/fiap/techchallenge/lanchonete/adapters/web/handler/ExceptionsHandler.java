@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.handler;
+package br.com.fiap.techchallenge.lanchonete.adapters.web.handler;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.BadRequestException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityAlreadyExistException;
