@@ -13,11 +13,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
-@Tag(name = "Clientes", description = "APIs para gerenciamento de Produto")
+@Tag(name = "Clientes", description = "APIs para gerenciamento de Clientes")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController extends ControllerBase {
