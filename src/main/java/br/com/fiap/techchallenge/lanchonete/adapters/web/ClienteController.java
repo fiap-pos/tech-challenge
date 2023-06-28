@@ -8,6 +8,8 @@ import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaClienteInputPor
 import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaClientePorCpfInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaTodosClientesInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CadastraClienteInputPort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
+@Tag(name = "Clientes", description = "APIs para gerenciamento de Produto")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController extends ControllerBase {
@@ -40,6 +43,7 @@ public class ClienteController extends ControllerBase {
         this.mapperWeb = mapperWeb;
     }
 
+    @Operation(summary = "Busca um Cliente pelo CPF")
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteResponse> buscaPorCpf(@PathVariable String cpf) {
         ClienteResponse clienteResponse = mapperWeb.toClienteResponse(
@@ -49,6 +53,7 @@ public class ClienteController extends ControllerBase {
         return ResponseEntity.ok(clienteResponse);
     }
 
+    @Operation(summary = "Busca todos os Clientes")
     @GetMapping
     public ResponseEntity<List<ClienteResponse>> buscaTodos() {
         List<ClienteOut> listaClientes = buscaTodosClientesInputPort.buscarTodos();
@@ -57,6 +62,7 @@ public class ClienteController extends ControllerBase {
         return ResponseEntity.ok(clienteResponseList);
     }
 
+    @Operation(summary = "Cadastra um novo Cliente")
     @PostMapping
     public ResponseEntity<ClienteResponse> cadastra(@Valid @RequestBody ClienteRequest clienteRequest) {
         ClienteOut clienteOut = cadastraClienteInputPort.cadastrar(clienteRequest);
@@ -69,6 +75,7 @@ public class ClienteController extends ControllerBase {
                 .body(clienteResponse);
     }
 
+    @Operation(summary = "Atualiza Cliente pelo id")
     @PutMapping("/{id}")
     public ResponseEntity<ClienteResponse> atualiza(@RequestBody ClienteRequest clienteRequest, @PathVariable Long id) {
         ClienteOut clienteAtualizado = atualizaClienteInputPort.atualizar(clienteRequest, id);
