@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ClienteMapperWeb;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ClienteOut;
@@ -27,13 +27,13 @@ public class ClienteController extends ControllerBase {
 
     private final BuscaTodosClientesInputPort buscaTodosClientesInputPort;
     private final CadastraClienteInputPort cadastraClienteInputPort;
-    private final ClienteMapperWeb mapperWeb;
+    private final ClienteMapper mapperWeb;
 
     public ClienteController(AtualizaClienteInputPort atualizaClienteInputPort,
                              BuscaClientePorCpfInputPort buscaClientePorCpfInputPort,
                              BuscaTodosClientesInputPort buscaTodosClientesInputPort,
                              CadastraClienteInputPort cadastraClienteInputPort,
-                             ClienteMapperWeb mapperWeb
+                             ClienteMapper mapperWeb
     ) {
         this.atualizaClienteInputPort = atualizaClienteInputPort;
         this.buscaClientePorCpfInputPort = buscaClientePorCpfInputPort;
