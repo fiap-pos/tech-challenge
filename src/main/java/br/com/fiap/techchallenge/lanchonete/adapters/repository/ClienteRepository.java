@@ -14,13 +14,14 @@ import br.com.fiap.techchallenge.lanchonete.core.port.out.CadastraClienteOutputP
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
 
 import java.util.List;
 
 
-@Service
+@Repository
 public class ClienteRepository implements AtualizaClienteOutputPort, BuscaClientePorCpfOutputPort, BuscaTodosClientesOutputPort, CadastraClienteOutputPort {
 
     private final ClienteJpaRepository clienteJpaRepository;
