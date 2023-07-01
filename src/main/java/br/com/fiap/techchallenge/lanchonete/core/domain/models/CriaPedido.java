@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.models;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cliente;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CriaPedidoIn;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class CriaPedido implements CriaPedidoIn {
     private Long id;
+    private Long clienteId;
     private StatusPedidoEnum status;
     private LocalDateTime dataCriacao = LocalDateTime.now();
     private List<CriaItemPedido> itens = new ArrayList<>();
@@ -23,6 +25,18 @@ public class CriaPedido implements CriaPedidoIn {
         this.status = status;
         this.dataCriacao = dataCriacao;
         this.itens = itens;
+    }
+    public CriaPedido(Long id, Long clienteId, StatusPedidoEnum status, LocalDateTime dataCriacao, List<CriaItemPedido> itens) {
+        this.id = id;
+        this.clienteId = clienteId;
+        this.status = status;
+        this.dataCriacao = dataCriacao;
+        this.itens = itens;
+    }
+
+    @Override
+    public Long getClienteId() {
+        return clienteId;
     }
 
     @Override
@@ -47,6 +61,10 @@ public class CriaPedido implements CriaPedidoIn {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setCliente(Long clienteId) {
+        this.clienteId = clienteId;
     }
 
     public void setStatus(StatusPedidoEnum status) {

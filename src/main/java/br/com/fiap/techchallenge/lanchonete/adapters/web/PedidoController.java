@@ -15,7 +15,7 @@ import java.util.List;
 
 @Tag(name = "Pedido", description = "APIs para gerenciamento de Pedido")
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController extends ControllerBase{
     private final CriaPedidoInputPort criaPedidoInputPort;
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
@@ -42,6 +42,7 @@ public class PedidoController extends ControllerBase{
         var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
         return ResponseEntity.ok(listPedidoResponse);
     }
+
     @Operation(summary = "Busca pedido pelo id")
     @GetMapping("/{id}")
     public ResponseEntity<PedidoResponse> buscarPorId(@PathVariable("id") Long id){
@@ -58,8 +59,9 @@ public class PedidoController extends ControllerBase{
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
+
     @Operation(summary = "Atualiza status de um  pedido")
-    @PostMapping("/{id}/status")
+    @PatchMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
                                                          @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
         var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest);
@@ -67,6 +69,7 @@ public class PedidoController extends ControllerBase{
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
+
     /*@Operation(summary = "Edita um  pedido")
     @PutMapping("/{id}")
     public ResponseEntity<PedidoResponse> editar(@PathVariable("id") Long id,
@@ -77,6 +80,7 @@ public class PedidoController extends ControllerBase{
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
+
     @Operation(summary = "Remove um  pedido")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable("id") Long id){

@@ -1,6 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.PedidoJpaRepository;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
@@ -16,10 +18,15 @@ import java.util.List;
 public class PedidoRepository implements  CriaPedidoOutputPort, AtualizaStatusPedidoOutputPort,
         BuscaTodosPedidosOutputPort, BuscarPedidoPorIdOutputPort{
     private final PedidoMapper pedidoMapper;
+    private final ClienteMapper clienteMapper;
+    private final ClienteJpaRepository clienteJpaRepository;
     private final PedidoJpaRepository pedidoJpaRepository;
 
-    public PedidoRepository(PedidoMapper pedidoMapper, PedidoJpaRepository pedidoJpaRepository) {
+    public PedidoRepository(PedidoMapper pedidoMapper, PedidoJpaRepository pedidoJpaRepository,
+                            ClienteMapper clienteMapper, ClienteJpaRepository clienteJpaRepository) {
         this.pedidoMapper = pedidoMapper;
+        this.clienteMapper = clienteMapper;
+        this.clienteJpaRepository = clienteJpaRepository;
         this.pedidoJpaRepository = pedidoJpaRepository;
     }
 
@@ -32,6 +39,11 @@ public class PedidoRepository implements  CriaPedidoOutputPort, AtualizaStatusPe
 
     @Override
     public PedidoOut criar(CriaPedidoIn pedidoIn) {
+        var cliente = pedidoIn.getClienteId() != null
+                ? clienteJpaRepository.findById(pedidoIn.getClienteId())
+                .orElseThrow(
+                        ()-> new EntityNotFoundException("Cliente " + pedidoIn.getClienteId() + " não encontrado"))
+                : null;
         var pedido = pedidoMapper.toPedido(pedidoIn);
         var pedidoSalvo = pedidoJpaRepository.save(pedido);
         return pedidoMapper.toPedidoResponse(pedidoSalvo);

@@ -7,10 +7,18 @@ import java.util.List;
 
 public class PedidoOut {
     private Long id;
+    private String clienteNome;
     private BigDecimal valorTotal;
     private List<ItemPedidoOut> itens;
     private StatusPedidoEnum status;
 
+    public PedidoOut(Long id, String clienteNome, BigDecimal valorTotal, List<ItemPedidoOut> itens, StatusPedidoEnum status) {
+        this.id = id;
+        this.clienteNome = clienteNome;
+        this.valorTotal = valorTotal;
+        this.itens = itens;
+        this.status = status;
+    }
     public PedidoOut(Long id, BigDecimal valorTotal, List<ItemPedidoOut> itens, StatusPedidoEnum status) {
         this.id = id;
         this.valorTotal = valorTotal;
@@ -20,6 +28,10 @@ public class PedidoOut {
 
     public Long getId() {
         return id;
+    }
+
+    public String getCliente() {
+        return clienteNome;
     }
 
     public BigDecimal getValorTotal() {

@@ -18,10 +18,16 @@ public class PedidoRequest implements PedidoIn {
         this.clienteId = clienteId;
         this.itens = itens;
     }
+    public PedidoRequest(List<ItemPedidoRequest> itens) {
+        this.itens = itens;
+    }
 
+
+    @Override
     public Long getClienteId() {
         return clienteId;
     }
+
     @NotNull(message = "O campo 'itens' é obrigatório")
     @Override
     public List<ItemPedidoIn> getItens() {

@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaItemPedido;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoIn;
@@ -21,7 +21,8 @@ public class CriaPedidoUseCase implements CriaPedidoInputPort {
     private final BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort;
 
     public CriaPedidoUseCase(CriaPedidoOutputPort criaPedidoOutputPort,
-                             BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort) {
+                             BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort
+    ) {
         this.criaPedidoOutputPort = criaPedidoOutputPort;
         this.buscaProdutoPorIdOutputPort = buscaProdutoPorIdOutputPort;
     }
@@ -29,10 +30,7 @@ public class CriaPedidoUseCase implements CriaPedidoInputPort {
     @Override
     public PedidoOut criar(PedidoIn pedidoIn) {
         var pedido = new CriaPedido();
-        /**
-         * TODO: quando tiver o cliente, implementar
-         * @return
-         */
+        pedido.setCliente(pedidoIn.getClienteId());
         pedido.setItens(montaListaCriaItemPedido(pedidoIn));
         pedido.setStatus(StatusPedidoEnum.PENDENTE_DE_PAGAMENTO);
         pedido.setValorTotal(calculaValorTotalPedido(pedido.getItens()));
