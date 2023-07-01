@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cobranca;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaBase;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.QrCode;
 import org.springframework.stereotype.Component;
 

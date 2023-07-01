@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.port.in;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoOut;
 
 public interface CriaPedidoInputPort {
     PedidoOut criar(PedidoIn pedidoIn);

@@ -2,8 +2,6 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
 import org.springframework.stereotype.Component;
 
 @Component

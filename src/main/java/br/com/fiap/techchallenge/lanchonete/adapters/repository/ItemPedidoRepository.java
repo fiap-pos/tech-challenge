@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ItemPedidoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ItemPedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ItemPedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaItemPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ItemPedidoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscarItensPorPedidoIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.EditarItemPedidoOutputPort;
@@ -32,14 +32,14 @@ public class ItemPedidoRepository implements SalvarItensPedidoOutputPort, Buscar
     }
 
     @Override
-    public ItemPedidoOut editarItem(ItemPedidoIn itemPedidoIn) {
+    public ItemPedidoOut editarItem(CriaItemPedido itemPedidoIn) {
         return jpaRepository.findById(itemPedidoIn.getId())
                 .map(mapper::toItemPedidoResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Item não encontrado"));
     }
 
     @Override
-    public ItemPedidoOut salvarItem(ItemPedidoIn itemPedidoIn) {
+    public ItemPedidoOut salvarItem(CriaItemPedido itemPedidoIn) {
         var itemPedido = mapper.toItemPedido(itemPedidoIn);
         var itemPedidoSalvo = jpaRepository.save(itemPedido);
         return mapper.toItemPedidoResponse(itemPedidoSalvo);

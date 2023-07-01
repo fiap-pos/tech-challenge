@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS item_pedido (
   pedido_id int NOT NULL,
   produto_id bigint NOT NULL,
   quantidade int NOT NULL,
+  valor_unitario double NOT NULL,
   primary key (id),
   FOREIGN KEY (pedido_id) REFERENCES pedido (id),
   FOREIGN KEY (produto_id) REFERENCES produto (id)

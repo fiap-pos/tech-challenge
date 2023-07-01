@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ItemPedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaItemPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ItemPedidoOut;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.EditarItemPedidoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.EditarItemPedidoOutputPort;
@@ -13,7 +13,7 @@ public class EditarItemPedidoUseCase implements EditarItemPedidoInputPort {
     }
 
     @Override
-    public ItemPedidoOut editarItem(ItemPedidoIn itemPedidoIn) {
+    public ItemPedidoOut editarItem(CriaItemPedido itemPedidoIn) {
         return editarItemPedidoOutputPort.editarItem(itemPedidoIn);
     }
 }

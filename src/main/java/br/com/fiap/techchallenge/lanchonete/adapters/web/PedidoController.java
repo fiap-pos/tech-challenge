@@ -7,6 +7,8 @@ import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +65,7 @@ public class PedidoController extends ControllerBase{
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
-    @Operation(summary = "Atualiza status de um  pedido")
+ /*   @Operation(summary = "Atualiza status de um  pedido")
     @PostMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
                                                          @RequestBody PedidoRequest pedidoRequest){
@@ -88,5 +90,5 @@ public class PedidoController extends ControllerBase{
         removerPedidoInputPort.remover(id);
         var uri = getExpandedCurrentUri("/{id}", id);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }

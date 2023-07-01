@@ -1,15 +1,38 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cliente;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.ItemPedido;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.ItemPedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoIn;
+import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public class PedidoRequest extends PedidoIn {
-    public PedidoRequest(Long id, StatusPedidoEnum status, LocalDateTime dataCriacao, Cliente cliente, List<ItemPedido> itens) {
-        super(id, status, dataCriacao, cliente, itens);
+public class PedidoRequest implements PedidoIn {
+
+    private Long clienteId;
+    private List<ItemPedidoIn> itens;
+
+    public PedidoRequest() {
+    }
+
+    public PedidoRequest(Long clienteId, List<ItemPedidoIn> itens) {
+        this.clienteId = clienteId;
+        this.itens = itens;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+    @NotNull(message = "O campo 'itens' é obrigatório")
+    @Override
+    public List<ItemPedidoIn> getItens() {
+        return itens;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public void setItens(List<ItemPedidoIn> itens) {
+        this.itens = itens;
     }
 }

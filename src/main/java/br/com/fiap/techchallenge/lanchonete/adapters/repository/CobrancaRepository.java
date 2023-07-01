@@ -5,7 +5,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.CobrancaM
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cobranca;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaBase;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaStatusIn;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;

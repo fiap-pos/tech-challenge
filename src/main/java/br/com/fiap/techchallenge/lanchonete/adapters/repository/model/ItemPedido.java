@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,12 +21,18 @@ public class ItemPedido {
     @JoinColumn(name = "produto_id")
     private Produto produto;
     private int quantidade;
+    private BigDecimal valorUnitario;
 
     public ItemPedido() {
     }
 
     public ItemPedido(Long id, Pedido pedido, Produto produto, int quantidade) {
         this.id = id;
+        this.pedido = pedido;
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
+    public ItemPedido(Pedido pedido, Produto produto, int quantidade) {
         this.pedido = pedido;
         this.produto = produto;
         this.quantidade = quantidade;

@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.BadRequestException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaStatusIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusCobrancaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaInputPort;

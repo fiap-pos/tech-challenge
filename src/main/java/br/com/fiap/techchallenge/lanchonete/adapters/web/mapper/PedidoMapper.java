@@ -1,8 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.mapper;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoOut;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,8 +11,7 @@ import java.util.List;
 public class PedidoMapper {
 
     public PedidoResponse toPedidoResponse(PedidoOut pedidoOut){
-        return new PedidoResponse(pedidoOut.getId(), pedidoOut.getStatus(), pedidoOut.getDataCriacao(),
-                pedidoOut.getCliente(), pedidoOut.getItens());
+        return new PedidoResponse(pedidoOut.getId(), pedidoOut.getStatus(), pedidoOut.getValorTotal();
     }
 
     public List<PedidoResponse> toPedidoListResponse(List<PedidoOut> pedidosOut){
@@ -22,9 +20,8 @@ public class PedidoMapper {
         return pedidosResponse;
     }
 
-    public PedidoRequest toPedidoRequest(Long id,PedidoRequest pedidoRequest){
-        return  new PedidoRequest(id, pedidoRequest.getStatus(), pedidoRequest.getDataCriacao(),
-                pedidoRequest.getCliente(), pedidoRequest.getItens());
-    }
+//    public PedidoRequest toPedidoRequest(PedidoRequest pedidoRequest){
+//        return new PedidoRequest(pedidoRequest.getClienteId(), pedidoRequest.getItens());
+//    }
 
 }
