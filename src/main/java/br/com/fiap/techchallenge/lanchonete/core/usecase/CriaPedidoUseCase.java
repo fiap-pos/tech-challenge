@@ -1,11 +1,13 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecase;
 
+import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaItemPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoIn;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaPedidoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaClientePorCpfOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaProdutoPorIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaPedidoOutputPort;
 
@@ -33,6 +35,7 @@ public class CriaPedidoUseCase implements CriaPedidoInputPort {
          * TODO: quando tiver o cliente, implementar
          * @return
          */
+//        var cliente = buscaClientePorCpfOutputPort.buscar(pedidoIn.)
         pedido.setItens(montaListaCriaItemPedido(pedidoIn));
         pedido.setStatus(StatusPedidoEnum.PENDENTE_DE_PAGAMENTO);
         pedido.setValorTotal(calculaValorTotalPedido(pedido.getItens()));

@@ -8,8 +8,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class PedidoResponse extends PedidoOut {
+    public PedidoResponse(Long id, String cliente, BigDecimal valorTotal, List<ItemPedidoOut> itens, StatusPedidoEnum status) {
+        super(id, cliente, valorTotal, itens, status);
+    }
+
     public PedidoResponse(Long id, BigDecimal valorTotal, List<ItemPedidoOut> itens, StatusPedidoEnum status) {
         super(id, valorTotal, itens, status);
     }
-
 }

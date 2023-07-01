@@ -11,7 +11,7 @@ import java.util.List;
 public class PedidoMapper {
 
     public PedidoResponse toPedidoResponse(PedidoOut pedidoOut){
-        return new PedidoResponse(pedidoOut.getId(), pedidoOut.getValorTotal(),
+        return new PedidoResponse(pedidoOut.getId(), pedidoOut.getCliente(), pedidoOut.getValorTotal(),
                 pedidoOut.getItens(), pedidoOut.getStatus());
     }
 

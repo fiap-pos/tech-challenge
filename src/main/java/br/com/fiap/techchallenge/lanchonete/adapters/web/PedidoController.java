@@ -15,7 +15,7 @@ import java.util.List;
 
 @Tag(name = "Pedido", description = "APIs para gerenciamento de Pedido")
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController extends ControllerBase{
     private final CriaPedidoInputPort criaPedidoInputPort;
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;

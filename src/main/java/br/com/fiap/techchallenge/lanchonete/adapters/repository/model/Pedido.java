@@ -24,7 +24,7 @@ public class Pedido {
     @ManyToOne
     @Nullable
     private Cliente cliente;
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.MERGE, targetEntity = ItemPedido.class)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, targetEntity = ItemPedido.class)
     private List<ItemPedido> itens = new ArrayList<>();
 
     @PrePersist
@@ -37,17 +37,22 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(StatusPedidoEnum status, LocalDateTime data, Cliente cliente, List<ItemPedido> itens) {
+    public Pedido(StatusPedidoEnum status, LocalDateTime data, @Nullable Cliente cliente, List<ItemPedido> itens) {
         this.status = status;
         this.data = data;
         this.cliente = cliente;
         this.itens = itens;
     }
-
-    public Pedido(StatusPedidoEnum status, BigDecimal valorTotal, LocalDateTime data) {
+    public Pedido(StatusPedidoEnum status, LocalDateTime data, List<ItemPedido> itens) {
         this.status = status;
-        this.valorTotal = valorTotal;
         this.data = data;
+        this.itens = itens;
+    }
+
+    public Pedido(StatusPedidoEnum status, Cliente cliente, LocalDateTime data, BigDecimal valorTotal) {
+        this.status = status;
+        this.data = data;
+        this.valorTotal = valorTotal;
     }
 
     public Long getId() {
@@ -73,11 +78,12 @@ public class Pedido {
         this.data = data;
     }
 
+    @Nullable
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(@Nullable Cliente cliente) {
         this.cliente = cliente;
     }
 

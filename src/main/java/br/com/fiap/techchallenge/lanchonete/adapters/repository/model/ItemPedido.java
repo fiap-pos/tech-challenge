@@ -15,7 +15,6 @@ public class ItemPedido {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "pedido_id")
-    @JsonIgnore
     private Pedido pedido;
     @ManyToOne
     @JoinColumn(name = "produto_id")
