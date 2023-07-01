@@ -9,12 +9,12 @@ import java.util.List;
 public class PedidoRequest implements PedidoIn {
 
     private Long clienteId;
-    private List<ItemPedidoIn> itens;
+    private List<ItemPedidoRequest> itens;
 
     public PedidoRequest() {
     }
 
-    public PedidoRequest(Long clienteId, List<ItemPedidoIn> itens) {
+    public PedidoRequest(Long clienteId, List<ItemPedidoRequest> itens) {
         this.clienteId = clienteId;
         this.itens = itens;
     }
@@ -25,14 +25,14 @@ public class PedidoRequest implements PedidoIn {
     @NotNull(message = "O campo 'itens' é obrigatório")
     @Override
     public List<ItemPedidoIn> getItens() {
-        return itens;
+        return itens.stream().map(item -> (ItemPedidoIn) item ).toList();
     }
 
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
     }
 
-    public void setItens(List<ItemPedidoIn> itens) {
+    public void setItens(List<ItemPedidoRequest> itens) {
         this.itens = itens;
     }
 }

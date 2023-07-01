@@ -2,19 +2,28 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CriaPedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PedidoMapper {
+    private final ItemPedidoMapper itemPedidoMapper;
 
-    public Pedido toPedido(PedidoIn pedidoIn){
+    public PedidoMapper(ItemPedidoMapper itemPedidoMapper) {
+        this.itemPedidoMapper = itemPedidoMapper;
+    }
 
-        return new Pedido(pedidoIn.getStatus(), pedidoIn.getDataCriacao(), pedidoIn.getCliente(),
-                pedidoIn.getItens());
+    public Pedido toPedido(CriaPedidoIn pedidoIn){
+        var pedido =  new Pedido(pedidoIn.getStatus(),pedidoIn.getValorTotal(), pedidoIn.getDataCriacao());
+        var itemPedido = itemPedidoMapper.toItemPedido(pedido, pedidoIn.getItens());
+        pedido.setItens(itemPedido);
+        return pedido;
+
     }
 
     public PedidoOut toPedidoResponse(Pedido pedido){
-        return new PedidoResponse(pedido.getId(), pedido.getStatus(), pedido.getData(),
-                pedido.getCliente(), pedido.getItens());
+        var listaItemPedidoOut = itemPedidoMapper.toItemPedidoResponse(pedido.getItens());
+        return new PedidoResponse(pedido.getId(),pedido.getValorTotal(), listaItemPedidoOut, pedido.getStatus());
     }
 }

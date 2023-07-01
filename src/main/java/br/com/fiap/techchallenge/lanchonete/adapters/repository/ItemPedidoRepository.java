@@ -1,20 +1,11 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ItemPedidoJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ItemPedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CriaItemPedido;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ItemPedidoOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscarItensPorPedidoIdOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.EditarItemPedidoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.SalvarItensPedidoOutputPort;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 @Repository
-public class ItemPedidoRepository implements SalvarItensPedidoOutputPort, BuscarItensPorPedidoIdOutputPort,
-        EditarItemPedidoOutputPort {
-    private final ItemPedidoJpaRepository jpaRepository;
+public class ItemPedidoRepository /*implements SalvarItensPedidoOutputPort, BuscarItensPorPedidoIdOutputPort,
+        EditarItemPedidoOutputPort*/ {
+    /*private final ItemPedidoJpaRepository jpaRepository;
     private final ItemPedidoMapper mapper;
 
     public ItemPedidoRepository(ItemPedidoJpaRepository jpaRepository,ItemPedidoMapper mapper) {
@@ -33,7 +24,7 @@ public class ItemPedidoRepository implements SalvarItensPedidoOutputPort, Buscar
 
     @Override
     public ItemPedidoOut editarItem(CriaItemPedido itemPedidoIn) {
-        return jpaRepository.findById(itemPedidoIn.getId())
+        return jpaRepository.findById(itemPedidoIn.getProdutoId())
                 .map(mapper::toItemPedidoResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Item não encontrado"));
     }
@@ -43,5 +34,5 @@ public class ItemPedidoRepository implements SalvarItensPedidoOutputPort, Buscar
         var itemPedido = mapper.toItemPedido(itemPedidoIn);
         var itemPedidoSalvo = jpaRepository.save(itemPedido);
         return mapper.toItemPedidoResponse(itemPedidoSalvo);
-    }
+    }*/
 }

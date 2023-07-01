@@ -22,6 +22,7 @@ public class Produto {
     private String descricao;
     @Lob
     private byte[] imagem;
+
     public Produto() {
     }
 

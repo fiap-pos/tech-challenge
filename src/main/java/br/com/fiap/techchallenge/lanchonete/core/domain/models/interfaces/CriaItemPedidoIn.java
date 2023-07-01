@@ -1,12 +1,10 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface CriaItemPedidoIn {
-
-    Long getId();
+    Long getProdutoId();
     Integer getQuantidade();
     BigDecimal getValorUnitario();
 }

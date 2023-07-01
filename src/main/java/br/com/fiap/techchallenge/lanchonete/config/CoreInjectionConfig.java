@@ -95,8 +95,8 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    CriaPedidoInputPort criarPedido(CriaPedidoOutputPort criaPedidoOutputPort) {
-        return new CriaPedidoUseCase(criaPedidoOutputPort);
+    CriaPedidoInputPort criarPedido(CriaPedidoOutputPort criaPedidoOutputPort, BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort) {
+        return new CriaPedidoUseCase(criaPedidoOutputPort, buscaProdutoPorIdOutputPort);
     }
 
     @Bean
@@ -112,20 +112,5 @@ public class CoreInjectionConfig {
     BuscaTodosPedidosInputPort buscarTodosPedidos(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
         return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
     }
-    @Bean
-    EditarPedidoInputPort editarPedido(EditarPedidoOutputPort editarPedidoOutputPort){
-        return new EditaPedidoUseCase(editarPedidoOutputPort);
-    }
-    @Bean
-    RemoverPedidoInputPort removerPedido(RemoverPedidoOutputPort removerPedidoOutputPort){
-        return new RemovePedidoUseCase(removerPedidoOutputPort);
-    }
-    @Bean
-    BuscarItensPorPedidoIdInputPort buscarItensDoPedido(BuscarItensPorPedidoIdOutputPort buscarItensPorPedidoIdOutputPort) {
-        return new BuscarItensPorPedidoIdUseCase(buscarItensPorPedidoIdOutputPort);
-    }
-    @Bean
-    EditarItemPedidoInputPort editarItensDoPedido(EditarItemPedidoOutputPort editarItemPedidoOutputPort) {
-        return new EditarItemPedidoUseCase(editarItemPedidoOutputPort);
-    }
+
 }

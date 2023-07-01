@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.model;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ public class Pedido {
 
     private LocalDateTime data;
     @ManyToOne
+    @Nullable
     private Cliente cliente;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.MERGE, targetEntity = ItemPedido.class)
     private List<ItemPedido> itens = new ArrayList<>();
@@ -40,6 +42,12 @@ public class Pedido {
         this.data = data;
         this.cliente = cliente;
         this.itens = itens;
+    }
+
+    public Pedido(StatusPedidoEnum status, BigDecimal valorTotal, LocalDateTime data) {
+        this.status = status;
+        this.valorTotal = valorTotal;
+        this.data = data;
     }
 
     public Long getId() {
@@ -85,13 +93,7 @@ public class Pedido {
         return valorTotal;
     }
 
-    public void setValorTotal() {
-        if (itens.isEmpty()){
-            valorTotal = BigDecimal.ZERO;
-        }
-        valorTotal = itens.stream()
-                .map(itemPedido -> itemPedido.getProduto().getPreco()
-                        .multiply(BigDecimal.valueOf(itemPedido.getQuantidade())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    public BigDecimal setValorTotal() {
+        return valorTotal;
     }
 }

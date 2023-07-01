@@ -4,16 +4,20 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CriaIt
 
 import java.math.BigDecimal;
 
-public class CriaItemPedido extends ItemPedidoBase implements CriaItemPedidoIn {
+public class CriaItemPedido  implements CriaItemPedidoIn {
+    private Long produtoId;
     private BigDecimal valorUnitario;
-    public CriaItemPedido(Long id, Integer quantidade, BigDecimal valorUnitario) {
-        super(id, quantidade);
+    private Integer quantidade;
+
+    public CriaItemPedido(Long produtoId, BigDecimal valorUnitario, Integer quantidade) {
+        this.produtoId = produtoId;
         this.valorUnitario = valorUnitario;
+        this.quantidade = quantidade;
     }
 
     @Override
-    public Long getId() {
-        return super.getId();
+    public Long getProdutoId() {
+        return produtoId;
     }
 
     @Override
@@ -24,4 +28,10 @@ public class CriaItemPedido extends ItemPedidoBase implements CriaItemPedidoIn {
     public void setValorUnitario(BigDecimal valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
+
+    @Override
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
 }

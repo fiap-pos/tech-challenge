@@ -1,14 +1,13 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.AtualizaStatusPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,23 +21,17 @@ public class PedidoController extends ControllerBase{
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
-    private final EditarPedidoInputPort editarPedidoInputPort;
-    private final RemoverPedidoInputPort removerPedidoInputPort;
-    private final BuscarItensPorPedidoIdInputPort buscarItensPorPedidoIdInputPort;
     private final PedidoMapper pedidoMapper;
 
-    public PedidoController(CriaPedidoInputPort criaPedidoInputPort, AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
-                            BuscaTodosPedidosInputPort buscaTodosPedidosInputPort, BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
-                            EditarPedidoInputPort editarPedidoInputPort, RemoverPedidoInputPort removerPedidoInputPort,
-                            BuscarItensPorPedidoIdInputPort buscarItensPorPedidoIdInputPort,
+    public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
+                            AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
+                            BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
+                            BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             PedidoMapper pedidoMapper) {
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
-        this.editarPedidoInputPort = editarPedidoInputPort;
-        this.removerPedidoInputPort = removerPedidoInputPort;
-        this.buscarItensPorPedidoIdInputPort = buscarItensPorPedidoIdInputPort;
         this.pedidoMapper = pedidoMapper;
     }
 
@@ -65,16 +58,16 @@ public class PedidoController extends ControllerBase{
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
- /*   @Operation(summary = "Atualiza status de um  pedido")
+    @Operation(summary = "Atualiza status de um  pedido")
     @PostMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
-                                                         @RequestBody PedidoRequest pedidoRequest){
-        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest.getStatus());
+                                                         @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
+        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest);
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
-    @Operation(summary = "Edita um  pedido")
+    /*@Operation(summary = "Edita um  pedido")
     @PutMapping("/{id}")
     public ResponseEntity<PedidoResponse> editar(@PathVariable("id") Long id,
                                                  @RequestBody PedidoRequest pedidoRequest){
