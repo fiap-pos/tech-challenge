@@ -108,9 +108,15 @@ public class CoreInjectionConfig {
     BuscarPedidoPorIdInputPort buscarPedidoPorId(BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort){
         return new BuscarPedidoPorIdUseCase(buscarPedidoPorIdOutputPort);
     }
+
     @Bean
     BuscaTodosPedidosInputPort buscarTodosPedidos(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
         return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
+    }
+
+    @Bean
+    BuscaTodosPedidosPorStatusInputPort buscarPorStatus(BuscaTodosPedidosPorStatusOutputPort buscaTodosPedidosOutputPort) {
+        return new BuscaTodosPedidosPorStatusUseCase(buscaTodosPedidosOutputPort);
     }
 
 }

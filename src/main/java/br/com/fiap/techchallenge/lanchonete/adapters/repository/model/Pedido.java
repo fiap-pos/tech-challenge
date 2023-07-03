@@ -17,6 +17,7 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status;
+
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
