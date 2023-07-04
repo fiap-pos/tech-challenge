@@ -93,4 +93,24 @@ public class CoreInjectionConfig {
     ) {
         return new AtualizaStatusCobrancaUseCase(buscaCobrancaPorIdOutputPort, atualizaStatusCobrancaOutputPort);
     }
+
+    @Bean
+    CriaPedidoInputPort criarPedido(CriaPedidoOutputPort criaPedidoOutputPort, BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort) {
+        return new CriaPedidoUseCase(criaPedidoOutputPort, buscaProdutoPorIdOutputPort);
+    }
+
+    @Bean
+    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort){
+        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort);
+    }
+
+    @Bean
+    BuscarPedidoPorIdInputPort buscarPedidoPorId(BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort){
+        return new BuscarPedidoPorIdUseCase(buscarPedidoPorIdOutputPort);
+    }
+    @Bean
+    BuscaTodosPedidosInputPort buscarTodosPedidos(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
+        return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
+    }
+
 }
