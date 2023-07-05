@@ -7,7 +7,6 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse
 import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.AtualizaStatusCobrancaUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

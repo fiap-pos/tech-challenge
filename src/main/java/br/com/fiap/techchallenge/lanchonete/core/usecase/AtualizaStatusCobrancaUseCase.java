@@ -9,7 +9,6 @@ import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaI
 import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusPedidoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInputPort {
 

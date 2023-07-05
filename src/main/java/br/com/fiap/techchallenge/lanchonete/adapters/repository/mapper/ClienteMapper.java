@@ -5,7 +5,6 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ClienteIn;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ClienteOut;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
