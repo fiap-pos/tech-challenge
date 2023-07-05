@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Cobranca", description = "APIs para geração e confirmação de pagamento de cobranças")
 @RestController
-@RequestMapping("/cobranca")
+@RequestMapping("/cobrancas")
 public class CobrancaController extends ControllerBase{
     private final CriaCobrancaInputPort criaCobrancaInputPort;
     private final BuscaCobrancaPorIdInputPort buscaCobrancaPorIdInputPort;

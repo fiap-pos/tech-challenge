@@ -18,7 +18,7 @@ import java.util.List;
 
 @Tag(name = "Produto", description = "APIs para gerenciamento de Produto")
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController extends ControllerBase {
 
     CriaProdutoInputPort criaProdutoInputPort;
