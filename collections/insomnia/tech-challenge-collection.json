@@ -1,0 +1,504 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2023-07-02T15:20:09.199Z",
+  "__export_source": "insomnia.desktop.app:v2021.3.0",
+  "resources": [
+    {
+      "_id": "req_c5fbacf69815473e823b43130c3456a3",
+      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
+      "modified": 1687817773172,
+      "created": 1687707126361,
+      "url": "http://localhost:8080/clientes",
+      "name": "Cadastra Cliente",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"nome\": \"cliente 3\",\n\t\"cpf\": \"94187479015\",\n\t\"email\": \"cliente3@gmail.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687707126361,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_781f0f438f0e45069bb675a9834fa8e4",
+      "parentId": "fld_6728c656e55e4371a68e86e94fe260af",
+      "modified": 1687707121887,
+      "created": 1687707121887,
+      "name": "Cliente",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687707121887,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_6728c656e55e4371a68e86e94fe260af",
+      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "modified": 1687707030262,
+      "created": 1687707030262,
+      "name": "tech-challenge",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687707030262,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "parentId": null,
+      "modified": 1687819106335,
+      "created": 1687818672324,
+      "name": "Tech Challenge",
+      "description": "",
+      "scope": "design",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_a4bf5fadf06b4fbbbe5aaa240a25c806",
+      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
+      "modified": 1687817857379,
+      "created": 1687778502563,
+      "url": "http://localhost:8080/clientes/13",
+      "name": "Atualiza Cliente",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"nome\": \"Diego\",\n\t\"cpf\": \"25986643020\",\n\t\"email\": \"diego@gmail.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687707039005.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9908e6d03e5e46b0b088566292d788b9",
+      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
+      "modified": 1687778561256,
+      "created": 1687718470262,
+      "url": "http://localhost:8080/clientes",
+      "name": "Busca Clientes",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687706951650.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_08ee18fe9592465c9fcbcb1b7c39ef61",
+      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
+      "modified": 1687817879884,
+      "created": 1687776120120,
+      "url": "http://localhost:8080/clientes/25986643020",
+      "name": "Busca Cliente Por CPF",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687706864295.25,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_65b2c33e00034b7e844b40a6c1c65d27",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818800146,
+      "created": 1687563141861,
+      "url": "http://localhost:8080/produto",
+      "name": "Cria um novo Produto",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"nome\": \"Feijão\",\n\t\"categoria\": \"SOBREMESA\",\n\t\"preco\": 19.89,\n\t\"descricao\": \"produto bom\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687707108195.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "parentId": "fld_6728c656e55e4371a68e86e94fe260af",
+      "modified": 1687707108208,
+      "created": 1687707108208,
+      "name": "Produto",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687707108208,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_faf82907e5df4aed958318cad64e79d4",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818810900,
+      "created": 1687563157635,
+      "url": "http://localhost:8080/produto/2",
+      "name": "Atualiza a imagem de um Produto",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "id": "pair_6efea01643714ef5a346d3657bf4002d",
+            "name": "imagem",
+            "value": "",
+            "description": "",
+            "type": "file",
+            "fileName": "C:\\Users\\pedro\\Downloads\\cachorro.jpg"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "multipart/form-data"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687707108145.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_edc0be2553584fe5a4dc5ae4cd650b1f",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818840468,
+      "created": 1687563213648,
+      "url": "http://localhost:8080/produto/2",
+      "name": "Edita um Produto por Id",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"nome\": \"produto editado\",\n\t\"categoria\": \"LANCHINHO\",\n\t\"preco\": 19.89,\n\t\"descricao\": \"produto bom\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687707108095.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e739f2f1ba6a4c1680821725af30d14d",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818868362,
+      "created": 1687563259062,
+      "url": "http://localhost:8080/produto/1",
+      "name": "Remove um Produto por Id",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687707108045.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5b564065ee5646779917dd2470ec22b5",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818891867,
+      "created": 1687563277948,
+      "url": "http://localhost:8080/produto/2",
+      "name": "Busca um Produto por Id",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687707107995.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_97de0257f7304a2a88d46a355afb7cfd",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818367065,
+      "created": 1687563294133,
+      "url": "http://localhost:8080/produto",
+      "name": "Busca todos os produtos",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687707107945.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c32c2cab2b0e4e879648b6bc10fd6848",
+      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
+      "modified": 1687818913545,
+      "created": 1687563307395,
+      "url": "http://localhost:8080/produto/categoria/LANCHE",
+      "name": "Busca um Produto por Categoria",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687707107895.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_6104279375604631aaac983b207b922a",
+      "parentId": "fld_82665f58d343409eae71cd0375b87e84",
+      "modified": 1688310905426,
+      "created": 1688310781563,
+      "url": "http://localhost:8080/cobranca",
+      "name": "Cria um nova Cobrança",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pedidoId\": 1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1688310781563,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_82665f58d343409eae71cd0375b87e84",
+      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "modified": 1688310724567,
+      "created": 1688310717218,
+      "name": "Cobrança",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687707030212,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_4d0c077755f940ebad36e8da1fdcfed7",
+      "parentId": "fld_82665f58d343409eae71cd0375b87e84",
+      "modified": 1688310986351,
+      "created": 1688310967133,
+      "url": "http://localhost:8080/cobranca/1/status",
+      "name": "Atualiza o status de uma Cobrança",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"PAGO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1688159867762.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_a20230a7df3247f0b4de519983dcc5d5",
+      "parentId": "fld_82665f58d343409eae71cd0375b87e84",
+      "modified": 1688310918654,
+      "created": 1688310859295,
+      "url": "http://localhost:8080/cobranca",
+      "name": "Busca uma Cobrança por id",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pedidoId\": 1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1688008953962,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_8c2e9aa4d31643038e17d098232412b2",
+      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "modified": 1685464659643,
+      "created": 1685464659643,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1685464659643,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_516ac1a6fef74a92b775cc559cf452f9",
+      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "modified": 1685464659644,
+      "created": 1685464659644,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_ba8f2e3aa1d048d3ae103be526e0e972",
+      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "modified": 1687819106334,
+      "created": 1687818672324,
+      "fileName": "Tech Challenge",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "uts_194dc0d020864bde97cc332fbb67377d",
+      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "modified": 1685464659648,
+      "created": 1685464659648,
+      "name": "Example Test Suite",
+      "_type": "unit_test_suite"
+    }
+  ]
+}

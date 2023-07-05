@@ -17,7 +17,6 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status;
-
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
@@ -51,6 +50,12 @@ public class Pedido {
     }
 
     public Pedido(StatusPedidoEnum status, Cliente cliente, LocalDateTime data, BigDecimal valorTotal) {
+        this.status = status;
+        this.cliente = cliente;
+        this.data = data;
+        this.valorTotal = valorTotal;
+    }
+    public Pedido(StatusPedidoEnum status, LocalDateTime data, BigDecimal valorTotal) {
         this.status = status;
         this.data = data;
         this.valorTotal = valorTotal;

@@ -9,7 +9,7 @@ import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort
 import br.com.fiap.techchallenge.lanchonete.core.usecase.*;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.BuscaCobrancaPorIdUserCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaCobrancaUseCase;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaQrCodeUseCase;
+import br.com.fiap.techchallenge.lanchonete.adapters.integration.PagamentoMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -72,29 +72,6 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    CriaQrCodeInputPort criaQrCodeInputPort(){
-        return new CriaQrCodeUseCase();
-    }
-
-    @Bean
-    CriaCobrancaInputPort criarCobranca(CriaCobrancaOutputPort criaCobrancaOutputPort, CriaQrCodeInputPort criaQrCodeInputPort) {
-        return new CriaCobrancaUseCase(criaCobrancaOutputPort, criaQrCodeInputPort);
-    }
-
-    @Bean
-    BuscaCobrancaPorIdInputPort buscaCobrancaPorId(BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort) {
-        return new BuscaCobrancaPorIdUserCase(buscaCobrancaPorIdOutputPort);
-    }
-
-    @Bean
-    AtualizaStatusCobrancaInputPort atualiStatusCobranca(
-            AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
-            BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort
-    ) {
-        return new AtualizaStatusCobrancaUseCase(buscaCobrancaPorIdOutputPort, atualizaStatusCobrancaOutputPort);
-    }
-
-    @Bean
     CriaPedidoInputPort criarPedido(CriaPedidoOutputPort criaPedidoOutputPort, BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort) {
         return new CriaPedidoUseCase(criaPedidoOutputPort, buscaProdutoPorIdOutputPort);
     }
@@ -108,10 +85,45 @@ public class CoreInjectionConfig {
     BuscarPedidoPorIdInputPort buscarPedidoPorId(BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort){
         return new BuscarPedidoPorIdUseCase(buscarPedidoPorIdOutputPort);
     }
-
     @Bean
     BuscaTodosPedidosInputPort buscarTodosPedidos(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
         return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
+    }
+
+    @Bean
+    CriaQrCodeOutputPort criaQrCodeInputPort(){
+        return new PagamentoMock();
+    }
+
+    @Bean
+    CriaCobrancaInputPort criarCobranca(
+            CriaCobrancaOutputPort criaCobrancaOutputPort,
+            CriaQrCodeOutputPort criaQrCodeOutputPort,
+            BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort
+    ) {
+        return new CriaCobrancaUseCase(
+                criaCobrancaOutputPort,
+                criaQrCodeOutputPort,
+                buscarPedidoPorIdOutputPort
+        );
+    }
+
+    @Bean
+    BuscaCobrancaPorIdInputPort buscaCobrancaPorId(BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort) {
+        return new BuscaCobrancaPorIdUserCase(buscaCobrancaPorIdOutputPort);
+    }
+
+    @Bean
+    AtualizaStatusCobrancaInputPort atualiStatusCobranca(
+            AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
+            BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort,
+            AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort
+    ) {
+        return new AtualizaStatusCobrancaUseCase(
+                buscaCobrancaPorIdOutputPort,
+                atualizaStatusCobrancaOutputPort,
+                atualizaStatusPedidoOutputPort
+        );
     }
 
     @Bean

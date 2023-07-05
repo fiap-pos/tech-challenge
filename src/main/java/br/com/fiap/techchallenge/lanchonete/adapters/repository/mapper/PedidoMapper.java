@@ -12,22 +12,20 @@ import org.springframework.stereotype.Component;
 public class PedidoMapper {
     private final ItemPedidoMapper itemPedidoMapper;
     private final ClienteJpaRepository clienteJpaRepository;
-    private final ClienteMapper clienteMapper;
-    public PedidoMapper(ItemPedidoMapper itemPedidoMapper, ClienteMapper clienteMapper,
-                        ClienteJpaRepository clienteJpaRepository) {
+    public PedidoMapper(ItemPedidoMapper itemPedidoMapper, ClienteJpaRepository clienteJpaRepository) {
         this.itemPedidoMapper = itemPedidoMapper;
-        this.clienteMapper = clienteMapper;
         this.clienteJpaRepository = clienteJpaRepository;
     }
 
     public Pedido toPedido(CriaPedidoIn pedidoIn){
         var cliente = pedidoIn.getClienteId() != null
                 ? clienteJpaRepository.findById(pedidoIn.getClienteId())
-                    .orElseThrow(
-                            ()-> new EntityNotFoundException("Cliente " + pedidoIn.getClienteId() + " não encontrado"))
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente "+pedidoIn.getClienteId()+" não encontrado"))
                 : null;
 
-        var pedido = new Pedido(pedidoIn.getStatus(), cliente, pedidoIn.getDataCriacao(), pedidoIn.getValorTotal());
+        var pedido = cliente != null
+                ? new Pedido(pedidoIn.getStatus(), cliente, pedidoIn.getDataCriacao(), pedidoIn.getValorTotal())
+                : new Pedido(pedidoIn.getStatus(), pedidoIn.getDataCriacao(), pedidoIn.getValorTotal());
         var itemPedido = itemPedidoMapper.toItemPedido(pedido, pedidoIn.getItens());
         pedido.setItens(itemPedido);
         return pedido;
@@ -35,13 +33,12 @@ public class PedidoMapper {
     }
 
     public PedidoOut toPedidoResponse(Pedido pedido){
-        var listaItemPedidoOut = itemPedidoMapper.toItemPedidoResponse(pedido.getItens());
-        var clienteOut = pedido.getCliente() != null
-                ? clienteMapper.toClienteResponse(pedido.getCliente())
+        var clienteNome = pedido.getCliente() != null
+                ? pedido.getCliente().getNome()
                 : null;
-
-        return clienteOut != null
-                ? new PedidoResponse(pedido.getId(), clienteOut.getNome(), pedido.getValorTotal(), listaItemPedidoOut, pedido.getStatus())
+        var listaItemPedidoOut = itemPedidoMapper.toItemPedidoResponse(pedido.getItens());
+        return clienteNome != null
+                ? new PedidoResponse(pedido.getId(), clienteNome, pedido.getValorTotal(), listaItemPedidoOut, pedido.getStatus())
                 : new PedidoResponse(pedido.getId(), pedido.getValorTotal(), listaItemPedidoOut, pedido.getStatus());
     }
 }

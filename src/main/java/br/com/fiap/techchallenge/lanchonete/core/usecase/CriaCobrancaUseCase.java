@@ -5,7 +5,8 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.Cobran
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusCobrancaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaQrCodeInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscarPedidoPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaQrCodeOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
 
 import java.math.BigDecimal;
@@ -13,18 +14,28 @@ import java.math.BigDecimal;
 public class CriaCobrancaUseCase implements CriaCobrancaInputPort {
 
     private final CriaCobrancaOutputPort cobrancaOutputPort;
-    private final CriaQrCodeInputPort criaQrCodeInputPort;
 
-    public CriaCobrancaUseCase(CriaCobrancaOutputPort cobrancaOutputPort, CriaQrCodeInputPort criaQrCodeInputPort) {
+    private final CriaQrCodeOutputPort criaQrCodeOutputPort;
+
+    private final BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort;
+
+
+
+    public CriaCobrancaUseCase(
+            CriaCobrancaOutputPort cobrancaOutputPort,
+            CriaQrCodeOutputPort criaQrCodeOutputPort,
+            BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort
+    ) {
         this.cobrancaOutputPort = cobrancaOutputPort;
-        this.criaQrCodeInputPort = criaQrCodeInputPort;
+        this.criaQrCodeOutputPort = criaQrCodeOutputPort;
+        this.buscarPedidoPorIdOutputPort = buscarPedidoPorIdOutputPort;
     }
 
     public CobrancaOut criar(CobrancaIn cobrancaIn) {
-        var valor = new BigDecimal(150);
-        var qrCode = criaQrCodeInputPort.criar(cobrancaIn.getPedidoId(), valor);
+        var pedidoOut = buscarPedidoPorIdOutputPort.buscarPorId(cobrancaIn.getPedidoId());
+        var qrCode = criaQrCodeOutputPort.criar(cobrancaIn.getPedidoId(), pedidoOut.getValorTotal());
         var cobranca = new CobrancaBase(
-                cobrancaIn.getPedidoId(), StatusCobrancaEnum.PENDENTE, valor, qrCode
+                cobrancaIn.getPedidoId(), StatusCobrancaEnum.PENDENTE, pedidoOut.getValorTotal(), qrCode
         );
         return cobrancaOutputPort.criar(cobranca);
     }
