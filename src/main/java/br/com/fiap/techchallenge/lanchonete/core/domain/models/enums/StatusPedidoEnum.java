@@ -1,5 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import java.util.stream.Stream;
+
 public enum StatusPedidoEnum {
     PENDENTE_DE_PAGAMENTO("Aguardando Pagamento"),
     PAGO("Pago"),
@@ -18,4 +22,13 @@ public enum StatusPedidoEnum {
     public String getDescricao() {
         return descricao;
     }
+
+    @JsonCreator
+    public static StatusPedidoEnum fromString(String value) {
+        return Stream.of(values())
+                .filter(status -> status.name().equalsIgnoreCase(value))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Status permitidos: " + Stream.of(values()).toList()));
+    }
+
 }

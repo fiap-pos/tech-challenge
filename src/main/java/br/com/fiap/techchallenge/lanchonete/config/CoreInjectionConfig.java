@@ -126,4 +126,9 @@ public class CoreInjectionConfig {
         );
     }
 
+    @Bean
+    BuscaTodosPedidosPorStatusInputPort buscarPorStatus(BuscaTodosPedidosPorStatusOutputPort buscaTodosPedidosOutputPort) {
+        return new BuscaTodosPedidosPorStatusUseCase(buscaTodosPedidosOutputPort);
+    }
+
 }

@@ -9,8 +9,6 @@ import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscarPedidoPorIdOutpu
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaQrCodeOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
 
-import java.math.BigDecimal;
-
 public class CriaCobrancaUseCase implements CriaCobrancaInputPort {
 
     private final CriaCobrancaOutputPort cobrancaOutputPort;

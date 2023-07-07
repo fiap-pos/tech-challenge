@@ -6,7 +6,7 @@ public abstract class ClienteBase {
     private String cpf;
     private String email;
 
-    public ClienteBase(Long id, String nome, String cpf, String email) {
+    protected ClienteBase(Long id, String nome, String cpf, String email) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;

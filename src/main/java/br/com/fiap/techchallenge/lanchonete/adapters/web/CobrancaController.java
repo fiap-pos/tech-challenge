@@ -7,7 +7,6 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse
 import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.AtualizaStatusCobrancaUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Cobranca", description = "APIs para geração e confirmação de pagamento de cobranças")
 @RestController
-@RequestMapping("/cobranca")
+@RequestMapping("/cobrancas")
 public class CobrancaController extends ControllerBase{
     private final CriaCobrancaInputPort criaCobrancaInputPort;
     private final BuscaCobrancaPorIdInputPort buscaCobrancaPorIdInputPort;

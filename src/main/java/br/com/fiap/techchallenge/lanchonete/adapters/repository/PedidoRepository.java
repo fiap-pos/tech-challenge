@@ -7,6 +7,8 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.PedidoMap
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CriaPedidoIn;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @Repository
 public class PedidoRepository implements  CriaPedidoOutputPort, AtualizaStatusPedidoOutputPort,
-        BuscaTodosPedidosOutputPort, BuscarPedidoPorIdOutputPort{
+        BuscaTodosPedidosOutputPort, BuscarPedidoPorIdOutputPort, BuscaTodosPedidosPorStatusOutputPort{
     private final PedidoMapper pedidoMapper;
     private final ClienteMapper clienteMapper;
     private final ClienteJpaRepository clienteJpaRepository;
@@ -67,5 +69,12 @@ public class PedidoRepository implements  CriaPedidoOutputPort, AtualizaStatusPe
     private Pedido buscarPedidoPorId(Long id){
         return pedidoJpaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido " + id + " não encontrado"));
+    }
+
+    @Override
+    public List<PedidoOut> buscarPedidosPorStatus(StatusPedidoEnum status) {
+        return pedidoJpaRepository.findByStatus(status).stream()
+                .map(pedidoMapper::toPedidoResponse)
+                .toList();
     }
 }

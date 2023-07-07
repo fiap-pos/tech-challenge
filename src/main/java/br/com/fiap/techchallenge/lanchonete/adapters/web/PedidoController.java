@@ -4,6 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.AtualizaStatusPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,17 +22,20 @@ public class PedidoController extends ControllerBase{
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
+    private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
     private final PedidoMapper pedidoMapper;
 
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
                             AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
+                            BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
                             PedidoMapper pedidoMapper) {
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
+        this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
         this.pedidoMapper = pedidoMapper;
     }
 
@@ -68,6 +72,16 @@ public class PedidoController extends ControllerBase{
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
+    }
+
+    @Operation(summary = "Busca todos os pedidos por status")
+    @GetMapping(value = "/status/{status}")
+    public ResponseEntity<List<PedidoResponse>> buscarTodos(@PathVariable("status") String status){
+        var pedidosOut = buscaTodosPedidosPorStatusInputPort.buscarTodosStatus(StatusPedidoEnum.fromString(status))
+                .stream()
+                .map(pedidoMapper::toPedidoResponse)
+                .toList();
+        return ResponseEntity.ok(pedidosOut);
     }
 
     /*@Operation(summary = "Edita um  pedido")
