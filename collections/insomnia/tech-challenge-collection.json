@@ -1,31 +1,32 @@
 {
-  "_type": "export",
+  "__export_date": "2023-07-08T18:07:17.354Z",
   "__export_format": 4,
-  "__export_date": "2023-07-02T15:20:09.199Z",
-  "__export_source": "insomnia.desktop.app:v2021.3.0",
+  "__export_source": "insomnia.desktop.app:v2023.3.0",
+  "_type": "export",
   "resources": [
     {
-      "_id": "req_c5fbacf69815473e823b43130c3456a3",
-      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
-      "modified": 1687817773172,
-      "created": 1687707126361,
-      "url": "http://localhost:8080/clientes",
-      "name": "Cadastra Cliente",
+      "_id": "req_075364a48cf44104b6a1216aadcaca39",
+      "parentId": "fld_8ae5265fe1fb42a0a6a66fd42d7da097",
+      "modified": 1688310905426,
+      "created": 1688310781563,
+      "url": "http://localhost:8080/cobrancas",
+      "name": "Cria um nova Cobrança",
       "description": "",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"nome\": \"cliente 3\",\n\t\"cpf\": \"94187479015\",\n\t\"email\": \"cliente3@gmail.com\"\n}"
+        "text": "{\n  \"pedidoId\": 1\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
-          "value": "application/json"
+          "value": "application/json",
+          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
         }
       ],
       "authentication": {},
-      "metaSortKey": -1687707126361,
+      "metaSortKey": -1688310781563,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -36,61 +37,50 @@
       "_type": "request"
     },
     {
-      "_id": "fld_781f0f438f0e45069bb675a9834fa8e4",
-      "parentId": "fld_6728c656e55e4371a68e86e94fe260af",
-      "modified": 1687707121887,
-      "created": 1687707121887,
-      "name": "Cliente",
+      "_id": "fld_8ae5265fe1fb42a0a6a66fd42d7da097",
+      "parentId": "wrk_4cd20324a91042e780059051e50ded1d",
+      "modified": 1688310724567,
+      "created": 1688310717218,
+      "name": "Cobrança",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1687707121887,
+      "metaSortKey": -1687707030212,
       "_type": "request_group"
     },
     {
-      "_id": "fld_6728c656e55e4371a68e86e94fe260af",
-      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
-      "modified": 1687707030262,
-      "created": 1687707030262,
-      "name": "tech-challenge",
-      "description": "",
-      "environment": {},
-      "environmentPropertyOrder": null,
-      "metaSortKey": -1687707030262,
-      "_type": "request_group"
-    },
-    {
-      "_id": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "_id": "wrk_4cd20324a91042e780059051e50ded1d",
       "parentId": null,
-      "modified": 1687819106335,
-      "created": 1687818672324,
+      "modified": 1688838133942,
+      "created": 1688838133942,
       "name": "Tech Challenge",
       "description": "",
       "scope": "design",
       "_type": "workspace"
     },
     {
-      "_id": "req_a4bf5fadf06b4fbbbe5aaa240a25c806",
-      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
-      "modified": 1687817857379,
-      "created": 1687778502563,
-      "url": "http://localhost:8080/clientes/13",
-      "name": "Atualiza Cliente",
+      "_id": "req_dd718e0cf81442729ae49059d8c2f26f",
+      "parentId": "fld_8ae5265fe1fb42a0a6a66fd42d7da097",
+      "modified": 1688310918654,
+      "created": 1688310859295,
+      "url": "http://localhost:8080/cobrancas",
+      "name": "Busca uma Cobrança por id",
       "description": "",
-      "method": "PUT",
+      "method": "GET",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"nome\": \"Diego\",\n\t\"cpf\": \"25986643020\",\n\t\"email\": \"diego@gmail.com\"\n}"
+        "text": "{\n  \"pedidoId\": 1\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
-          "value": "application/json"
+          "value": "application/json",
+          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
         }
       ],
       "authentication": {},
-      "metaSortKey": -1687707039005.75,
+      "metaSortKey": -1688008953962,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -101,19 +91,28 @@
       "_type": "request"
     },
     {
-      "_id": "req_9908e6d03e5e46b0b088566292d788b9",
-      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
-      "modified": 1687778561256,
-      "created": 1687718470262,
-      "url": "http://localhost:8080/clientes",
-      "name": "Busca Clientes",
+      "_id": "req_7818e7aae9ea4efd9059e9160533b325",
+      "parentId": "fld_8ae5265fe1fb42a0a6a66fd42d7da097",
+      "modified": 1688310986351,
+      "created": 1688310967133,
+      "url": "http://localhost:8080/cobrancas/1/status",
+      "name": "Atualiza o status de uma Cobrança",
       "description": "",
-      "method": "GET",
-      "body": {},
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"PAGO\"\n}"
+      },
       "parameters": [],
-      "headers": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+        }
+      ],
       "authentication": {},
-      "metaSortKey": -1687706951650.5,
+      "metaSortKey": -1688159867762.5,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -124,34 +123,11 @@
       "_type": "request"
     },
     {
-      "_id": "req_08ee18fe9592465c9fcbcb1b7c39ef61",
-      "parentId": "fld_781f0f438f0e45069bb675a9834fa8e4",
-      "modified": 1687817879884,
-      "created": 1687776120120,
-      "url": "http://localhost:8080/clientes/25986643020",
-      "name": "Busca Cliente Por CPF",
-      "description": "",
-      "method": "GET",
-      "body": {},
-      "parameters": [],
-      "headers": [],
-      "authentication": {},
-      "metaSortKey": -1687706864295.25,
-      "isPrivate": false,
-      "settingStoreCookies": true,
-      "settingSendCookies": true,
-      "settingDisableRenderRequestBody": false,
-      "settingEncodeUrl": true,
-      "settingRebuildPath": true,
-      "settingFollowRedirects": "global",
-      "_type": "request"
-    },
-    {
-      "_id": "req_65b2c33e00034b7e844b40a6c1c65d27",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818800146,
+      "_id": "req_cb26f5e50c5048aaa1a512aea00e6a1c",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838937485,
       "created": 1687563141861,
-      "url": "http://localhost:8080/produto",
+      "url": "http://localhost:8080/produtos",
       "name": "Cria um novo Produto",
       "description": "",
       "method": "POST",
@@ -178,8 +154,8 @@
       "_type": "request"
     },
     {
-      "_id": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "parentId": "fld_6728c656e55e4371a68e86e94fe260af",
+      "_id": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "parentId": "fld_bbd6384ceaa1414e990fd874bb59ed89",
       "modified": 1687707108208,
       "created": 1687707108208,
       "name": "Produto",
@@ -190,11 +166,23 @@
       "_type": "request_group"
     },
     {
-      "_id": "req_faf82907e5df4aed958318cad64e79d4",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818810900,
+      "_id": "fld_bbd6384ceaa1414e990fd874bb59ed89",
+      "parentId": "wrk_4cd20324a91042e780059051e50ded1d",
+      "modified": 1687707030262,
+      "created": 1687707030262,
+      "name": "tech-challenge",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687707030262,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_d88a21dd4a714ed6b9e4c57be8e3c47b",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838939814,
       "created": 1687563157635,
-      "url": "http://localhost:8080/produto/2",
+      "url": "http://localhost:8080/produtos/2",
       "name": "Atualiza a imagem de um Produto",
       "description": "",
       "method": "PATCH",
@@ -230,11 +218,11 @@
       "_type": "request"
     },
     {
-      "_id": "req_edc0be2553584fe5a4dc5ae4cd650b1f",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818840468,
+      "_id": "req_5e0ced73d85a436bac2373c066d6fbc4",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838942415,
       "created": 1687563213648,
-      "url": "http://localhost:8080/produto/2",
+      "url": "http://localhost:8080/produtos/2",
       "name": "Edita um Produto por Id",
       "description": "",
       "method": "PUT",
@@ -261,11 +249,11 @@
       "_type": "request"
     },
     {
-      "_id": "req_e739f2f1ba6a4c1680821725af30d14d",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818868362,
+      "_id": "req_cc57bb45d23240f2a99f460d971118e5",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838944674,
       "created": 1687563259062,
-      "url": "http://localhost:8080/produto/1",
+      "url": "http://localhost:8080/produtos/1",
       "name": "Remove um Produto por Id",
       "description": "",
       "method": "DELETE",
@@ -284,11 +272,11 @@
       "_type": "request"
     },
     {
-      "_id": "req_5b564065ee5646779917dd2470ec22b5",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818891867,
+      "_id": "req_9b866915623a4fb4819b5934e75485a9",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838790721,
       "created": 1687563277948,
-      "url": "http://localhost:8080/produto/2",
+      "url": "http://localhost:8080/produtos/2",
       "name": "Busca um Produto por Id",
       "description": "",
       "method": "GET",
@@ -307,11 +295,11 @@
       "_type": "request"
     },
     {
-      "_id": "req_97de0257f7304a2a88d46a355afb7cfd",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818367065,
+      "_id": "req_46dfed4e889f40c1a3217cc32d280fae",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838952678,
       "created": 1687563294133,
-      "url": "http://localhost:8080/produto",
+      "url": "http://localhost:8080/produtos",
       "name": "Busca todos os produtos",
       "description": "",
       "method": "GET",
@@ -330,11 +318,11 @@
       "_type": "request"
     },
     {
-      "_id": "req_c32c2cab2b0e4e879648b6bc10fd6848",
-      "parentId": "fld_d536af4fb66b4ff0a4d2fd3652e28915",
-      "modified": 1687818913545,
+      "_id": "req_60263c18860a4f1da8318f9d4510e796",
+      "parentId": "fld_2864c8def64c4d00a3cd50f64561cec4",
+      "modified": 1688838950037,
       "created": 1687563307395,
-      "url": "http://localhost:8080/produto/categoria/LANCHE",
+      "url": "http://localhost:8080/produtos/categoria/LANCHE",
       "name": "Busca um Produto por Categoria",
       "description": "",
       "method": "GET",
@@ -353,28 +341,27 @@
       "_type": "request"
     },
     {
-      "_id": "req_6104279375604631aaac983b207b922a",
-      "parentId": "fld_82665f58d343409eae71cd0375b87e84",
-      "modified": 1688310905426,
-      "created": 1688310781563,
-      "url": "http://localhost:8080/cobranca",
-      "name": "Cria um nova Cobrança",
+      "_id": "req_a596f0433cf94022ab2ae99d0d9bc0bb",
+      "parentId": "fld_503a4f09937c4886807517d5a2851288",
+      "modified": 1687817773172,
+      "created": 1687707126361,
+      "url": "http://localhost:8080/clientes",
+      "name": "Cadastra Cliente",
       "description": "",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"pedidoId\": 1\n}"
+        "text": "{\n\t\"nome\": \"cliente 3\",\n\t\"cpf\": \"94187479015\",\n\t\"email\": \"cliente3@gmail.com\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
-          "value": "application/json",
-          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+          "value": "application/json"
         }
       ],
       "authentication": {},
-      "metaSortKey": -1688310781563,
+      "metaSortKey": -1687707126361,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -385,40 +372,174 @@
       "_type": "request"
     },
     {
-      "_id": "fld_82665f58d343409eae71cd0375b87e84",
-      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
-      "modified": 1688310724567,
-      "created": 1688310717218,
-      "name": "Cobrança",
+      "_id": "fld_503a4f09937c4886807517d5a2851288",
+      "parentId": "fld_bbd6384ceaa1414e990fd874bb59ed89",
+      "modified": 1687707121887,
+      "created": 1687707121887,
+      "name": "Cliente",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1687707030212,
+      "metaSortKey": -1687707121887,
       "_type": "request_group"
     },
     {
-      "_id": "req_4d0c077755f940ebad36e8da1fdcfed7",
-      "parentId": "fld_82665f58d343409eae71cd0375b87e84",
-      "modified": 1688310986351,
-      "created": 1688310967133,
-      "url": "http://localhost:8080/cobranca/1/status",
-      "name": "Atualiza o status de uma Cobrança",
+      "_id": "req_7c37f2b17a9d4ad586ae4b4463a8f6ed",
+      "parentId": "fld_503a4f09937c4886807517d5a2851288",
+      "modified": 1687778561256,
+      "created": 1687718470262,
+      "url": "http://localhost:8080/clientes",
+      "name": "Busca Clientes",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687706951650.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e31bc5390b7847b1be5d812eaefbece9",
+      "parentId": "fld_503a4f09937c4886807517d5a2851288",
+      "modified": 1687817879884,
+      "created": 1687776120120,
+      "url": "http://localhost:8080/clientes/25986643020",
+      "name": "Busca Cliente Por CPF",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1687706864295.25,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_82eb5c9a7220454483adda2750c0f58d",
+      "parentId": "fld_503a4f09937c4886807517d5a2851288",
+      "modified": 1687817857379,
+      "created": 1687778502563,
+      "url": "http://localhost:8080/clientes/13",
+      "name": "Atualiza Cliente",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"nome\": \"Diego\",\n\t\"cpf\": \"25986643020\",\n\t\"email\": \"diego@gmail.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687707039005.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_2e06e9d20ce64241bb7da92376ada253",
+      "parentId": "fld_8db8c97100b847c499b8ab3eb53df79a",
+      "modified": 1688838273539,
+      "created": 1688838174706,
+      "url": "http://localhost:8080/pedidos",
+      "name": "Busca todos os pedidos",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1688838174706,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_8db8c97100b847c499b8ab3eb53df79a",
+      "parentId": "fld_bbd6384ceaa1414e990fd874bb59ed89",
+      "modified": 1688838171540,
+      "created": 1688838171540,
+      "name": "Pedido",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1688838171540,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_148ac8fcc2c148268160c9832249b650",
+      "parentId": "fld_8db8c97100b847c499b8ab3eb53df79a",
+      "modified": 1688838306919,
+      "created": 1688838281354,
+      "url": "http://localhost:8080/pedidos/1",
+      "name": "Busca pedido por id",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1688838281354,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_234b152c58d14606b2340aa57ffa4162",
+      "parentId": "fld_8db8c97100b847c499b8ab3eb53df79a",
+      "modified": 1688838402505,
+      "created": 1688838330444,
+      "url": "http://localhost:8080/pedidos",
+      "name": "Cria um pedido",
       "description": "",
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"status\": \"PAGO\"\n}"
+        "text": "{\n  \"clienteId\": 1,\n  \"itens\": [\n    {\n      \"quantidade\": 2,\n      \"produtoId\": 1\n    },\n\t\t{\n      \"quantidade\": 2,\n      \"produtoId\": 2\n    }\n  ]\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
-          "value": "application/json",
-          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+          "value": "application/json"
         }
       ],
       "authentication": {},
-      "metaSortKey": -1688159867762.5,
+      "metaSortKey": -1688838330444,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -429,28 +550,27 @@
       "_type": "request"
     },
     {
-      "_id": "req_a20230a7df3247f0b4de519983dcc5d5",
-      "parentId": "fld_82665f58d343409eae71cd0375b87e84",
-      "modified": 1688310918654,
-      "created": 1688310859295,
-      "url": "http://localhost:8080/cobranca",
-      "name": "Busca uma Cobrança por id",
+      "_id": "req_57a5a120ec8a426dbff0ac0ca43da5e0",
+      "parentId": "fld_8db8c97100b847c499b8ab3eb53df79a",
+      "modified": 1688838621421,
+      "created": 1688838428715,
+      "url": "http://localhost:8080/pedidos/1/status",
+      "name": "Atualiza status do pedido",
       "description": "",
-      "method": "GET",
+      "method": "PATCH",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"pedidoId\": 1\n}"
+        "text": "{\n  \"status\": \"RECEBIDO\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
-          "value": "application/json",
-          "id": "pair_91710f1fa2f9433e8e106b3adea50da3"
+          "value": "application/json"
         }
       ],
       "authentication": {},
-      "metaSortKey": -1688008953962,
+      "metaSortKey": -1688838174656,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -461,8 +581,31 @@
       "_type": "request"
     },
     {
-      "_id": "env_8c2e9aa4d31643038e17d098232412b2",
-      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "_id": "req_f80e65aefeae492289591489d4522893",
+      "parentId": "fld_8db8c97100b847c499b8ab3eb53df79a",
+      "modified": 1688838618754,
+      "created": 1688838539046,
+      "url": "http://localhost:8080/pedidos/status/RECEBIDO",
+      "name": "Busca pedido por status",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1688838228030,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_ace2d1640551420b8fa55d3e821f559c",
+      "parentId": "wrk_4cd20324a91042e780059051e50ded1d",
       "modified": 1685464659643,
       "created": 1685464659643,
       "name": "Base Environment",
@@ -474,8 +617,8 @@
       "_type": "environment"
     },
     {
-      "_id": "jar_516ac1a6fef74a92b775cc559cf452f9",
-      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "_id": "jar_1b65db00ee6640ba8c3fbdbc2f721084",
+      "parentId": "wrk_4cd20324a91042e780059051e50ded1d",
       "modified": 1685464659644,
       "created": 1685464659644,
       "name": "Default Jar",
@@ -483,18 +626,18 @@
       "_type": "cookie_jar"
     },
     {
-      "_id": "spc_ba8f2e3aa1d048d3ae103be526e0e972",
-      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
-      "modified": 1687819106334,
-      "created": 1687818672324,
+      "_id": "spc_e12b0e893bac4ba9a294c36ae9c5679e",
+      "parentId": "wrk_4cd20324a91042e780059051e50ded1d",
+      "modified": 1688838133944,
+      "created": 1688838133943,
       "fileName": "Tech Challenge",
       "contents": "",
       "contentType": "yaml",
       "_type": "api_spec"
     },
     {
-      "_id": "uts_194dc0d020864bde97cc332fbb67377d",
-      "parentId": "wrk_fe2de0c92b614e258bb6b786a60c4a60",
+      "_id": "uts_e137ec4ef96843c2a22eccaa19d10e5e",
+      "parentId": "wrk_4cd20324a91042e780059051e50ded1d",
       "modified": 1685464659648,
       "created": 1685464659648,
       "name": "Example Test Suite",
