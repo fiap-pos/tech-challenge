@@ -74,9 +74,9 @@ class ArchitectureTest {
 
     @ArchTest
     static ArchRule handlerClassesShouldResideInHandlerPackage = classes().that().haveSimpleNameEndingWith("Handler")
-            .should().resideInAPackage("..core.domain.handler")
+            .should().resideInAPackage("..adapters.web.handler")
             .andShould().beAnnotatedWith(ControllerAdvice.class)
-            .as("Classes Handler devem ser implementadas dentro do pacote core.domain.handler");
+            .as("Classes Handler devem ser implementadas dentro do pacote adapters.web.handler");
 
     @ArchTest
     static ArchRule enumsShouldHaveNameEndingWithEnum = classes().that().areEnums()

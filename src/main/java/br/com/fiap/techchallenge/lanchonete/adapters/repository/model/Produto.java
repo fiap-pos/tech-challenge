@@ -20,7 +20,6 @@ public class Produto {
     private BigDecimal preco;
 
     private String descricao;
-
     @Lob
     private byte[] imagem;
 

@@ -1,7 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
+import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,12 +15,7 @@ public class ProdutoRequest extends ProdutoIn {
     }
 
     public ProdutoRequest(Long id, String nome, CategoriaEnum categoriaEnum, BigDecimal preco, String descricao, byte[] imagem) {
-        setId(id);
-        setNome(nome);
-        setCategoria(categoriaEnum);
-        setPreco(preco);
-        setDescricao(descricao);
-        setImagem(imagem);
+        super(id, nome, categoriaEnum, preco, descricao, imagem);
     }
 
     public ProdutoRequest(Long id, byte[] imagem) {
@@ -28,6 +24,7 @@ public class ProdutoRequest extends ProdutoIn {
     }
 
     @Override
+    @JsonIgnore
     public Long getId() {
         return super.getId();
     }
@@ -58,6 +55,7 @@ public class ProdutoRequest extends ProdutoIn {
     }
 
     @Override
+    @JsonIgnore
     public byte[] getImagem() {
         return super.getImagem();
     }

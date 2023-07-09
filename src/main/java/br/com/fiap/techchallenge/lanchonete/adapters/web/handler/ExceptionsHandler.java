@@ -1,10 +1,12 @@
-package br.com.fiap.techchallenge.lanchonete.core.domain.handler;
+package br.com.fiap.techchallenge.lanchonete.adapters.web.handler;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.BadRequestException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityAlreadyExistException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.ErrorDetails;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,6 +19,7 @@ import java.util.Objects;
 
 @ControllerAdvice
 public class ExceptionsHandler {
+    Logger logger = LoggerFactory.getLogger(ExceptionsHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -86,6 +89,7 @@ public class ExceptionsHandler {
                 .message(e.getMessage())
                 .timestamp(System.currentTimeMillis())
                 .build();
+        logger.error(e.getMessage(), e);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
