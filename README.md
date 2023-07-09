@@ -39,8 +39,8 @@ Caso queira buildar o projeto fora do container, siga os passos abaixo:
 
 
 ## Contribuidores
-- [pedroprj](https://github.com/pedroprj)
-- [engmarcosalves](https://github.com/engmarcosalves)
-- [Vandrs](https://github.com/Vandrs)
-- [coelhos-gabi](https://github.com/coelhos-gabi)
-- [diego-jo](https://github.com/diego-jo)
+- [pedroprj](https://github.com/pedroprj) - Pedro Pereira dos Reis Júnior - pedrojr9119@gmail.com - RM 350295
+- [engmarcosalves](https://github.com/engmarcosalves) - Marcos de Oliveira Alves - eng.marcos.alves@gmail.com - RM 349707
+- [Vandrs](https://github.com/Vandrs) - Vanderson Wilson da Rosa Nunes - vann.nunes@gmail.com - RM 349849
+- [coelhos-gabi](https://github.com/coelhos-gabi) - Gabriela Siqueira do Vale Coelho - coelhos.gabi@gmail.com - RM 349957
+- [diego-jo](https://github.com/diego-jo) - Diego José Oliveira - oliveiraj.diego@gmail.com - RM 350296
