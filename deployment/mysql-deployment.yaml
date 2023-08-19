@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_USERNAME
+              value: root
+            - name: MYSQL_ROOT_PASSWORD
+              value: '123456'
+            - name: MYSQL_DATABASE
+              value: lanchonete_db
+          volumeMounts:
+            - mountPath: /lanchonete-volume
+              name: lanchonete-volume
+      volumes:
+        - name: lanchonete-volume
+          hostPath:
+            path: /home/lanchonete-volume
+            type: DirectoryOrCreate
