@@ -8,12 +8,12 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaBase;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaStatusIn;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobrancaPorIdOutputPort, AtualizaStatusCobrancaOutputPort {
+public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobrancaOutputPort, AtualizaStatusCobrancaOutputPort {
 
     private final CobrancaJpaRepository cobrancaJpaRepository;
     private final CobrancaMapper cobrancaMapper;
@@ -34,6 +34,19 @@ public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobranca
         var cobranca = buscaCobrancaPorId(id);
         return cobrancaMapper.toCobrancaOut(cobranca);
     }
+
+    @Override
+    public CobrancaOut buscarPorPedidoId(Long pedidoId) {
+        var cobranca = cobrancaJpaRepository.findFirstByPedidoIdOrderByCreatedAtDesc(pedidoId)
+                                            .orElseThrow(() -> new EntityNotFoundException("Cobrança com o pedidoId " + pedidoId + " não existe"));
+        return cobrancaMapper.toCobrancaOut(cobranca);
+    }
+
+    @Override
+    public boolean pedidoPossuiCobranca(Long pedidoId) {
+        return cobrancaJpaRepository.existsCobrancaByPedidoId(pedidoId);
+    }
+
 
     @Override
     public CobrancaOut atualizarStatus(Long id, CobrancaStatusIn cobrancaStatusIn) {
