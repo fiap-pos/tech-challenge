@@ -48,7 +48,7 @@ public class CriaCobrancaUseCase implements CriaCobrancaInputPort {
 
     private void validaExisteCobranca(Long pedidoId) {
         if (buscaCobrancaOutputPort.pedidoPossuiCobranca(pedidoId)) {
-            throw new EntityAlreadyExistException("Já existe uma cobrança para o pedido" + pedidoId);
+            throw new EntityAlreadyExistException("Já existe uma cobrança para o pedido " + pedidoId);
         }
     }
 }
