@@ -1,11 +1,10 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
+import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

@@ -1,13 +1,13 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.ClienteMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteResponse;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ClienteOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaClienteInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaClientePorCpfInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaTodosClientesInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CadastraClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ClienteOut;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.AtualizaClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaClientePorCpfInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaTodosClientesInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.CadastraClienteInputPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

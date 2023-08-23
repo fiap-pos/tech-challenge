@@ -1,12 +1,12 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.AtualizaStatusCobrancaRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.AtualizaStatusCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaCobrancaPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.CriaCobrancaInputPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

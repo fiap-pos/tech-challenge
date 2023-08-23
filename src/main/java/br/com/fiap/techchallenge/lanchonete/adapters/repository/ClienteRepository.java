@@ -1,16 +1,16 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ClienteMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cliente;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.BadRequestException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ClienteIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ClienteOut;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaClienteOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaClientePorCpfOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaTodosClientesOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CadastraClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ClienteMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cliente;
+import br.com.fiap.techchallenge.lanchonete.core.exceptions.BadRequestException;
+import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ClienteIn;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ClienteOut;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.AtualizaClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaClientePorCpfOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaTodosClientesOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.CadastraClienteOutputPort;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
