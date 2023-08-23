@@ -95,7 +95,7 @@ class ArchitectureTest {
             .as("Classes OutputPort devem ser implementadas dentro do pacote core.port.out");
 
     @ArchTest
-    static ArchRule userCaseClassesShouldResideInUseCasePackage = classes().that().haveSimpleNameEndingWith("UseCase")
+    static ArchRule useCaseClassesShouldResideInUseCasePackage = classes().that().haveSimpleNameEndingWith("UseCase")
             .should().resideInAPackage("..core.usecase")
             .andShould().dependOnClassesThat().haveSimpleNameEndingWith("InputPort")
             .as("Classes UseCase devem ser implementadas dentro do pacote core.usecase");

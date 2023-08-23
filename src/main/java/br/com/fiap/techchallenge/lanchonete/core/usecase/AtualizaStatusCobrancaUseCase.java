@@ -8,28 +8,28 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusCobra
 import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusPedidoOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
 
 public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInputPort {
 
-    private final BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort;
+    private final BuscaCobrancaOutputPort buscaCobrancaOutputPort;
 
     private final AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort;
 
     private final AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort;
 
     public AtualizaStatusCobrancaUseCase(
-        BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort,
+        BuscaCobrancaOutputPort buscaCobrancaOutputPort,
         AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
         AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort
     ) {
-        this.buscaCobrancaPorIdOutputPort = buscaCobrancaPorIdOutputPort;
+        this.buscaCobrancaOutputPort = buscaCobrancaOutputPort;
         this.atualizaStatusCobrancaOutputPort = atualizaStatusCobrancaOutputPort;
         this.atualizaStatusPedidoOutputPort = atualizaStatusPedidoOutputPort;
     }
     @Override
     public CobrancaOut atualizarStatus(Long id, CobrancaStatusIn cobrancaStatusIn) {
-        var cobrancaOut = buscaCobrancaPorIdOutputPort.buscarPorId(id);
+        var cobrancaOut = buscaCobrancaOutputPort.buscarPorId(id);
         if (cobrancaOut.getStatus() != StatusCobrancaEnum.PENDENTE) {
             throw new BadRequestException("Cobranca "+id+" não pode mais ser atualizada.");
         }
