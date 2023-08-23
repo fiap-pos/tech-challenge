@@ -4,10 +4,10 @@ import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.*;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.BuscaCobrancaPorIdUserCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecase.BuscaCobrancaPorIdUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaCobrancaUseCase;
 import br.com.fiap.techchallenge.lanchonete.adapters.integration.PagamentoMock;
 import org.springframework.context.annotation.Bean;
@@ -96,31 +96,37 @@ public class CoreInjectionConfig {
     }
 
     @Bean
+    BuscaCobrancaPorIdInputPort buscaCobrancaPorId(BuscaCobrancaOutputPort buscaCobrancaOutputPort) {
+        return new BuscaCobrancaPorIdUseCase(buscaCobrancaOutputPort);
+    }
+
+    @Bean
+    BuscaCobrancaPorPedidoIdInputPort buscarCobrancaPorPedidoId(BuscaCobrancaOutputPort buscaCobrancaOutputPort) {
+        return new BuscaCobrancaPorPedidoIdUseCase(buscaCobrancaOutputPort);
+    }
+    @Bean
     CriaCobrancaInputPort criarCobranca(
             CriaCobrancaOutputPort criaCobrancaOutputPort,
             CriaQrCodeOutputPort criaQrCodeOutputPort,
-            BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort
+            BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort,
+            BuscaCobrancaOutputPort buscaCobrancaOutputPort
     ) {
         return new CriaCobrancaUseCase(
                 criaCobrancaOutputPort,
                 criaQrCodeOutputPort,
-                buscarPedidoPorIdOutputPort
+                buscarPedidoPorIdOutputPort,
+                buscaCobrancaOutputPort
         );
-    }
-
-    @Bean
-    BuscaCobrancaPorIdInputPort buscaCobrancaPorId(BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort) {
-        return new BuscaCobrancaPorIdUserCase(buscaCobrancaPorIdOutputPort);
     }
 
     @Bean
     AtualizaStatusCobrancaInputPort atualiStatusCobranca(
             AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
-            BuscaCobrancaPorIdOutputPort buscaCobrancaPorIdOutputPort,
+            BuscaCobrancaOutputPort buscaCobrancaOutputPort,
             AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort
     ) {
         return new AtualizaStatusCobrancaUseCase(
-                buscaCobrancaPorIdOutputPort,
+                buscaCobrancaOutputPort,
                 atualizaStatusCobrancaOutputPort,
                 atualizaStatusPedidoOutputPort
         );

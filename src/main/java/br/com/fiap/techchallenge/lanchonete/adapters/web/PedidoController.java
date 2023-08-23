@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.AtualizaStatusPedidoRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
 import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,20 +23,27 @@ public class PedidoController extends ControllerBase{
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
+    private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
     private final PedidoMapper pedidoMapper;
+    private final CobrancaMapper cobrancaMapper;
 
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
                             AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
-                            PedidoMapper pedidoMapper) {
+                            BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
+                            PedidoMapper pedidoMapper,
+                            CobrancaMapper cobrancaMapper
+    ) {
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
+        this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
         this.pedidoMapper = pedidoMapper;
+        this.cobrancaMapper = cobrancaMapper;
     }
 
     @Operation(summary = "Busca todos os pedidos")
@@ -84,22 +91,14 @@ public class PedidoController extends ControllerBase{
         return ResponseEntity.ok(pedidosOut);
     }
 
-    /*@Operation(summary = "Edita um  pedido")
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoResponse> editar(@PathVariable("id") Long id,
-                                                 @RequestBody PedidoRequest pedidoRequest){
-        var pedidoMapperRequest = pedidoMapper.toPedidoRequest(id, pedidoRequest);
-        var pedidoOut = editarPedidoInputPort.editar(pedidoMapperRequest);
-        var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
-        var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
-        return ResponseEntity.created(uri).body(pedidoResponse);
+    @Operation(summary = "Busca cobrança pelo id do pedido")
+    @GetMapping(value = "/{id}/cobranca")
+    ResponseEntity<CobrancaResponse> buscarCobrancaPorPedidoId(
+            @PathVariable("id") Long id
+    ) {
+        var cobrancaOut = buscaCobrancaPorPedidoIdInputPort.buscarPorPedidoId(id);
+        var cobrancaResponse = cobrancaMapper.toCobrancaResponse(cobrancaOut);
+        return ResponseEntity.ok().body(cobrancaResponse);
     }
 
-    @Operation(summary = "Remove um  pedido")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable("id") Long id){
-        removerPedidoInputPort.remover(id);
-        var uri = getExpandedCurrentUri("/{id}", id);
-        return ResponseEntity.noContent().build();
-    }*/
 }
