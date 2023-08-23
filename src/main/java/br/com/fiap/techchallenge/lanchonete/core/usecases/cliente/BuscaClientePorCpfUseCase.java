@@ -1,8 +1,8 @@
-package br.com.fiap.techchallenge.lanchonete.core.usecases;
+package br.com.fiap.techchallenge.lanchonete.core.usecases.cliente;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ClienteOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaClientePorCpfInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaClientePorCpfOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorCpfInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClientePorCpfOutputPort;
 
 public class BuscaClientePorCpfUseCase implements BuscaClientePorCpfInputPort {
 
@@ -13,7 +13,7 @@ public class BuscaClientePorCpfUseCase implements BuscaClientePorCpfInputPort {
     }
 
     @Override
-    public ClienteOut buscar(String cpf) {
+    public ClienteDTO buscar(String cpf) {
         return buscaClientePorCpfOutputPort.buscar(cpf);
     }
 }
