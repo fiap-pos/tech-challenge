@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.ItemPedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.PedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoIn;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;

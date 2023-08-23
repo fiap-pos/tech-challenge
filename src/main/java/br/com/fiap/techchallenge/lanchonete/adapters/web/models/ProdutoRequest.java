@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoIn;
+import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

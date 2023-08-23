@@ -1,15 +1,15 @@
 package br.com.fiap.techchallenge.lanchonete.config;
 
-import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.*;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.BuscaCobrancaPorIdUseCase;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaCobrancaUseCase;
-import br.com.fiap.techchallenge.lanchonete.adapters.integration.PagamentoMock;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaCobrancaPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.CriaCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.BuscaCobrancaPorIdUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.CriaCobrancaUseCase;
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.PagamentoMock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

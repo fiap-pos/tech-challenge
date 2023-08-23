@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
 
 import java.math.BigDecimal;
 

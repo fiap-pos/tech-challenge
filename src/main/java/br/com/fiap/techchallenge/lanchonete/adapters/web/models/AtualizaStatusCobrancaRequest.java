@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaStatusIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaStatusIn;
+import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusCobrancaEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 

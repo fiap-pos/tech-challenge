@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.ItemPedidoIn;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoIn;
 import jakarta.validation.constraints.NotNull;
 
 public class ItemPedidoRequest implements ItemPedidoIn {

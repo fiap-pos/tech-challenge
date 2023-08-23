@@ -1,15 +1,15 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.CobrancaJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cobranca;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaBase;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaStatusIn;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca;
+import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.entities.CobrancaBase;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaStatusIn;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.AtualizaStatusCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaCobrancaOutputPort;
 import org.springframework.stereotype.Repository;
 
 @Repository

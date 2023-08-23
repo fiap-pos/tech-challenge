@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ItemPedidoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ItemPedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.entities.PedidoOut;
+import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
 
 import java.math.BigDecimal;
 import java.util.List;
