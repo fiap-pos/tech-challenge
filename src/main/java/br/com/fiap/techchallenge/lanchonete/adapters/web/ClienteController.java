@@ -3,11 +3,11 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteResponse;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ClienteOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.AtualizaClienteInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaClientePorCpfInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaTodosClientesInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.CadastraClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.AtualizaClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorCpfInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaTodosClientesInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.CadastraClienteInputPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -55,7 +55,7 @@ public class ClienteController extends ControllerBase {
     @Operation(summary = "Busca todos os Clientes")
     @GetMapping
     public ResponseEntity<List<ClienteResponse>> buscaTodos() {
-        List<ClienteOut> listaClientes = buscaTodosClientesInputPort.buscarTodos();
+        List<ClienteDTO> listaClientes = buscaTodosClientesInputPort.buscarTodos();
         List<ClienteResponse> clienteResponseList = mapperWeb.toClientesResponse(listaClientes);
 
         return ResponseEntity.ok(clienteResponseList);
@@ -64,7 +64,8 @@ public class ClienteController extends ControllerBase {
     @Operation(summary = "Cadastra um novo Cliente")
     @PostMapping
     public ResponseEntity<ClienteResponse> cadastra(@Valid @RequestBody ClienteRequest clienteRequest) {
-        ClienteOut clienteOut = cadastraClienteInputPort.cadastrar(clienteRequest);
+
+        ClienteDTO clienteOut = cadastraClienteInputPort.cadastrar(clienteRequest.toClienteDTO());
         ClienteResponse clienteResponse = mapperWeb.toClienteResponse(clienteOut);
 
         var uri = getExpandedCurrentUri("/{id}", clienteResponse.getId());
@@ -77,7 +78,7 @@ public class ClienteController extends ControllerBase {
     @Operation(summary = "Atualiza Cliente pelo id")
     @PutMapping("/{id}")
     public ResponseEntity<ClienteResponse> atualiza(@RequestBody ClienteRequest clienteRequest, @PathVariable Long id) {
-        ClienteOut clienteAtualizado = atualizaClienteInputPort.atualizar(clienteRequest, id);
+        ClienteDTO clienteAtualizado = atualizaClienteInputPort.atualizar(clienteRequest.toClienteDTO(), id);
 
         return ResponseEntity.ok(mapperWeb.toClienteResponse(clienteAtualizado));
     }

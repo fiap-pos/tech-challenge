@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.core.entities;
+package br.com.fiap.techchallenge.lanchonete.adapters.web.handlers;
 
 public record ErrorDetails(String message, int status, long timestamp) {
 

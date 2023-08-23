@@ -1,12 +1,12 @@
 package br.com.fiap.techchallenge.lanchonete.core.entities;
 
-public abstract class ClienteBase {
+public abstract class Cliente {
     private Long id;
     private String nome;
     private String cpf;
     private String email;
 
-    protected ClienteBase(Long id, String nome, String cpf, String email) {
+    protected Cliente(Long id, String nome, String cpf, String email) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;

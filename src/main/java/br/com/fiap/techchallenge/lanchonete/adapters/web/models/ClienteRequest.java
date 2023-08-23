@@ -1,17 +1,38 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ClienteIn;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 
-public class ClienteRequest extends ClienteIn {
+public class ClienteRequest {
 
-    public ClienteRequest(Long id, String nome, String cpf, String email) {
-        super(id, nome, cpf, email);
+    private String nome;
+    private String cpf;
+    private String emai;
+
+    public ClienteDTO toClienteDTO() {
+        return new ClienteDTO(this.nome, this.cpf, this.emai);
     }
 
-    @Override
-    @JsonIgnore
-    public Long getId() {
-        return super.getId();
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEmai() {
+        return emai;
+    }
+
+    public void setEmai(String emai) {
+        this.emai = emai;
     }
 }
