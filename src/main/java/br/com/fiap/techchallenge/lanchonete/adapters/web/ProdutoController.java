@@ -3,8 +3,9 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -49,7 +50,7 @@ public class ProdutoController extends ControllerBase {
     @Operation(summary = "Cria um novo Produto")
     @PostMapping
     public ResponseEntity<ProdutoResponse> criar(@Valid @RequestBody ProdutoRequest produtoRequest) {
-        var produtoOut = criaProdutoInputPort.criar(produtoRequest);
+        var produtoOut = criaProdutoInputPort.criar(produtoRequest.toProdutoDTO());
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
         var uri = getExpandedCurrentUri("/{id}", produtoResponse.getId());
 
@@ -60,8 +61,8 @@ public class ProdutoController extends ControllerBase {
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> upload(@PathVariable("id") Long id, @RequestPart("imagem") MultipartFile image) {
         try {
-            var produtoRequest = produtoMapper.toProdutoRequest(id, image.getBytes());
-            atualizaImagemProdutoInputPort.atualizar(produtoRequest);
+
+            atualizaImagemProdutoInputPort.atualizar(new AtualizaImagemProdutoDTO(image.getBytes()), id);
 
             return ResponseEntity.noContent().build();
         } catch (IOException e) {
@@ -72,8 +73,7 @@ public class ProdutoController extends ControllerBase {
     @Operation(summary = "Edita um Produto por Id")
     @PutMapping(value = "/{id}")
     public @ResponseBody ResponseEntity<ProdutoResponse> editar(@PathVariable("id") Long id, @RequestBody ProdutoRequest produtoRequest) {
-        var produtoRequestMapper = produtoMapper.toProdutoRequest(id, produtoRequest);
-        var produtoOut = editaProdutoInputPort.editar(produtoRequestMapper);
+        var produtoOut = editaProdutoInputPort.editar(produtoRequest.toProdutoDTO(), id);
         var produtoResponse = produtoMapper.toProdutoResponse(produtoOut);
 
         return ResponseEntity.ok(produtoResponse);

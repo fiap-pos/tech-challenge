@@ -1,9 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoIn;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.CriaProdutoInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.CriaProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.CriaProdutoOutputPort;
 
 public class CriaProdutoUseCase implements CriaProdutoInputPort {
 
@@ -14,7 +13,7 @@ public class CriaProdutoUseCase implements CriaProdutoInputPort {
     }
 
     @Override
-    public ProdutoOut criar(ProdutoIn produtoIn) {
+    public ProdutoDTO criar(ProdutoDTO produtoIn) {
         return criaProdutoOutputPort.criar(produtoIn);
     }
 }

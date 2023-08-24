@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.RemoveProdutoInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.RemoveProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.RemoveProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.RemoveProdutoOutputPort;
 
 public class RemoveProdutoUseCase implements RemoveProdutoInputPort {
 
@@ -13,7 +13,7 @@ public class RemoveProdutoUseCase implements RemoveProdutoInputPort {
     }
 
     @Override
-    public ProdutoOut remover(Long id) {
+    public ProdutoDTO remover(Long id) {
         return removeProdutoOutputPort.remover(id);
     }
 }

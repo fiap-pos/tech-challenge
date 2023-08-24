@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases;
 
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaProdutoPorCategoriaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaProdutoPorCategoriaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.BuscaProdutoPorCategoriaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.BuscaProdutoPorCategoriaOutputPort;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class BuscaProdutoPorCategoriaUseCase implements BuscaProdutoPorCategoria
     }
 
     @Override
-    public List<ProdutoOut> buscarPorCategoria(CategoriaEnum categoriaEnum) {
+    public List<ProdutoDTO> buscarPorCategoria(CategoriaEnum categoriaEnum) {
         return buscaProdutoPorIdOutputPort.buscarPorCategoria(categoriaEnum);
     }
 }

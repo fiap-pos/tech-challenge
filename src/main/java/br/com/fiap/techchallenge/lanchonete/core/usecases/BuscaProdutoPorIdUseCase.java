@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaProdutoPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaProdutoPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.BuscaProdutoPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.BuscaProdutoPorIdOutputPort;
 
 public class BuscaProdutoPorIdUseCase implements BuscaProdutoPorIdInputPort {
 
@@ -13,7 +13,7 @@ public class BuscaProdutoPorIdUseCase implements BuscaProdutoPorIdInputPort {
     }
 
     @Override
-    public ProdutoOut buscarPorId(Long id) {
+    public ProdutoDTO buscarPorId(Long id) {
         return buscaProdutoPorIdOutputPort.buscarPorId(id);
     }
 }

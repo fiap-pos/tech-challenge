@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.BuscaTodosProdutosInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaTodosProdutosOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.BuscaTodosProdutosInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.BuscaTodosProdutosOutputPort;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class BuscaTodosProdutosUseCase implements BuscaTodosProdutosInputPort {
     }
 
     @Override
-    public List<ProdutoOut> buscartodos() {
+    public List<ProdutoDTO> buscartodos() {
         return buscaProdutoPorIdOutputPort.buscarTodos();
     }
 }

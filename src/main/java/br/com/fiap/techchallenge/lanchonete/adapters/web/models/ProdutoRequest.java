@@ -1,62 +1,61 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoIn;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public class ProdutoRequest extends ProdutoIn {
+public class ProdutoRequest {
 
-    public ProdutoRequest() {
-    }
+    private String nome;
+    private CategoriaEnum categoria;
+    private BigDecimal preco;
+    private String descricao;
 
-    public ProdutoRequest(Long id, String nome, CategoriaEnum categoriaEnum, BigDecimal preco, String descricao, byte[] imagem) {
-        super(id, nome, categoriaEnum, preco, descricao, imagem);
-    }
-
-    public ProdutoRequest(Long id, byte[] imagem) {
-        setId(id);
-        setImagem(imagem);
-    }
-
-    @Override
-    @JsonIgnore
-    public Long getId() {
-        return super.getId();
+    public ProdutoDTO toProdutoDTO() {
+        return new ProdutoDTO(
+            nome,
+            categoria,
+            preco,
+            descricao
+        );
     }
 
     @NotBlank(message = "O campo 'nome' é obrigatório")
-    @Override
     public String getNome() {
-        return super.getNome();
+        return nome;
     }
 
     @NotNull(message = "O campo 'categoria' é obrigatório")
-    @Override
     public CategoriaEnum getCategoria() {
-        return super.getCategoria();
+        return categoria;
     }
 
     @NotNull(message = "O campo 'preco' é obrigatório")
     @DecimalMin(value = "0.0", message = "Informe um valor maior que 0.0")
-    @Override
     public BigDecimal getPreco() {
-        return super.getPreco();
+        return preco;
     }
 
     @NotBlank(message = "O campo 'descricao' é obrigatório")
-    @Override
-    public String getDescricao() {
-        return super.getDescricao();
+    public String getDescricao() {return descricao; }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    @Override
-    @JsonIgnore
-    public byte[] getImagem() {
-        return super.getImagem();
+    public void setCategoria(CategoriaEnum categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
