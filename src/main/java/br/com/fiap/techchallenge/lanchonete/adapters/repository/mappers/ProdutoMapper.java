@@ -1,20 +1,19 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoIn;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProdutoMapper {
 
-    public Produto toProduto(ProdutoIn produtoIn) {
-        return new Produto(produtoIn.getId(), produtoIn.getNome(), produtoIn.getCategoria(), produtoIn.getPreco(),
-                produtoIn.getDescricao());
+    public Produto toProduto(ProdutoDTO produtoIn) {
+        return new Produto(produtoIn.id(), produtoIn.nome(), produtoIn.categoria(), produtoIn.preco(),
+                produtoIn.descricao());
     }
 
-    public ProdutoOut toProdutoResponse(Produto produto) {
-        return new ProdutoOut(produto.getId(), produto.getNome(), produto.getCategoria(), produto.getPreco(),
+    public ProdutoDTO toProdutoDTO(Produto produto) {
+        return new ProdutoDTO(produto.getId(), produto.getNome(), produto.getCategoria(), produto.getPreco(),
                 produto.getDescricao(), produto.getImagem());
     }
 

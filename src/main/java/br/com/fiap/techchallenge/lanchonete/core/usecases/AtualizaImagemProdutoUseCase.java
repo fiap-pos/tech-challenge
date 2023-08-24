@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoIn;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.AtualizaImagemProdutoInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.AtualizaImagemProdutoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.AtualizaImagemProdutoInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.AtualizaImagemProdutoOutputPort;
 
 public class AtualizaImagemProdutoUseCase implements AtualizaImagemProdutoInputPort {
 
@@ -14,7 +14,7 @@ public class AtualizaImagemProdutoUseCase implements AtualizaImagemProdutoInputP
     }
 
     @Override
-    public ProdutoOut atualizar(ProdutoIn produtoIn) {
-        return atualizaImagemProdutoOutputPort.atualizar(produtoIn);
+    public ProdutoDTO atualizar(AtualizaImagemProdutoDTO imagemIn, Long id) {
+        return atualizaImagemProdutoOutputPort.atualizar(imagemIn, id);
     }
 }

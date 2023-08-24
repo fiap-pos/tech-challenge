@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
 
 import java.math.BigDecimal;
 
-public class ProdutoOut extends ProdutoBase {
+public class ProdutoOut extends Produto {
 
     public ProdutoOut() {
         super();

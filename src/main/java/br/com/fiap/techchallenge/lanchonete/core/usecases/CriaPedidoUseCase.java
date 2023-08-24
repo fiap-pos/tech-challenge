@@ -6,7 +6,7 @@ import br.com.fiap.techchallenge.lanchonete.core.entities.PedidoOut;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoIn;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.CriaPedidoInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaProdutoPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.BuscaProdutoPorIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaPedidoOutputPort;
 
 import java.math.BigDecimal;
@@ -43,7 +43,7 @@ public class CriaPedidoUseCase implements CriaPedidoInputPort {
         pedidoIn.getItens().forEach(itemPedidoIn -> {
             var produtoOut = buscaProdutoPorIdOutputPort.buscarPorId(itemPedidoIn.getProdutoId());
             listaCriaItemPedido.add(
-                    new CriaItemPedido(produtoOut.getId(), produtoOut.getPreco(), itemPedidoIn.getQuantidade())
+                    new CriaItemPedido(produtoOut.id(), produtoOut.preco(), itemPedidoIn.getQuantidade())
             );
         });
         return listaCriaItemPedido;
