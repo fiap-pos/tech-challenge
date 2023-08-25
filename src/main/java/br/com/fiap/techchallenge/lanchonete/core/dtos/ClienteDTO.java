@@ -6,4 +6,8 @@ public record ClienteDTO(Long id, String nome, String cpf, String email) {
         this(null, nome, cpf, email);
     }
 
+    public ClienteDTO(Long id) {
+        this(id, null, null, null);
+    }
+
 }

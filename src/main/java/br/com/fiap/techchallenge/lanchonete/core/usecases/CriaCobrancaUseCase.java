@@ -7,7 +7,7 @@ import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusCobrancaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.CriaCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscarPedidoPorIdOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.BuscarPedidoPorIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaQrCodeOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaCobrancaOutputPort;
 

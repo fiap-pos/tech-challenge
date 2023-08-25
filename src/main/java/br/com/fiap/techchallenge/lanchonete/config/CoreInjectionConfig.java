@@ -7,6 +7,7 @@ import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.AtualizaClient
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorCpfInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaTodosClientesInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.CadastraClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaCobrancaOutputPort;
@@ -15,6 +16,7 @@ import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.AtualizaClien
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClientePorCpfOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaTodosClientesOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.CadastraClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.*;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.BuscaCobrancaPorIdUseCase;
@@ -24,6 +26,8 @@ import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.AtualizaClient
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.BuscaClientePorCpfUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.BuscaTodosClientesUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.CadastraClienteUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.pedido.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.produto.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

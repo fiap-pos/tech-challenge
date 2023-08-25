@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.core.dtos;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.CriaItemPedido;
+import br.com.fiap.techchallenge.lanchonete.core.entities.ItemPedido;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
 
 import java.math.BigDecimal;
@@ -12,6 +12,6 @@ public interface CriaPedidoIn {
     Long getClienteId();
     StatusPedidoEnum getStatus();
     LocalDateTime getDataCriacao();
-    List<CriaItemPedido> getItens();
+    List<ItemPedido> getItens();
     BigDecimal getValorTotal();
 }
