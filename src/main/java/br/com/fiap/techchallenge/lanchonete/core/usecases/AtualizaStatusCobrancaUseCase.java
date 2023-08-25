@@ -7,7 +7,7 @@ import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaStatusIn;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusCobrancaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.AtualizaStatusCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.AtualizaStatusPedidoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.AtualizaStatusPedidoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.BuscaCobrancaOutputPort;
 
 public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInputPort {

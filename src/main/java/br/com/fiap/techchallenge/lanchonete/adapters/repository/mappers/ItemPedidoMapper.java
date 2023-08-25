@@ -3,9 +3,8 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.entities.CriaItemPedido;
-import br.com.fiap.techchallenge.lanchonete.core.entities.ItemPedidoOut;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,25 +19,30 @@ public class ItemPedidoMapper {
         this.produtoJpaRepository = produtoJpaRepository;
     }
 
-    public List<ItemPedido> toItemPedido(Pedido pedido, List<CriaItemPedido> criaItemPedido){
+    public List<ItemPedido> toItemPedido(Pedido pedido, List<ItemPedidoDTO> criaItemPedido){
 
-        var listaItemPedido = new ArrayList<ItemPedido>();
+        var listaItemPedido = new ArrayList<br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido>();
 
         criaItemPedido.forEach(item -> {
-            var produto = produtoJpaRepository.findById(item.getProdutoId())
+            var produto = produtoJpaRepository.findById(item.produtoId())
                     .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
-            var itemPedido = new ItemPedido(pedido, produto, item.getQuantidade(), item.getValorUnitario());
+            var itemPedido = new br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido(pedido, produto, item.quantidade(), item.valorUnitario());
             listaItemPedido.add(itemPedido);
         });
 
         return listaItemPedido;
     }
 
-    public List<ItemPedidoOut> toItemPedidoResponse(List<ItemPedido> itens){
-        var listaItemPedidoOut = new ArrayList<ItemPedidoOut>();
+    public List<ItemPedidoDTO> toItemPedidoResponse(List<br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido> itens){
+        var listaItemPedidoOut = new ArrayList<ItemPedidoDTO>();
 
         itens.forEach( item -> {
-            var itemPedidoOut = new ItemPedidoOut(item.getQuantidade(), item.getValorUnitario(), item.getProduto().getNome());
+            var itemPedidoOut = new ItemPedidoDTO(
+                    item.getProduto().getId(),
+                    item.getProduto().getNome(),
+                    item.getValorUnitario(),
+                    item.getQuantidade()
+            );
             listaItemPedidoOut.add(itemPedidoOut);
         });
 

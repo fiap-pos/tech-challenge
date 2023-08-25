@@ -13,19 +13,19 @@ public class CriaPedido implements CriaPedidoIn {
     private Long clienteId;
     private StatusPedidoEnum status;
     private LocalDateTime dataCriacao = LocalDateTime.now();
-    private List<CriaItemPedido> itens = new ArrayList<>();
+    private List<ItemPedido> itens = new ArrayList<>();
     private BigDecimal valorTotal;
 
     public CriaPedido() {
     }
 
-    public CriaPedido(Long id, StatusPedidoEnum status, LocalDateTime dataCriacao, List<CriaItemPedido> itens) {
+    public CriaPedido(Long id, StatusPedidoEnum status, LocalDateTime dataCriacao, List<ItemPedido> itens) {
         this.id = id;
         this.status = status;
         this.dataCriacao = dataCriacao;
         this.itens = itens;
     }
-    public CriaPedido(Long id, Long clienteId, StatusPedidoEnum status, LocalDateTime dataCriacao, List<CriaItemPedido> itens) {
+    public CriaPedido(Long id, Long clienteId, StatusPedidoEnum status, LocalDateTime dataCriacao, List<ItemPedido> itens) {
         this.id = id;
         this.clienteId = clienteId;
         this.status = status;
@@ -49,7 +49,7 @@ public class CriaPedido implements CriaPedidoIn {
     }
 
     @Override
-    public List<CriaItemPedido> getItens() {
+    public List<ItemPedido> getItens() {
         return itens;
     }
 
@@ -74,7 +74,7 @@ public class CriaPedido implements CriaPedidoIn {
         this.dataCriacao = dataCriacao;
     }
 
-    public void setItens(List<CriaItemPedido> itens) {
+    public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
     }
 

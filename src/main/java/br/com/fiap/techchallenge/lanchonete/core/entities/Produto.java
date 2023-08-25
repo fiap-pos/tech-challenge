@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
 
 import java.math.BigDecimal;
 
-abstract class Produto {
+public class Produto {
 
     private Long id;
     private String nome;

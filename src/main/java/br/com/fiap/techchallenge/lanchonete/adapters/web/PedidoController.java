@@ -5,6 +5,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
 import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -64,7 +65,7 @@ public class PedidoController extends ControllerBase{
     @Operation(summary = "Cria um pedido")
     @PostMapping
     public ResponseEntity<PedidoResponse> criarPedido(@Valid @RequestBody PedidoRequest pedidoRequest){
-        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest);
+        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest.toCriaItemPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);

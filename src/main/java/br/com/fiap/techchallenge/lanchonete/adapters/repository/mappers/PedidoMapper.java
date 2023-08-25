@@ -3,9 +3,9 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaPedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.entities.PedidoOut;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,28 +17,31 @@ public class PedidoMapper {
         this.clienteJpaRepository = clienteJpaRepository;
     }
 
-    public Pedido toPedido(CriaPedidoIn pedidoIn){
-        var cliente = pedidoIn.getClienteId() != null
-                ? clienteJpaRepository.findById(pedidoIn.getClienteId())
-                    .orElseThrow(() -> new EntityNotFoundException("Cliente "+pedidoIn.getClienteId()+" não encontrado"))
+    public Pedido toPedido(PedidoDTO pedidoIn){
+        var cliente = pedidoIn.cliente() != null
+                ? clienteJpaRepository.findById(pedidoIn.cliente().id())
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente "+pedidoIn.id()+" não encontrado"))
                 : null;
 
         var pedido = cliente != null
-                ? new Pedido(pedidoIn.getStatus(), cliente, pedidoIn.getDataCriacao(), pedidoIn.getValorTotal())
-                : new Pedido(pedidoIn.getStatus(), pedidoIn.getDataCriacao(), pedidoIn.getValorTotal());
-        var itemPedido = itemPedidoMapper.toItemPedido(pedido, pedidoIn.getItens());
+                ? new Pedido(pedidoIn.status(), cliente, pedidoIn.dataCriacao(), pedidoIn.valorTotal())
+                : new Pedido(pedidoIn.status(), pedidoIn.dataCriacao(), pedidoIn.valorTotal());
+
+        var itemPedido = itemPedidoMapper.toItemPedido(pedido, pedidoIn.itens());
         pedido.setItens(itemPedido);
         return pedido;
 
     }
 
-    public PedidoOut toPedidoResponse(Pedido pedido){
-        var clienteNome = pedido.getCliente() != null
-                ? pedido.getCliente().getNome()
+    public PedidoDTO toPedidoDTO(Pedido pedido) {
+        var cliente = pedido.getCliente();
+        var clienteDTO = cliente!= null
+                ? new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getCpf(), cliente.getEmail())
                 : null;
         var listaItemPedidoOut = itemPedidoMapper.toItemPedidoResponse(pedido.getItens());
-        return clienteNome != null
-                ? new PedidoResponse(pedido.getId(), clienteNome, pedido.getValorTotal(), listaItemPedidoOut, pedido.getStatus())
-                : new PedidoResponse(pedido.getId(), pedido.getValorTotal(), listaItemPedidoOut, pedido.getStatus());
+
+        return new PedidoDTO(
+                pedido.getId(), clienteDTO, listaItemPedidoOut, pedido.getStatus(), pedido.getValorTotal(), pedido.getData());
+
     }
 }
