@@ -1,10 +1,10 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.entities;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 
 import java.math.BigDecimal;
 
-public class Cobranca implements CobrancaOut {
+public class Cobranca {
 
     private Long id;
     private Long pedidoId;

@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 
-public class CobrancaResponse implements CobrancaOut {
+public class CobrancaResponse {
 
     private Long id;
     private Long pedidoId;

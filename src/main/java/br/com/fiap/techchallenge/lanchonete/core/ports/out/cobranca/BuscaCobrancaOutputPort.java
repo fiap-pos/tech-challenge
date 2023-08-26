@@ -1,11 +1,11 @@
 package br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 
 public interface BuscaCobrancaOutputPort {
-    CobrancaOut buscarPorId(Long id);
+    CobrancaDTO buscarPorId(Long id);
 
-    CobrancaOut buscarPorPedidoId(Long pedidoId);
+    CobrancaDTO buscarPorPedidoId(Long pedidoId);
 
     boolean pedidoPossuiCobranca(Long pedidoId);
 }

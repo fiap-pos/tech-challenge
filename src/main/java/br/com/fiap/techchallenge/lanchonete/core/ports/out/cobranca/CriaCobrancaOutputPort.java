@@ -1,8 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cobranca;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 
 public interface CriaCobrancaOutputPort {
-    CobrancaOut criar(Cobranca cobranca);
+    CobrancaDTO criar(CobrancaDTO cobranca);
 }

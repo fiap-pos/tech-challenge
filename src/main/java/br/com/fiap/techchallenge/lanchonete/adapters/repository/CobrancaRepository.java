@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.CobrancaJpaR
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cobranca;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusCobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaCobrancaOutputPort;
@@ -22,20 +22,20 @@ public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobranca
         this.cobrancaMapper = cobrancaMapper;
     }
     @Override
-    public CobrancaOut criar(Cobranca cobrancaBase) {
-        var cobranca = cobrancaMapper.toCobranca(cobrancaBase);
+    public CobrancaDTO criar(CobrancaDTO cobrancaDTO) {
+        var cobranca = cobrancaMapper.toCobranca(cobrancaDTO);
         var cobrancaSalva = cobrancaJpaRepository.save(cobranca);
         return cobrancaMapper.toCobrancaOut(cobrancaSalva);
     }
 
     @Override
-    public CobrancaOut buscarPorId(Long id) {
+    public CobrancaDTO buscarPorId(Long id) {
         var cobranca = buscaCobrancaPorId(id);
         return cobrancaMapper.toCobrancaOut(cobranca);
     }
 
     @Override
-    public CobrancaOut buscarPorPedidoId(Long pedidoId) {
+    public CobrancaDTO buscarPorPedidoId(Long pedidoId) {
         var cobranca = cobrancaJpaRepository.findFirstByPedidoIdOrderByCreatedAtDesc(pedidoId)
                                             .orElseThrow(() -> new EntityNotFoundException("Cobrança com o pedidoId " + pedidoId + " não existe"));
         return cobrancaMapper.toCobrancaOut(cobranca);
@@ -48,7 +48,7 @@ public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobranca
 
 
     @Override
-    public CobrancaOut atualizarStatus(Long id, AtualizaStatusCobrancaDTO cobrancaStatusIn) {
+    public CobrancaDTO atualizarStatus(Long id, AtualizaStatusCobrancaDTO cobrancaStatusIn) {
         var cobranca = buscaCobrancaPorId(id);
         cobranca.setStatus(cobrancaStatusIn.status());
         var cobrancaSalva = cobrancaJpaRepository.save(cobranca);

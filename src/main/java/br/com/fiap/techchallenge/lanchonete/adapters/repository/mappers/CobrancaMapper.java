@@ -1,27 +1,28 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cobranca;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class CobrancaMapper {
-    public br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca toCobranca(Cobranca cobranca) {
-        return new br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca(
-                cobranca.getPedidoId(),
-                cobranca.getStatus(),
-                cobranca.getValor(),
-                cobranca.getQrCode().getEncodedBase64Value()
+    public Cobranca toCobranca(CobrancaDTO cobranca) {
+        return new Cobranca(
+                cobranca.pedidoId(),
+                cobranca.status(),
+                cobranca.valor(),
+                cobranca.qrCode().getEncodedBase64Value()
         );
     }
 
-    public CobrancaOut toCobrancaOut(br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca cobranca) {
-        return new Cobranca(
+    public CobrancaDTO toCobrancaOut(Cobranca cobranca) {
+        return new CobrancaDTO(
             cobranca.getId(),
             cobranca.getPedidoId(),
-            cobranca.getStatus(),
             cobranca.getValor(),
+            cobranca.getStatus(),
             new QrCode(cobranca.getQrCode())
         );
     }
