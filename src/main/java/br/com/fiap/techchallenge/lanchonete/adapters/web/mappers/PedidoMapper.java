@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.mappers;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ItemPedidoResponse;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.ItemPedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.PedidoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import org.springframework.stereotype.Component;

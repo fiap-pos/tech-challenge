@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ProdutoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ProdutoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.ProdutoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;

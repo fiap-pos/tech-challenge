@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
+package br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses;
 
 import java.math.BigDecimal;
 
