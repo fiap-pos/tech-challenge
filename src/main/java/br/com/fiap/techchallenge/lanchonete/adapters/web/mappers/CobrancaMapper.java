@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.mappers;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import org.springframework.stereotype.Component;
 

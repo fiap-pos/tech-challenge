@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ClienteMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ClienteRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.ClienteResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.AtualizaClienteInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorInputPort;

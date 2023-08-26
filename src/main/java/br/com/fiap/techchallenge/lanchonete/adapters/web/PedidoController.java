@@ -2,7 +2,10 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.PedidoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;

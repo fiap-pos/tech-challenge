@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.AtualizaStatusCobrancaRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusCobrancaRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.CobrancaRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.CriaCobrancaInputPort;

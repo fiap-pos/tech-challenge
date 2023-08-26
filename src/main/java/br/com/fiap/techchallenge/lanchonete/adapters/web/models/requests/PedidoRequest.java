@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
+package br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests;
 
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaItemPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaPedidoDTO;
