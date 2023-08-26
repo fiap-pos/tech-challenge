@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityAlready
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cobranca;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaCobrancaDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.CriaCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.BuscarPedidoPorIdOutputPort;
@@ -33,7 +33,7 @@ public class CriaCobrancaUseCase implements CriaCobrancaInputPort {
         this.buscaCobrancaOutputPort = buscaCobrancaOutputPort;
     }
 
-    public CobrancaOut criar(CriaCobrancaDTO cobrancaIn) {
+    public CobrancaDTO criar(CriaCobrancaDTO cobrancaIn) {
         var pedidoOut = buscarPedidoPorIdOutputPort.buscarPorId(cobrancaIn.pedidoId());
 
         validaExisteCobranca(pedidoOut.id());
@@ -42,7 +42,7 @@ public class CriaCobrancaUseCase implements CriaCobrancaInputPort {
         var cobranca = new Cobranca(
                 cobrancaIn.pedidoId(), StatusCobrancaEnum.PENDENTE, pedidoOut.valorTotal(), qrCode
         );
-        return cobrancaOutputPort.criar(cobranca);
+        return cobrancaOutputPort.criar(new CobrancaDTO(cobranca));
     }
 
     private void validaExisteCobranca(Long pedidoId) {

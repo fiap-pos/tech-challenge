@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.BadRequestException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusCobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatusCobrancaInputPort;
@@ -28,14 +28,14 @@ public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInpu
         this.atualizaStatusPedidoOutputPort = atualizaStatusPedidoOutputPort;
     }
     @Override
-    public CobrancaOut atualizarStatus(Long id, AtualizaStatusCobrancaDTO cobrancaStatusIn) {
+    public CobrancaDTO atualizarStatus(Long id, AtualizaStatusCobrancaDTO cobrancaStatusIn) {
         var cobrancaOut = buscaCobrancaOutputPort.buscarPorId(id);
-        if (cobrancaOut.getStatus() != StatusCobrancaEnum.PENDENTE) {
+        if (cobrancaOut.status() != StatusCobrancaEnum.PENDENTE) {
             throw new BadRequestException("Cobranca "+id+" não pode mais ser atualizada.");
         }
         var novoStatusPedido = getStatusPedido(cobrancaStatusIn.status());
         if (novoStatusPedido != null) {
-            atualizaStatusPedidoOutputPort.atualizarStatus(cobrancaOut.getPedidoId(), novoStatusPedido);
+            atualizaStatusPedidoOutputPort.atualizarStatus(cobrancaOut.pedidoId(), novoStatusPedido);
         }
         return atualizaStatusCobrancaOutputPort.atualizarStatus(id, cobrancaStatusIn);
     }

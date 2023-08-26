@@ -1,18 +1,18 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import org.springframework.stereotype.Component;
 
 @Component("CobrancaMapperWeb")
 public class CobrancaMapper {
-    public CobrancaResponse toCobrancaResponse(CobrancaOut cobrancaOut) {
+    public CobrancaResponse toCobrancaResponse(CobrancaDTO cobrancaOut) {
         return new CobrancaResponse(
-                cobrancaOut.getId(),
-                cobrancaOut.getPedidoId(),
-                cobrancaOut.getStatus(),
-                cobrancaOut.getValor(),
-                cobrancaOut.getQrCode()
+                cobrancaOut.id(),
+                cobrancaOut.pedidoId(),
+                cobrancaOut.status(),
+                cobrancaOut.valor(),
+                cobrancaOut.qrCode()
         );
     }
 }
