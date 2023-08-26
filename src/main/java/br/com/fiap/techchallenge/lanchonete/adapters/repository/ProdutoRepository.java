@@ -5,8 +5,8 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ProdutoM
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
 import org.springframework.stereotype.Repository;
 

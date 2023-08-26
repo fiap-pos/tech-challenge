@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaIn;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaCobrancaDTO;
 import jakarta.validation.constraints.NotNull;
 
-public class CobrancaRequest implements CobrancaIn {
+public class CobrancaRequest {
 
     private Long pedidoId;
 
@@ -12,7 +12,7 @@ public class CobrancaRequest implements CobrancaIn {
     public CobrancaRequest(Long pedidoId) {
         this.pedidoId = pedidoId;
     }
-    @Override
+
     @NotNull(message = "O campo pedidoId é obrigatório")
     public Long getPedidoId() {
         return pedidoId;
@@ -20,5 +20,9 @@ public class CobrancaRequest implements CobrancaIn {
 
     public void setPedidoId(Long pedidoId) {
         this.pedidoId = pedidoId;
+    }
+
+    public CriaCobrancaDTO toCriaCobrancaDTO() {
+        return new CriaCobrancaDTO(pedidoId);
     }
 }

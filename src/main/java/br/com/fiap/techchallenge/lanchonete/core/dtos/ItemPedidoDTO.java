@@ -1,5 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.dtos;
 
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.ItemPedido;
+
 import java.math.BigDecimal;
 
 public record ItemPedidoDTO(
@@ -8,7 +10,12 @@ public record ItemPedidoDTO(
         BigDecimal valorUnitario,
         Integer quantidade
 ) {
-    public BigDecimal getValorTotal(){
+
+    public ItemPedidoDTO(ItemPedido itemPedido) {
+        this(itemPedido.getProdutoId(), itemPedido.getProdutoNome(), itemPedido.getValorUnitario(), itemPedido.getQuantidade());
+    }
+
+    public BigDecimal getValorTotal() {
         return BigDecimal.valueOf(quantidade).multiply(valorUnitario);
     }
 }

@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.gateways;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.QrCode;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.CriaQrCodeOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.CriaQrCodeOutputPort;
 
 import java.math.BigDecimal;
 

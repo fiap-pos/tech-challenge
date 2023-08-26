@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ProdutoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

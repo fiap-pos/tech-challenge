@@ -4,10 +4,10 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRe
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cliente;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.BadRequestException;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.BadRequestException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.AtualizaClienteOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClientePorCpfOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClienteOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaTodosClientesOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.CadastraClienteOutputPort;
 import jakarta.validation.ConstraintViolationException;
@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Repository
-public class ClienteRepository implements AtualizaClienteOutputPort, BuscaClientePorCpfOutputPort, BuscaTodosClientesOutputPort, CadastraClienteOutputPort {
+public class ClienteRepository implements AtualizaClienteOutputPort, BuscaClienteOutputPort, BuscaTodosClientesOutputPort, CadastraClienteOutputPort {
 
     private final ClienteJpaRepository clienteJpaRepository;
     private final ClienteMapper mapper;
@@ -50,6 +50,16 @@ public class ClienteRepository implements AtualizaClienteOutputPort, BuscaClient
         Cliente cliente = clienteJpaRepository.findByCpf(cpf)
                 .orElseThrow(
                         () -> new EntityNotFoundException(String.format("Cliente com CPF %s não encontrado", cpf))
+                );
+
+        return mapper.toClienteDTO(cliente);
+    }
+
+    @Override
+    public ClienteDTO buscar(Long id) {
+        Cliente cliente = clienteJpaRepository.findById(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(String.format("Cliente com id %s não encontrado", id))
                 );
 
         return mapper.toClienteDTO(cliente);

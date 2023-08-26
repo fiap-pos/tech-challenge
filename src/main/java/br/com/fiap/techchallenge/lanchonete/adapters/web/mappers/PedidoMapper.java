@@ -15,7 +15,7 @@ public class PedidoMapper {
     public PedidoResponse toPedidoResponse(PedidoDTO pedido){
         return new PedidoResponse(
                 pedido.id(),
-                pedido.cliente().nome(),
+                pedido.getNomeCliente(),
                 toItemPedidoResponseList(pedido.itens()),
                 pedido.status(),
                 pedido.valorTotal(),

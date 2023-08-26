@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 

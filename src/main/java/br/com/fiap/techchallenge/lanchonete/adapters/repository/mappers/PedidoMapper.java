@@ -2,10 +2,9 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.PedidoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -5,7 +5,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.ClienteResponse;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.AtualizaClienteInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorCpfInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaTodosClientesInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.CadastraClienteInputPort;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,20 +23,20 @@ public class ClienteController extends ControllerBase {
 
 
     private final AtualizaClienteInputPort atualizaClienteInputPort;
-    private final BuscaClientePorCpfInputPort buscaClientePorCpfInputPort;
+    private final BuscaClientePorInputPort buscaClientePorInputPort;
 
     private final BuscaTodosClientesInputPort buscaTodosClientesInputPort;
     private final CadastraClienteInputPort cadastraClienteInputPort;
     private final ClienteMapper mapperWeb;
 
     public ClienteController(AtualizaClienteInputPort atualizaClienteInputPort,
-                             BuscaClientePorCpfInputPort buscaClientePorCpfInputPort,
+                             BuscaClientePorInputPort buscaClientePorInputPort,
                              BuscaTodosClientesInputPort buscaTodosClientesInputPort,
                              CadastraClienteInputPort cadastraClienteInputPort,
                              ClienteMapper mapperWeb
     ) {
         this.atualizaClienteInputPort = atualizaClienteInputPort;
-        this.buscaClientePorCpfInputPort = buscaClientePorCpfInputPort;
+        this.buscaClientePorInputPort = buscaClientePorInputPort;
         this.buscaTodosClientesInputPort = buscaTodosClientesInputPort;
         this.cadastraClienteInputPort = cadastraClienteInputPort;
         this.mapperWeb = mapperWeb;
@@ -46,7 +46,7 @@ public class ClienteController extends ControllerBase {
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteResponse> buscaPorCpf(@PathVariable String cpf) {
         ClienteResponse clienteResponse = mapperWeb.toClienteResponse(
-                buscaClientePorCpfInputPort.buscar(cpf)
+                buscaClientePorInputPort.buscar(cpf)
         );
 
         return ResponseEntity.ok(clienteResponse);

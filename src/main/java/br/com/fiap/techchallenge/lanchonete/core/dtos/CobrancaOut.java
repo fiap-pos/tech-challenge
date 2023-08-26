@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.core.dtos;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.QrCode;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
 
 import java.math.BigDecimal;
 

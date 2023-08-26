@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;

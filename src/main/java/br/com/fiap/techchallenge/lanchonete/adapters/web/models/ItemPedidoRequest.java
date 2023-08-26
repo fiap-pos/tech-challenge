@@ -1,9 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoIn;
 import jakarta.validation.constraints.NotNull;
 
-public class ItemPedidoRequest implements ItemPedidoIn {
+public class ItemPedidoRequest {
     private Long produtoId;
     private Integer quantidade;
 
@@ -15,13 +14,11 @@ public class ItemPedidoRequest implements ItemPedidoIn {
         this.quantidade = quantidade;
     }
 
-    @Override
     @NotNull(message = "O campo 'produtoId' é obrigatório")
     public Long getProdutoId() {
         return produtoId;
     }
 
-    @Override
     @NotNull(message = "O campo 'quantidade' é obrigatório")
     public Integer getQuantidade() {
         return quantidade;
