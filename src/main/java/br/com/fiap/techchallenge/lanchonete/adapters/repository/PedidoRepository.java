@@ -5,9 +5,8 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.PedidoJpaRep
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.entities.Pedido;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
 import org.springframework.stereotype.Repository;
 

@@ -3,8 +3,8 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.*;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -75,7 +75,7 @@ public class PedidoController extends ControllerBase{
     @PatchMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
                                                          @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
-        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest);
+        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest.toAtualizaStatusPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);

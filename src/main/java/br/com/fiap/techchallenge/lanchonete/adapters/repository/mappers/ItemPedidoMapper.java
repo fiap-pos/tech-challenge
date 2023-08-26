@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRe
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,19 +21,19 @@ public class ItemPedidoMapper {
 
     public List<ItemPedido> toItemPedido(Pedido pedido, List<ItemPedidoDTO> criaItemPedido){
 
-        var listaItemPedido = new ArrayList<br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido>();
+        var listaItemPedido = new ArrayList<ItemPedido>();
 
         criaItemPedido.forEach(item -> {
             var produto = produtoJpaRepository.findById(item.produtoId())
                     .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
-            var itemPedido = new br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido(pedido, produto, item.quantidade(), item.valorUnitario());
+            var itemPedido = new ItemPedido(pedido, produto, item.quantidade(), item.valorUnitario());
             listaItemPedido.add(itemPedido);
         });
 
         return listaItemPedido;
     }
 
-    public List<ItemPedidoDTO> toItemPedidoResponse(List<br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido> itens){
+    public List<ItemPedidoDTO> toItemPedidoResponse(List<ItemPedido> itens){
         var listaItemPedidoOut = new ArrayList<ItemPedidoDTO>();
 
         itens.forEach( item -> {

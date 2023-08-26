@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.handlers;
 
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.BadRequestException;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityAlreadyExistException;
-import br.com.fiap.techchallenge.lanchonete.core.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.BadRequestException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityAlreadyExistException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

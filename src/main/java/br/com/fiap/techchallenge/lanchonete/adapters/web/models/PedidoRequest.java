@@ -2,13 +2,11 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaItemPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaPedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoIn;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public class PedidoRequest implements PedidoIn {
+public class PedidoRequest{
 
     private Long clienteId;
     private List<ItemPedidoRequest> itens;
@@ -24,18 +22,14 @@ public class PedidoRequest implements PedidoIn {
         this.itens = itens;
     }
 
-
-    @Override
     public Long getClienteId() {
         return clienteId;
     }
 
     @NotNull(message = "O campo 'itens' é obrigatório")
-    @Override
     public List<ItemPedidoRequest> getItens() {
         return itens;
     }
-
 
     private List<CriaItemPedidoDTO> mapItens() {
         return itens.stream().map(item -> new CriaItemPedidoDTO(item.getProdutoId(), item.getQuantidade()) ).toList();

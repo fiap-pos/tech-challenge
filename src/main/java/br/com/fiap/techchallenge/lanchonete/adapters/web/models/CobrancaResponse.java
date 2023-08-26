@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaOut;
-import br.com.fiap.techchallenge.lanchonete.core.entities.QrCode;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

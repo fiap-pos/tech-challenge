@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

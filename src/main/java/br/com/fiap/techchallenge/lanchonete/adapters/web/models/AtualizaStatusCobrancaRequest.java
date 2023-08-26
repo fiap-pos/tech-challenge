@@ -1,11 +1,11 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web.models;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaStatusIn;
-import br.com.fiap.techchallenge.lanchonete.core.entities.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusCobrancaDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 
-public class AtualizaStatusCobrancaRequest implements CobrancaStatusIn {
+public class AtualizaStatusCobrancaRequest {
     private StatusCobrancaEnum status;
 
     AtualizaStatusCobrancaRequest() {
@@ -24,5 +24,9 @@ public class AtualizaStatusCobrancaRequest implements CobrancaStatusIn {
 
     public void setStatus(StatusCobrancaEnum status) {
         this.status = status;
+    }
+
+    public AtualizaStatusCobrancaDTO toAtualizaStatusCobrancaDTO() {
+        return new AtualizaStatusCobrancaDTO(status);
     }
 }
