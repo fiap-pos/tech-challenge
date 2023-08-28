@@ -21,7 +21,7 @@ services:
     image: vwnunes/tech-challenge-61:1.7
     restart: on-failure
     environment:
-      DB_HOST: mysql-service:3306/lanchonete_db
+      DB_HOST: mysql:3306/lanchonete_db
       DB_USERNAME: root
       DB_PASSWORD: 123456
     ports:
