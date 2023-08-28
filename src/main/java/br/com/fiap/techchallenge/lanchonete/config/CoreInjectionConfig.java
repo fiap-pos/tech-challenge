@@ -137,4 +137,9 @@ public class CoreInjectionConfig {
         return new BuscaTodosPedidosPorStatusUseCase(buscaTodosPedidosOutputPort);
     }
 
+    @Bean
+    OrdenaPedidosPorPrioridadeInputPort ordenaPorPrioridade(OrdenaPedidosPorPrioridadeOututPort ordenaPedidosPorPrioridadeOututPort) {
+        return new OrdenaPedidosPorPrioridadeDoStatusUseCase(ordenaPedidosPorPrioridadeOututPort);
+    }
+
 }

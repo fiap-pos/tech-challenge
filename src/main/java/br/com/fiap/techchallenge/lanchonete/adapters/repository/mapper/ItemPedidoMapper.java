@@ -38,7 +38,7 @@ public class ItemPedidoMapper {
         var listaItemPedidoOut = new ArrayList<ItemPedidoOut>();
 
         itens.forEach( item -> {
-            var itemPedidoOut = new ItemPedidoOut(item.getQuantidade(), item.getValorUnitario(), item.getProduto().getNome());
+            var itemPedidoOut = new ItemPedidoOut(item.getQuantidade(), item.getValorUnitario(), item.getProduto().getNome(), item.getProduto().getDescricao());
             listaItemPedidoOut.add(itemPedidoOut);
         });
 

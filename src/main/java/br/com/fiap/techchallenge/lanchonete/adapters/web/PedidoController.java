@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
@@ -21,6 +20,7 @@ public class PedidoController extends ControllerBase{
     private final CriaPedidoInputPort criaPedidoInputPort;
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
+    private final OrdenaPedidosPorPrioridadeInputPort ordenaPedidosPorPrioridadeInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
     private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
@@ -30,6 +30,7 @@ public class PedidoController extends ControllerBase{
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
                             AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
+                            OrdenaPedidosPorPrioridadeInputPort ordenaPedidosPorPrioridadeInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
                             BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
@@ -39,6 +40,7 @@ public class PedidoController extends ControllerBase{
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
+        this.ordenaPedidosPorPrioridadeInputPort = ordenaPedidosPorPrioridadeInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
         this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
@@ -50,7 +52,8 @@ public class PedidoController extends ControllerBase{
     @GetMapping
     public ResponseEntity<List<PedidoResponse>> buscarTodos(){
         var pedidosOut = buscaTodosPedidosInputPort.buscarTodos();
-        var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
+        var pedidosOrdenadosPorPrioridade = ordenaPedidosPorPrioridadeInputPort.ordena(pedidosOut);
+        var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOrdenadosPorPrioridade);
         return ResponseEntity.ok(listPedidoResponse);
     }
 

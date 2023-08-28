@@ -7,11 +7,13 @@ public class ItemPedidoOut {
     private BigDecimal valorUnitario;
     private String produtoNome;
     private Integer quantidade;
-    public ItemPedidoOut(Integer quantidade, BigDecimal valorUnitario, String produtoNome) {
+    private String produtoDescricao;
+
+    public ItemPedidoOut(Integer quantidade, BigDecimal valorUnitario, String produtoNome, String produtoDescricao) {
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
         this.produtoNome = produtoNome;
-
+        this.produtoDescricao = produtoDescricao;
     }
 
     public BigDecimal getValorUnitario() {
@@ -29,4 +31,7 @@ public class ItemPedidoOut {
         return quantidade;
     }
 
+    public String getProdutoDescricao() {
+        return produtoDescricao;
+    }
 }
