@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: lanchonete-configmap
 data:
-  HOST_DB: mysql-service:3306
-  USER_DB: root
-  PASS_DB: '123456'
-  DATABASE_DB: lanchonete_db
+  DB_HOST: mysql:3306/lanchonete_db
+  DB_USERNAME: root
+  DB_PASSWORD: 123456

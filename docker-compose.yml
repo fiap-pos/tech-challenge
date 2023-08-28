@@ -18,14 +18,12 @@ services:
       - 3306
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: vwnunes/tech-challenge-61:1.7
     restart: on-failure
     environment:
-      MYSQL_HOST: "mysql"
-      USERNAME_DB: root
-      PASSWORD_DB: 123456
+      DB_HOST: mysql-service:3306/lanchonete_db
+      DB_USERNAME: root
+      DB_PASSWORD: 123456
     ports:
       - "8080:8080"
     networks:
@@ -37,8 +35,6 @@ services:
         condition: service_started
 
   mock:
-    build:
-      context: wiremock
     image: wiremock/wiremock
     ports:
       - "8081:8080"
