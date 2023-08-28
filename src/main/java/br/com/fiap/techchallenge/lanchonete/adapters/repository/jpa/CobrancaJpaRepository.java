@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cobranca;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

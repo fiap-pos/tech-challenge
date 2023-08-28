@@ -1,13 +1,13 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ProdutoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Produto;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoIn;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ProdutoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,38 +25,43 @@ public class ProdutoRepository implements CriaProdutoOutputPort, AtualizaImagemP
     }
 
     @Override
-    public ProdutoOut criar(ProdutoIn produtoIn) {
+    public ProdutoDTO criar(ProdutoDTO produtoIn) {
         var produto = produtoMapper.toProduto(produtoIn);
         var produtoSalvo = produtoJpaRepository.save(produto);
 
-        return produtoMapper.toProdutoResponse(produtoSalvo);
+        return produtoMapper.toProdutoDTO(produtoSalvo);
     }
 
     @Override
-    public ProdutoOut atualizar(ProdutoIn produtoIn) {
-        var produto = buscaProdutoPorId(produtoIn.getId());
-        produto.setImagem(produtoIn.getImagem());
+    public ProdutoDTO atualizar(AtualizaImagemProdutoDTO imagemIn, Long id) {
+        var produto = buscaProdutoPorId(id);
+        produto.setImagem(imagemIn.imagem());
 
         var produtoSalvo = produtoJpaRepository.save(produto);
 
-        return produtoMapper.toProdutoResponse(produtoSalvo);
+        return produtoMapper.toProdutoDTO(produtoSalvo);
     }
 
     @Override
-    public ProdutoOut editar(ProdutoIn produtoIn) {
-        buscaProdutoPorId(produtoIn.getId());
+    public ProdutoDTO editar(ProdutoDTO produtoIn, Long id) {
+        var produto = buscaProdutoPorId(id);
+        produto.setCategoria(produtoIn.categoria());
+        produto.setDescricao(produtoIn.descricao());
+        produto.setNome(produtoIn.nome());
+        produto.setPreco(produtoIn.preco());
 
-        return criar(produtoIn);
+        var produtoSalvo = produtoJpaRepository.save(produto);
+        return produtoMapper.toProdutoDTO(produtoSalvo);
     }
 
     @Override
-    public ProdutoOut remover(Long id) {
+    public ProdutoDTO remover(Long id) {
         var produto = buscaProdutoPorId(id);
 
         produtoJpaRepository.delete(produto);
         produto.setImagem(null);
 
-        return produtoMapper.toProdutoResponse(produto);
+        return produtoMapper.toProdutoDTO(produto);
     }
 
     private Produto buscaProdutoPorId(Long id) {
@@ -65,23 +70,23 @@ public class ProdutoRepository implements CriaProdutoOutputPort, AtualizaImagemP
     }
 
     @Override
-    public ProdutoOut buscarPorId(Long id) {
+    public ProdutoDTO buscarPorId(Long id) {
         var produto = buscaProdutoPorId(id);
 
-        return produtoMapper.toProdutoResponse(produto);
+        return produtoMapper.toProdutoDTO(produto);
     }
 
     @Override
-    public List<ProdutoOut> buscarTodos() {
+    public List<ProdutoDTO> buscarTodos() {
         return produtoJpaRepository.findAll().stream()
-                .map(produtoMapper::toProdutoResponse)
+                .map(produtoMapper::toProdutoDTO)
                 .toList();
     }
 
     @Override
-    public List<ProdutoOut> buscarPorCategoria(CategoriaEnum categoriaEnum) {
+    public List<ProdutoDTO> buscarPorCategoria(CategoriaEnum categoriaEnum) {
         return produtoJpaRepository.findByCategoria(categoriaEnum).stream()
-                .map(produtoMapper::toProdutoResponse)
+                .map(produtoMapper::toProdutoDTO)
                 .toList();
     }
 }
