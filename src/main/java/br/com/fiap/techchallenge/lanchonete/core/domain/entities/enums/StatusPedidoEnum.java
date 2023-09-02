@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 public enum StatusPedidoEnum {
     PENDENTE_DE_PAGAMENTO("Aguardando Pagamento"),
-    PAGO("Pago"),
     RECEBIDO("Recebido"),
     EM_PREPARACAO("Em preparação"),
     PRONTO("Pronto"),

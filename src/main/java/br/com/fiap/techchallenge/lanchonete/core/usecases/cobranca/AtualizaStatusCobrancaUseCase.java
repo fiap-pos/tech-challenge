@@ -42,7 +42,7 @@ public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInpu
 
     private StatusPedidoEnum getStatusPedido(StatusCobrancaEnum statusCobranca) {
         return switch(statusCobranca) {
-            case PAGO -> StatusPedidoEnum.PAGO;
+            case PAGO -> StatusPedidoEnum.RECEBIDO;
             case CANCELADO -> StatusPedidoEnum.CANCELADO;
             default -> null;
         };
