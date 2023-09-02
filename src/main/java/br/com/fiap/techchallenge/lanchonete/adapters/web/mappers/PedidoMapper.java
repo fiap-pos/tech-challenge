@@ -36,6 +36,7 @@ public class PedidoMapper {
     private ItemPedidoResponse toItemPedidoResponse(ItemPedidoDTO itemPedidoOut) {
         return new ItemPedidoResponse(
                 itemPedidoOut.produtoNome(),
+                itemPedidoOut.produtoDescricao(),
                 itemPedidoOut.valorUnitario(),
                 itemPedidoOut.quantidade(),
                 itemPedidoOut.getValorTotal()

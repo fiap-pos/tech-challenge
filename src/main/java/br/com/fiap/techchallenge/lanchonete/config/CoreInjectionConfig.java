@@ -20,6 +20,7 @@ import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.CadastraClien
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.CriaQrCodeOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.pedido.BuscaPedidosPorPrioridadeUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.AtualizaStatusCobrancaUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.BuscaCobrancaPorIdUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.BuscaCobrancaPorPedidoIdUseCase;
@@ -160,6 +161,11 @@ public class CoreInjectionConfig {
     @Bean
     BuscaTodosPedidosPorStatusInputPort buscarPorStatus(BuscaTodosPedidosPorStatusOutputPort buscaTodosPedidosOutputPort) {
         return new BuscaTodosPedidosPorStatusUseCase(buscaTodosPedidosOutputPort);
+    }
+
+    @Bean
+    BuscaPedidosOrdenadosPorPrioridadeInputPort ordenaPorPrioridade(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
+        return new BuscaPedidosPorPrioridadeUseCase(buscaTodosPedidosOutputPort);
     }
 
 }

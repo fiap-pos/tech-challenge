@@ -33,7 +33,7 @@ Caso queira buildar o projeto fora do container, siga os passos abaixo:
 
 1. Certifique-se de ter o Java 17 instalado em sua máquina.
 2. Acesse o diretório do projeto: `cd tech-challenge`
-3. Execute o comando para buildar o projeto: `./mvnw clean package`
+3. Execute o comando para buildar o projeto: `./mvnw clean package -DskipTests`
 4. Execute o comando para iniciar o ambiente Docker: `docker-compose -f docker-compose-local.yml up -d`
 5. Execute o comando para executar a aplicação: `./mvnw spring-boot:run`
 
