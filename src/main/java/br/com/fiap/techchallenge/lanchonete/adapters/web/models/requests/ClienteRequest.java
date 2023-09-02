@@ -6,10 +6,10 @@ public class ClienteRequest {
 
     private String nome;
     private String cpf;
-    private String emai;
+    private String email;
 
     public ClienteDTO toClienteDTO() {
-        return new ClienteDTO(this.nome, this.cpf, this.emai);
+        return new ClienteDTO(this.nome, this.cpf, this.email);
     }
 
     public String getNome() {
@@ -28,11 +28,11 @@ public class ClienteRequest {
         this.cpf = cpf;
     }
 
-    public String getEmai() {
-        return emai;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmai(String emai) {
-        this.emai = emai;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
