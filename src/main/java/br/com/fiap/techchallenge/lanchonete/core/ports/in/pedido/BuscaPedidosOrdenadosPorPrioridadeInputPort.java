@@ -4,8 +4,8 @@ import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 
 import java.util.List;
 
-public interface OrdenaPedidosPorPrioridadeInputPort {
+public interface BuscaPedidosOrdenadosPorPrioridadeInputPort {
 
-    List<PedidoDTO> ordena(List<PedidoDTO> pedidos);
+    List<PedidoDTO> buscarPorPrioridade();
 
 }

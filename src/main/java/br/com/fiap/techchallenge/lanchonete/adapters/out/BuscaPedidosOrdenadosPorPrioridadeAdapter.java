@@ -3,16 +3,16 @@ package br.com.fiap.techchallenge.lanchonete.adapters.out;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.OrdenaPedidosPorPrioridadeOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.BuscaPedidosOrdenadosPorPrioridadeOutputPort;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class OrdenaPedidosPorPrioridadeAdapter implements OrdenaPedidosPorPrioridadeOutputPort {
+public class BuscaPedidosOrdenadosPorPrioridadeAdapter implements BuscaPedidosOrdenadosPorPrioridadeOutputPort {
     @Override
-    public List<PedidoDTO> ordena(List<PedidoDTO> pedidos) {
+    public List<PedidoDTO> buscarTodosPorPrioridade(List<PedidoDTO> pedidos) {
         List<PedidoDTO> pedidosOrdenadosPorPrioridade = new ArrayList<PedidoDTO>();
 
         pedidos.forEach(
