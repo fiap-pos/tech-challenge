@@ -18,7 +18,18 @@ spec:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: lanchonete-configmap
+                name: configmap
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mysql-root-username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mysql-root-password
           volumeMounts:
             - mountPath: /lanchonete-volume
               name: lanchonete-volume

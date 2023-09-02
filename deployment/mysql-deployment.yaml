@@ -21,7 +21,18 @@ spec:
             - containerPort: 3306
           envFrom:
             - configMapRef:
-                name: mysql-configmap
+                name: configmap
+          env:
+            - name: MYSQL_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mysql-root-username
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: mysql-root-password
           volumeMounts:
             - mountPath: /lanchonete-volume
               name: lanchonete-volume

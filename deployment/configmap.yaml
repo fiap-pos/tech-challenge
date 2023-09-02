@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: lanchonete-configmap
+  name: configmap
 data:
   DB_HOST: 'mysql-service:3306/lanchonete_db'
-  DB_USERNAME: 'root'
-  DB_PASSWORD: '123456'
+  MYSQL_DATABASE: lanchonete_db
