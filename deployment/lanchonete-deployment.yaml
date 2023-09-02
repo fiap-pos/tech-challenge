@@ -24,12 +24,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: secrets
-                  key: mysql-root-username
+                  key: mysql-user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: secrets
-                  key: mysql-root-password
+                  key: mysql-password
           volumeMounts:
             - mountPath: /lanchonete-volume
               name: lanchonete-volume
