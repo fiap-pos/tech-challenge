@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lanchonete
+  labels:
+    app: lanchonete
+spec:
+  template:
+    metadata:
+      name: lanchonete
+      labels:
+        app: lanchonete
+    spec:
+      containers:
+        - name: lanchonete
+          image: vwnunes/tech-challenge-61:1.7
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: lanchonete-configmap
+          volumeMounts:
+            - mountPath: /lanchonete-volume
+              name: lanchonete-volume
+      volumes:
+        - name: lanchonete-volume
+          hostPath:
+            path: /home/lanchonete-volume
+            type: DirectoryOrCreate
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lanchonete
