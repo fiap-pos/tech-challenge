@@ -1,10 +1,14 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -68,7 +72,7 @@ public class PedidoController extends ControllerBase{
     @Operation(summary = "Cria um pedido")
     @PostMapping
     public ResponseEntity<PedidoResponse> criarPedido(@Valid @RequestBody PedidoRequest pedidoRequest){
-        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest);
+        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest.toCriaItemPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
@@ -78,7 +82,7 @@ public class PedidoController extends ControllerBase{
     @PatchMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
                                                          @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
-        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest);
+        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest.toAtualizaStatusPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);

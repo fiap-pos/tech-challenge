@@ -1,15 +1,37 @@
 package br.com.fiap.techchallenge.lanchonete.config;
 
-import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.*;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.BuscaCobrancaPorIdUseCase;
-import br.com.fiap.techchallenge.lanchonete.core.usecase.CriaCobrancaUseCase;
-import br.com.fiap.techchallenge.lanchonete.adapters.integration.PagamentoMock;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatusCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.CriaCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.AtualizaClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaTodosClientesInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.CadastraClienteInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.AtualizaStatusCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.CriaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.AtualizaClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaTodosClientesOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.CadastraClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.CriaQrCodeOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.pedido.OrdenaPedidosPorPrioridadeDoStatusUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.AtualizaStatusCobrancaUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.BuscaCobrancaPorIdUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.BuscaCobrancaPorPedidoIdUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.CriaCobrancaUseCase;
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.PagamentoMock;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.AtualizaClienteUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.BuscaClientePorUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.BuscaTodosClientesUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.CadastraClienteUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.pedido.*;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.produto.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -57,8 +79,8 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    BuscaClientePorCpfInputPort buscaClientePorCpf(BuscaClientePorCpfOutputPort buscaClientePorCpfOutputPort) {
-        return new BuscaClientePorCpfUseCase(buscaClientePorCpfOutputPort);
+    BuscaClientePorInputPort buscaClientePorCpf(BuscaClienteOutputPort buscaClienteOutputPort) {
+        return new BuscaClientePorUseCase(buscaClienteOutputPort);
     }
 
     @Bean
@@ -72,8 +94,12 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    CriaPedidoInputPort criarPedido(CriaPedidoOutputPort criaPedidoOutputPort, BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort) {
-        return new CriaPedidoUseCase(criaPedidoOutputPort, buscaProdutoPorIdOutputPort);
+    CriaPedidoInputPort criarPedido(
+            CriaPedidoOutputPort criaPedidoOutputPort,
+            BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort,
+            BuscaClienteOutputPort buscaClienteOutputPort
+    ) {
+        return new CriaPedidoUseCase(criaPedidoOutputPort, buscaProdutoPorIdOutputPort, buscaClienteOutputPort);
     }
 
     @Bean
@@ -138,7 +164,7 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    OrdenaPedidosPorPrioridadeInputPort ordenaPorPrioridade(OrdenaPedidosPorPrioridadeOututPort ordenaPedidosPorPrioridadeOututPort) {
+    OrdenaPedidosPorPrioridadeInputPort ordenaPorPrioridade(OrdenaPedidosPorPrioridadeOutputPort ordenaPedidosPorPrioridadeOututPort) {
         return new OrdenaPedidosPorPrioridadeDoStatusUseCase(ordenaPedidosPorPrioridadeOututPort);
     }
 

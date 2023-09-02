@@ -1,12 +1,12 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.AtualizaStatusCobrancaRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.CobrancaResponse;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.AtualizaStatusCobrancaInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.BuscaCobrancaPorIdInputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.CriaCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusCobrancaRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.CobrancaRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatusCobrancaInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.CriaCobrancaInputPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -37,7 +37,7 @@ public class CobrancaController extends ControllerBase {
     @Operation(summary = "Cria uma nova Cobrança")
     @PostMapping
     ResponseEntity<CobrancaResponse> criar(@Valid @RequestBody CobrancaRequest cobrancaRequest) {
-        var cobrancaOut = criaCobrancaInputPort.criar(cobrancaRequest);
+        var cobrancaOut = criaCobrancaInputPort.criar(cobrancaRequest.toCriaCobrancaDTO());
         var cobrancaResponse = cobrancaMapper.toCobrancaResponse(cobrancaOut);
         var uri = getExpandedCurrentUri("/{id}", cobrancaResponse.getId());
 
@@ -58,7 +58,7 @@ public class CobrancaController extends ControllerBase {
             @PathVariable("id") Long id,
             @Valid @RequestBody AtualizaStatusCobrancaRequest atualizaStatusCobrancaRequest
     ) {
-        var cobrancaOut = atualizaStatusCobrancaInputPort.atualizarStatus(id, atualizaStatusCobrancaRequest);
+        var cobrancaOut = atualizaStatusCobrancaInputPort.atualizarStatus(id, atualizaStatusCobrancaRequest.toAtualizaStatusCobrancaDTO());
         var cobrancaResponse = cobrancaMapper.toCobrancaResponse(cobrancaOut);
         return ResponseEntity.ok().body(cobrancaResponse);
     }

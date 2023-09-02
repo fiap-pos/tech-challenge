@@ -1,22 +1,23 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.out;
 
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.OrdenaPedidosPorPrioridadeOututPort;
+
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.OrdenaPedidosPorPrioridadeOutputPort;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class OrdenaPedidosPorPrioridadeAdapter implements OrdenaPedidosPorPrioridadeOututPort {
+public class OrdenaPedidosPorPrioridadeAdapter implements OrdenaPedidosPorPrioridadeOutputPort {
     @Override
-    public List<PedidoOut> ordena(List<PedidoOut> pedidos) {
-        List<PedidoOut> pedidosOrdenadosPorPrioridade = new ArrayList<PedidoOut>();
+    public List<PedidoDTO> ordena(List<PedidoDTO> pedidos) {
+        List<PedidoDTO> pedidosOrdenadosPorPrioridade = new ArrayList<PedidoDTO>();
 
         pedidos.forEach(
                 pedidoOut -> {
-                    if (pedidoOut.getStatus().equals(StatusPedidoEnum.PRONTO)) {
+                    if (pedidoOut.status().equals(StatusPedidoEnum.PRONTO)) {
                         pedidosOrdenadosPorPrioridade.add(pedidoOut);
                     }
                 }
@@ -24,7 +25,7 @@ public class OrdenaPedidosPorPrioridadeAdapter implements OrdenaPedidosPorPriori
 
         pedidos.forEach(
                 pedidoOut -> {
-                    if (pedidoOut.getStatus().equals(StatusPedidoEnum.EM_PREPARACAO)) {
+                    if (pedidoOut.status().equals(StatusPedidoEnum.EM_PREPARACAO)) {
                         pedidosOrdenadosPorPrioridade.add(pedidoOut);
                     }
                 }
@@ -32,7 +33,7 @@ public class OrdenaPedidosPorPrioridadeAdapter implements OrdenaPedidosPorPriori
 
         pedidos.forEach(
                 pedidoOut -> {
-                    if (pedidoOut.getStatus().equals(StatusPedidoEnum.RECEBIDO)) {
+                    if (pedidoOut.status().equals(StatusPedidoEnum.RECEBIDO)) {
                         pedidosOrdenadosPorPrioridade.add(pedidoOut);
                     }
                 }
