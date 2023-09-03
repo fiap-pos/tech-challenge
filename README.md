@@ -10,6 +10,8 @@ Este projeto é um sistema de controle de pedidos para uma lanchonete. Ele possu
 ## Rotas disponíveis na API
 Todas as rotas estão listadas através do Swagger no endereço `http://localhost:8080/swagger-ui/index.html`
 
+Obs.: Sugerimos o Insomnia e já disponibilizamos uma collection em `collections/insomnia` 
+
 ## Pré-requisitos
 
 Antes de executar o projeto, verifique se você possui os seguintes requisitos:
@@ -17,9 +19,13 @@ Antes de executar o projeto, verifique se você possui os seguintes requisitos:
 - Docker e docker-compose instalados
 - Java 17 (caso queira buildar o projeto fora do container)
 
+## Imagem Docker do projeto
+
+Podemos encontrar a imagem do projeto no seguinte repositório do Docker hub [vwnunes/tech-challenge-61](https://hub.docker.com/repository/docker/vwnunes/tech-challenge-61/general)
+
 ## Executando o Projeto
 
-Siga as instruções abaixo para executar o projeto:
+Siga as instruções abaixo para executar o projeto via docker/docker-compose:
 
 1. Faça o clone deste repositório: `git clone https://github.com/diego-jo/tech-challenge`
 2. Acesse o diretório do projeto: `cd tech-challenge`
@@ -27,15 +33,25 @@ Siga as instruções abaixo para executar o projeto:
 4. Aguarde até que os containers estejam prontos e em execução.
 5. Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://localhost:8080`
 
-Obs.: Sugerimos o Insomnia e já disponibilizamos uma collection em `tech-challenge/collections/insomnia` 
-
-Caso queira buildar o projeto fora do container, siga os passos abaixo:
+### Caso queira buildar o projeto fora do container, siga os passos abaixo:
 
 1. Certifique-se de ter o Java 17 instalado em sua máquina.
 2. Acesse o diretório do projeto: `cd tech-challenge`
 3. Execute o comando para buildar o projeto: `./mvnw clean package -DskipTests`
 4. Execute o comando para iniciar o ambiente Docker: `docker-compose -f docker-compose-local.yml up -d`
 5. Execute o comando para executar a aplicação: `./mvnw spring-boot:run`
+6. Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://localhost:8080`
+
+### Caso queira rodar o projeto dentro de um cluster kubernetes
+
+1. Certifiquece de ter p kubectl instalada e devidamente configurado para cluster kubernetes
+2. Acesse a pasta deployment e rode o arquivo deploy_local.sh os arquivos necessários para subir
+    ```bash
+        cd deployment
+        ./deploy.sh
+    ```
+3. Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://{IP_DO_SEU_CLUSTER}:30000`
+4. `Opcional`: Caso queira disponibilizar o projeto em um ambiente cloud como a AWS aplique também o arquivo alb-ingress.yaml, com seu kubectl devidamente configura para acessar a AWS. `kubeclt apply -f alb-ingress.yaml`
 
 
 ## Contribuidores
