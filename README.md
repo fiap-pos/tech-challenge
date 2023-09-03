@@ -44,15 +44,9 @@ Siga as instruções abaixo para executar o projeto via docker/docker-compose:
 
 ### Caso queira rodar o projeto dentro de um cluster kubernetes
 
-1. Certifiquece de ter p kubectl instalada e devidamente configurado para cluster kubernetes
-2. Acesse a pasta deployment e rode o arquivo deploy_local.sh os arquivos necessários para subir
-    ```bash
-        cd deployment
-        ./deploy.sh
-    ```
+1. Certifiquece de ter o kubectl instalado e devidamente configurado para cluster kubernetes
+2. Execute o comando `kubectl apply -f deployment`
 3. Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://{IP_DO_SEU_CLUSTER}:30000`
-4. `Opcional`: Caso queira disponibilizar o projeto em um ambiente cloud como a AWS aplique também o arquivo alb-ingress.yaml, com seu kubectl devidamente configura para acessar a AWS. `kubeclt apply -f alb-ingress.yaml`
-
 
 ## Contribuidores
 - [pedroprj](https://github.com/pedroprj) - Pedro Pereira dos Reis Júnior - pedrojr9119@gmail.com - RM 350295
