@@ -36,17 +36,38 @@ Siga as instruções abaixo para executar o projeto via docker/docker-compose:
 ### Caso queira buildar o projeto fora do container, siga os passos abaixo:
 
 1. Certifique-se de ter o Java 17 instalado em sua máquina.
-2. Acesse o diretório do projeto: `cd tech-challenge`
-3. Execute o comando para buildar o projeto: `./mvnw clean package -DskipTests`
-4. Execute o comando para iniciar o ambiente Docker: `docker-compose -f docker-compose-local.yml up -d`
-5. Execute o comando para executar a aplicação: `./mvnw spring-boot:run`
+2. Acesse o diretório do projeto: 
+    ```bash 
+        cd tech-challenge
+    ```
+3. Execute o comando para buildar o projeto: 
+    ```bash
+        ./mvnw clean package -DskipTests
+    ```
+4. Execute o comando para iniciar o ambiente Docker: 
+    ```bash
+        docker-compose -f docker-compose-local.yml up -d
+    ```
+5. Execute o comando para executar a aplicação: 
+    ```bash
+        ./mvnw spring-boot:run
+    ```
 6. Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://localhost:8080`
 
-### Caso queira rodar o projeto dentro de um cluster kubernetes
+### Caso queira rodar o projeto dentro de um cluster kubernetes local
 
 1. Certifiquece de ter o kubectl instalado e devidamente configurado para cluster kubernetes
-2. Execute o comando `kubectl apply -f deployment`
-3. Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://{IP_DO_SEU_CLUSTER}:30000`
+2. Execute o comando: 
+    ```bash
+        kubectl apply -f deployment
+    ```
+3. Aguarde até que os pods estejam com status de RUNNING. **Os pods da applicação podem apresentar erros até que o mysql termine de subir**
+4. Acessando o serviço: 
+    - Acesse a API pelo seu client de escolha pelo seguinte endereço base: `http://{IP_DO_SEU_CLUSTER}:30000`
+    - Se você estiver utilizando o minikube obetenha a url da aplição através do comando:
+    ```bash 
+        minikube service lanchonete-service --url
+    ```
 
 ## Contribuidores
 - [pedroprj](https://github.com/pedroprj) - Pedro Pereira dos Reis Júnior - pedrojr9119@gmail.com - RM 350295
