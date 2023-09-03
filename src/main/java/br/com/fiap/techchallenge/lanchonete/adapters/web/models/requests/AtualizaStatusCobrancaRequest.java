@@ -12,7 +12,7 @@ public class AtualizaStatusCobrancaRequest {
 
     }
 
-    AtualizaStatusCobrancaRequest(StatusCobrancaEnum status) {
+    public AtualizaStatusCobrancaRequest(StatusCobrancaEnum status) {
         this.status = status;
     }
 

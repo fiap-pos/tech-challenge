@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.gateways;
+package br.com.fiap.techchallenge.lanchonete.adapters.gateways.pagamentos.mercadopago;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.CriaQrCodeOutputPort;
