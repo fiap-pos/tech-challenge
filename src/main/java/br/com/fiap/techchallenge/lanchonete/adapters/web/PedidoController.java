@@ -24,6 +24,7 @@ public class PedidoController extends ControllerBase{
     private final CriaPedidoInputPort criaPedidoInputPort;
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
+    private final BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
     private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
@@ -33,6 +34,7 @@ public class PedidoController extends ControllerBase{
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
                             AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
+                            BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
                             BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
@@ -42,6 +44,7 @@ public class PedidoController extends ControllerBase{
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
+        this.buscaPedidosOrdenadosPorPrioridadeInputPort = buscaPedidosOrdenadosPorPrioridadeInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
         this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
@@ -53,6 +56,14 @@ public class PedidoController extends ControllerBase{
     @GetMapping
     public ResponseEntity<List<PedidoResponse>> buscarTodos(){
         var pedidosOut = buscaTodosPedidosInputPort.buscarTodos();
+        var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
+        return ResponseEntity.ok(listPedidoResponse);
+    }
+
+    @Operation(summary = "Busca pedidos para serem exibidos na fila de preparação")
+    @GetMapping("/fila-producao")
+    public ResponseEntity<List<PedidoResponse>> buscarTodosPedidosPorPrioridade(){
+        var pedidosOut = buscaPedidosOrdenadosPorPrioridadeInputPort.buscarPorPrioridade();
         var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
         return ResponseEntity.ok(listPedidoResponse);
     }

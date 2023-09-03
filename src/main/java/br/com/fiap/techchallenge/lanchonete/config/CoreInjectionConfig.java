@@ -16,6 +16,11 @@ import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.*;
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.pagamentos.mercadopago.PagamentoMock;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.pedido.BuscaPedidosPorPrioridadeUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.AtualizaStatusCobrancaUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.BuscaCobrancaPorIdUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.BuscaCobrancaPorPedidoIdUseCase;
+import br.com.fiap.techchallenge.lanchonete.core.usecases.cobranca.CriaCobrancaUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.AtualizaClienteUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.BuscaClientePorUseCase;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.cliente.BuscaTodosClientesUseCase;
@@ -157,5 +162,8 @@ public class CoreInjectionConfig {
     BuscaStatusPagamentoInputPort buscaStatusPagamento(BuscaStatusPagamentoOutputPort buscaStatusPagamentoOutputPort) {
         return new BuscaStatusPagamentoUseCase(buscaStatusPagamentoOutputPort);
     }
-
+    @Bean
+    BuscaPedidosOrdenadosPorPrioridadeInputPort ordenaPorPrioridade(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
+        return new BuscaPedidosPorPrioridadeUseCase(buscaTodosPedidosOutputPort);
+    }
 }

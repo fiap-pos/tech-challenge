@@ -40,6 +40,7 @@ public class ItemPedidoMapper {
             var itemPedidoOut = new ItemPedidoDTO(
                     item.getProduto().getId(),
                     item.getProduto().getNome(),
+                    item.getProduto().getDescricao(),
                     item.getValorUnitario(),
                     item.getQuantidade()
             );
