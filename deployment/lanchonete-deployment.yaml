@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: lanchonete
-          image: vwnunes/tech-challenge-61:1.7
+          image: vwnunes/tech-challenge-61:latest
           ports:
             - containerPort: 8080
           envFrom:
