@@ -1,11 +1,14 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mapper.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.*;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.port.in.*;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.PedidoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -21,6 +24,7 @@ public class PedidoController extends ControllerBase{
     private final CriaPedidoInputPort criaPedidoInputPort;
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
+    private final BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
     private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
@@ -30,6 +34,7 @@ public class PedidoController extends ControllerBase{
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
                             AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
+                            BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
                             BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
@@ -39,6 +44,7 @@ public class PedidoController extends ControllerBase{
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
+        this.buscaPedidosOrdenadosPorPrioridadeInputPort = buscaPedidosOrdenadosPorPrioridadeInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
         this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
@@ -54,6 +60,14 @@ public class PedidoController extends ControllerBase{
         return ResponseEntity.ok(listPedidoResponse);
     }
 
+    @Operation(summary = "Busca pedidos para serem exibidos na fila de preparação")
+    @GetMapping("/fila-producao")
+    public ResponseEntity<List<PedidoResponse>> buscarTodosPedidosPorPrioridade(){
+        var pedidosOut = buscaPedidosOrdenadosPorPrioridadeInputPort.buscarPorPrioridade();
+        var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
+        return ResponseEntity.ok(listPedidoResponse);
+    }
+
     @Operation(summary = "Busca pedido pelo id")
     @GetMapping("/{id}")
     public ResponseEntity<PedidoResponse> buscarPorId(@PathVariable("id") Long id){
@@ -65,7 +79,7 @@ public class PedidoController extends ControllerBase{
     @Operation(summary = "Cria um pedido")
     @PostMapping
     public ResponseEntity<PedidoResponse> criarPedido(@Valid @RequestBody PedidoRequest pedidoRequest){
-        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest);
+        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest.toCriaItemPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);
@@ -75,7 +89,7 @@ public class PedidoController extends ControllerBase{
     @PatchMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
                                                          @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
-        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest);
+        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest.toAtualizaStatusPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);

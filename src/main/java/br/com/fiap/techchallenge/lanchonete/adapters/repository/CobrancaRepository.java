@@ -1,15 +1,14 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.CobrancaJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.CobrancaMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Cobranca;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.CobrancaBase;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CobrancaStatusIn;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.AtualizaStatusCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.BuscaCobrancaOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.CriaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.CobrancaMapper;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cobranca;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusCobrancaDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.AtualizaStatusCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.CriaCobrancaOutputPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,20 +22,20 @@ public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobranca
         this.cobrancaMapper = cobrancaMapper;
     }
     @Override
-    public CobrancaOut criar(CobrancaBase cobrancaBase) {
-        var cobranca = cobrancaMapper.toCobranca(cobrancaBase);
+    public CobrancaDTO criar(CobrancaDTO cobrancaDTO) {
+        var cobranca = cobrancaMapper.toCobranca(cobrancaDTO);
         var cobrancaSalva = cobrancaJpaRepository.save(cobranca);
         return cobrancaMapper.toCobrancaOut(cobrancaSalva);
     }
 
     @Override
-    public CobrancaOut buscarPorId(Long id) {
+    public CobrancaDTO buscarPorId(Long id) {
         var cobranca = buscaCobrancaPorId(id);
         return cobrancaMapper.toCobrancaOut(cobranca);
     }
 
     @Override
-    public CobrancaOut buscarPorPedidoId(Long pedidoId) {
+    public CobrancaDTO buscarPorPedidoId(Long pedidoId) {
         var cobranca = cobrancaJpaRepository.findFirstByPedidoIdOrderByCreatedAtDesc(pedidoId)
                                             .orElseThrow(() -> new EntityNotFoundException("Cobrança com o pedidoId " + pedidoId + " não existe"));
         return cobrancaMapper.toCobrancaOut(cobranca);
@@ -49,14 +48,14 @@ public class CobrancaRepository implements CriaCobrancaOutputPort, BuscaCobranca
 
 
     @Override
-    public CobrancaOut atualizarStatus(Long id, CobrancaStatusIn cobrancaStatusIn) {
+    public CobrancaDTO atualizarStatus(Long id, AtualizaStatusCobrancaDTO cobrancaStatusIn) {
         var cobranca = buscaCobrancaPorId(id);
-        cobranca.setStatus(cobrancaStatusIn.getStatus());
+        cobranca.setStatus(cobrancaStatusIn.status());
         var cobrancaSalva = cobrancaJpaRepository.save(cobranca);
         return cobrancaMapper.toCobrancaOut(cobrancaSalva);
     }
 
-    private Cobranca buscaCobrancaPorId(Long id) {
+    private br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca buscaCobrancaPorId(Long id) {
         return cobrancaJpaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cobrança com o id " + id + " não existe"));
     }
 }

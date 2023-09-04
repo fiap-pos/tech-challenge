@@ -2,23 +2,19 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.PedidoJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.ClienteMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mapper.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.model.Pedido;
-import br.com.fiap.techchallenge.lanchonete.core.domain.exception.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.PedidoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.ProdutoOut;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.CategoriaEnum;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.domain.models.interfaces.CriaPedidoIn;
-import br.com.fiap.techchallenge.lanchonete.core.port.out.*;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ClienteMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class PedidoRepository implements  CriaPedidoOutputPort, AtualizaStatusPedidoOutputPort,
-        BuscaTodosPedidosOutputPort, BuscarPedidoPorIdOutputPort, BuscaTodosPedidosPorStatusOutputPort{
+public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPedidoOutputPort,
+        BuscaTodosPedidosOutputPort, BuscarPedidoPorIdOutputPort, BuscaTodosPedidosPorStatusOutputPort {
     private final PedidoMapper pedidoMapper;
     private final ClienteMapper clienteMapper;
     private final ClienteJpaRepository clienteJpaRepository;
@@ -33,48 +29,43 @@ public class PedidoRepository implements  CriaPedidoOutputPort, AtualizaStatusPe
     }
 
     @Override
-    public List<PedidoOut> buscarTodos() {
+    public List<PedidoDTO> buscarTodos() {
         var listaPedidos = pedidoJpaRepository.findAll();
 
-        return listaPedidos.stream().map(pedidoMapper::toPedidoResponse).toList();
+        return listaPedidos.stream().map(pedidoMapper::toPedidoDTO).toList();
     }
 
     @Override
-    public PedidoOut criar(CriaPedidoIn pedidoIn) {
-        var cliente = pedidoIn.getClienteId() != null
-                ? clienteJpaRepository.findById(pedidoIn.getClienteId())
-                .orElseThrow(
-                        ()-> new EntityNotFoundException("Cliente " + pedidoIn.getClienteId() + " não encontrado"))
-                : null;
+    public PedidoDTO criar(PedidoDTO pedidoIn) {
         var pedido = pedidoMapper.toPedido(pedidoIn);
         var pedidoSalvo = pedidoJpaRepository.save(pedido);
-        return pedidoMapper.toPedidoResponse(pedidoSalvo);
+        return pedidoMapper.toPedidoDTO(pedidoSalvo);
     }
 
     @Override
-    public PedidoOut atualizarStatus(Long id, StatusPedidoEnum status) {
+    public PedidoDTO atualizarStatus(Long id, StatusPedidoEnum status) {
         var pedidoBuscado = buscarPedidoPorId(id);
         pedidoBuscado.setStatus(status);
         var pedido = pedidoJpaRepository.save(pedidoBuscado);
-        return pedidoMapper.toPedidoResponse(pedido);
+        return pedidoMapper.toPedidoDTO(pedido);
     }
 
     @Override
-    public PedidoOut buscarPorId(Long id) {
+    public PedidoDTO buscarPorId(Long id) {
         var pedidoBuscado = buscarPedidoPorId(id);
-        return pedidoMapper.toPedidoResponse(pedidoBuscado);
+        return pedidoMapper.toPedidoDTO(pedidoBuscado);
     }
 
 
-    private Pedido buscarPedidoPorId(Long id){
+    private br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido buscarPedidoPorId(Long id){
         return pedidoJpaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido " + id + " não encontrado"));
     }
 
     @Override
-    public List<PedidoOut> buscarPedidosPorStatus(StatusPedidoEnum status) {
+    public List<PedidoDTO> buscarPedidosPorStatus(StatusPedidoEnum status) {
         return pedidoJpaRepository.findByStatus(status).stream()
-                .map(pedidoMapper::toPedidoResponse)
+                .map(pedidoMapper::toPedidoDTO)
                 .toList();
     }
 }
