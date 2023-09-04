@@ -36,8 +36,6 @@ services:
         condition: service_started
 
   mock:
-    build:
-      context: wiremock
     image: wiremock/wiremock
     ports:
       - "8081:8080"
