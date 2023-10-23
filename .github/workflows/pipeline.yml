@@ -54,6 +54,12 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into Develop" --body "Created automatic Pull Request by Github action."
+          PR_EXISTING=$(gh pr list -B develop -H $FEATURE_BRANCH --json number)
+          if [ -z "$PR_EXISTING" ]; then
+            echo "No existing pull request found."
+            gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into Develop" --body "Created automatic Pull Request by Github action."
+          else
+            echo "Existing pull request number: $PR_EXISTING"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
