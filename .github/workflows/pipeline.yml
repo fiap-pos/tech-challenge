@@ -69,7 +69,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create pull request
-        if: !steps.pr_check.outputs.skip
+        if: '!steps.pr_check.outputs.skip'
         run: |
           echo "Creating a new pull request"
           gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into Develop" --body "Created automatic Pull Request by Github action."
