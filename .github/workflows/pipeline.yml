@@ -52,14 +52,26 @@ jobs:
       - name: Extract feature branch name
         run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
 
-      - name: Create pull request
-        run: |
-          PR_EXISTING=$(gh pr list -B develop -H $FEATURE_BRANCH --json number)
-          if [ -z $PR_EXISTING ]; then
-            echo "No existing pull request found."
-            gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into Develop" --body "Created automatic Pull Request by Github action."
-          else
-            echo "Existing pull request number: $PR_EXISTING"
+      - name: Check if PR already exists
+        id: pr_check
+        run: |          
+          PR_EXISTING=$(gh pr list \
+                      --repo ${{ github.repository }} \
+                      --json baseRefName,headRefName \
+                      --jq '
+                          map(select(.baseRefName == "develop" and .headRefName == "$FEATURE_BRANCH"))
+                          | length
+                      ')
+          if ((PR_EXISTING > 0)); then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create pull request
+        if: !steps.pr_check.outputs.skip
+        run: |
+          echo "Creating a new pull request"
+          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into Develop" --body "Created automatic Pull Request by Github action."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
