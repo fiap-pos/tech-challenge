@@ -59,7 +59,7 @@ jobs:
                       --repo ${{ github.repository }} \
                       -B develop \
                       -H $FEATURE_BRANCH \
-                      --json number
+                      --json number \
                       --jq '.[0].number')
           echo resultado: $PR_EXISTING
           echo resultado2: ${PR_EXISTING}
