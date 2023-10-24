@@ -57,11 +57,10 @@ jobs:
         run: |          
           PR_EXISTING=$(gh pr list \
                       --repo ${{ github.repository }} \
-                      --json baseRefName,headRefName \
-                      --jq '
-                          map(select(.baseRefName == "develop" and .headRefName == $FEATURE_BRANCH))
-                          | length
-                      ')
+                      -B develop \
+                      -H $FEATURE_BRANCH \
+                      --json number)
+          
           if ((PR_EXISTING > 0)); then
               echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
