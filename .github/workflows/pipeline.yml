@@ -60,7 +60,7 @@ jobs:
                       -B develop \
                       -H $FEATURE_BRANCH \
                       --json number)
-          if ((${#PR_EXISTING[@]} > 0)); then
+          if ((${#PR_EXISTING[@]} > 0 && ${#PR_EXISTING[0]} != 0 )); then
               echo "skip=true" >> $GITHUB_OUTPUT
           fi
         env:
