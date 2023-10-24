@@ -59,7 +59,11 @@ jobs:
                       --repo ${{ github.repository }} \
                       -B develop \
                       -H $FEATURE_BRANCH \
-                      --json number)
+                      --json number
+                      --jq '.[0].number')
+          echo resultado: $PR_EXISTING
+          echo resultado2: ${PR_EXISTING}
+          echo resultado3: PR_EXISTING
           echo Size of PRS ARRAY: ${#PR_EXISTING[@]}
           echo Length of PRS[0] string: ${#PR_EXISTING[0]}
           if ((${#PR_EXISTING[@]} > 0 && ${#PR_EXISTING[0]} != 0 )); then
