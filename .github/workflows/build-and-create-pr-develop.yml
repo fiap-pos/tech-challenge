@@ -11,35 +11,10 @@ on:
       - 'test**'
       - 'chore**'
 
+includes:
+  - path: .github/workflows/build.yaml
+
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
-
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: target/
-
-      - name: Upload JAR
-        uses: actions/upload-artifact@v2
-        with:
-          name: artifact
-          path: ./target/lanchonete-0.0.1-SNAPSHOT.jar
-
   create_pull_request:
     name: Create Pull Request to Develop
     runs-on: ubuntu-latest
