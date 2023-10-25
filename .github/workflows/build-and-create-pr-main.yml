@@ -1,15 +1,9 @@
-name: Build and Create PR
+name: Build and Create PR to Main
 
 on:
-  push:
-    branches:
-      - 'feature**'
-      - 'fix**'
-      - 'docs**'
-      - 'style**'
-      - 'refactor**'
-      - 'test**'
-      - 'chore**'
+  pull_request:
+    types: closed
+    branches: develop
 
 jobs:
   build:
@@ -41,7 +35,7 @@ jobs:
           path: ./target/lanchonete-0.0.1-SNAPSHOT.jar
 
   create_pull_request:
-    name: Create Pull Request
+    name: Create Pull Request Main
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -52,16 +46,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Extract feature branch name
-        run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+#      - name: Extract feature branch name
+#        run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
 
       - name: Check if PR already exists
         id: pr_check
-        run: |          
+        run: |
           PR_EXISTING=$(gh pr list \
                       --repo ${{ github.repository }} \
-                      -B develop \
-                      -H $FEATURE_BRANCH \
+                      -B main \
+                      -H develop \
                       --json number \
                       --jq '.[0].number')
           if (($PR_EXISTING > 0)); then
@@ -75,6 +69,6 @@ jobs:
         if: '!steps.pr_check.outputs.skip'
         run: |
           echo "Creating a new pull request"
-          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into develop" --body "Created automatic Pull Request by Github action."
+          gh pr create -B main -H develop --title "Created automatic PR develop into main" --body "Created automatic Pull Request by Github action."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
