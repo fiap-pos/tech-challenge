@@ -1,0 +1,74 @@
+name: Build and Create PR to Main
+
+on:
+  pull_request:
+    types: closed
+    branches: develop
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B package -DskipTests --file pom.xml
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: target/
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: ./target/lanchonete-0.0.1-SNAPSHOT.jar
+
+  create_pull_request:
+    name: Create Pull Request Main
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+#      - name: Extract feature branch name
+#        run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+
+      - name: Check if PR already exists
+        id: pr_check
+        run: |
+          PR_EXISTING=$(gh pr list \
+                      --repo ${{ github.repository }} \
+                      -B main \
+                      -H develop \
+                      --json number \
+                      --jq '.[0].number')
+          if (($PR_EXISTING > 0)); then
+              echo Existing PR number: $PR_EXISTING
+              echo "skip=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create pull request
+        if: '!steps.pr_check.outputs.skip'
+        run: |
+          echo "Creating a new pull request"
+          gh pr create -B main -H develop --title "Created automatic PR develop into main" --body "Created automatic Pull Request by Github action."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
