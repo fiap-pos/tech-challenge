@@ -35,7 +35,7 @@ jobs:
           path: ./target/lanchonete-0.0.1-SNAPSHOT.jar
 
   create_pull_request:
-    name: Create Pull Request Main
+    name: Create Pull Request to Main
     runs-on: ubuntu-latest
     permissions:
       contents: write
