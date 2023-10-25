@@ -1,12 +1,7 @@
-name: Pipeline
+name: Build and Create PR
 
 on:
   push:
-#    branches:
-#      - develop
-#  pull_request:
-#    branches:
-#      - main
 
 jobs:
   build:
