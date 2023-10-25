@@ -2,6 +2,14 @@ name: Build and Create PR
 
 on:
   push:
+    branches:
+      - 'feature**'
+      - 'fix**'
+      - 'docs**'
+      - 'style**'
+      - 'refactor**'
+      - 'test**'
+      - 'chore**'
 
 jobs:
   build:
