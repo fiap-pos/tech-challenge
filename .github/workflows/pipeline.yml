@@ -72,6 +72,6 @@ jobs:
         if: '!steps.pr_check.outputs.skip'
         run: |
           echo "Creating a new pull request"
-          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into Develop" --body "Created automatic Pull Request by Github action."
+          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into develop" --body "Created automatic Pull Request by Github action."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
