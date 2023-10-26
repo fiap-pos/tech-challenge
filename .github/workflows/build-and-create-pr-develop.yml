@@ -13,7 +13,8 @@ on:
 
 jobs:
   build:
-    uses: ./.github/actions/build
+    steps:
+      - uses: ./.github/actions/build
 
   create_pull_request:
     name: Create Pull Request to Develop
