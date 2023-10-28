@@ -37,21 +37,10 @@ jobs:
       - name: Extract feature branch name
         run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
 
-      - name: Check if PR already exists
-        id: pr_check
-        run: |          
-          PR_EXISTING=$(gh pr list \
-                      --repo ${{ github.repository }} \
-                      -B develop \
-                      -H $FEATURE_BRANCH \
-                      --json number \
-                      --jq '.[0].number')
-          if (($PR_EXISTING > 0)); then
-              echo Existing PR number: $PR_EXISTING
-              echo "skip=true" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/check-pr
+        with:
+          source_branch: $FEATURE_BRANCH
+          target_branch: "develop"
 
       - name: Create pull request
         if: '!steps.pr_check.outputs.skip'
