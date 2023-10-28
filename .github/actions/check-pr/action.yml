@@ -8,6 +8,9 @@ inputs:
   target_branch:
     description: 'Target branch'
     required: true
+  github_token:
+    description: 'Github token'
+    required: true
 
 runs:
   using: "composite"
@@ -26,5 +29,5 @@ runs:
             echo "skip=true" >> $GITHUB_OUTPUT
         fi
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash

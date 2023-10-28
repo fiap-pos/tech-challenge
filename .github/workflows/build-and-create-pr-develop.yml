@@ -41,6 +41,7 @@ jobs:
         with:
           source_branch: $FEATURE_BRANCH
           target_branch: "develop"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create pull request
         if: '!steps.pr_check.outputs.skip'
