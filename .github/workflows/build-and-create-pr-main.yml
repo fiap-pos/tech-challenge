@@ -3,6 +3,7 @@ name: Build and Create PR to Main
 on:
   pull_request:
     types: closed
+    merged: true
     branches: develop
 
 jobs:
