@@ -1,0 +1,42 @@
+name: Check if PR already exists
+description: Check if PR already exists
+
+inputs:
+  source_branch:
+    description: 'Source branch'
+    required: true
+  target_branch:
+    description: 'Target branch'
+    required: true
+  github_token:
+    description: 'Github token'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check if PR already exists
+      id: pr_check
+      run: |
+        PR_EXISTING=$(gh pr list \
+                    --repo ${{ github.repository }} \
+                    -B ${{ inputs.target_branch }} \
+                    -H ${{ inputs.source_branch }} \
+                    --json number \
+                    --jq '.[0].number')
+        if (($PR_EXISTING > 0)); then
+            echo Existing PR number: $PR_EXISTING
+            echo "skip=true" >> $GITHUB_OUTPUT
+        fi
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash
+
+    - name: Create pull request
+      if: '!steps.pr_check.outputs.skip'
+      run: |
+        echo "Creating a new pull request"
+        gh pr create -B ${{ inputs.target_branch }} -H ${{ inputs.source_branch }} --title "Created automatic PR ${{ inputs.source_branch }} into ${{ inputs.target_branch }}" --body "Created automatic Pull Request by Github action."
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash

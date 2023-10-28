@@ -20,28 +20,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
-
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: target/
-
-      - name: Upload JAR
-        uses: actions/upload-artifact@v2
-        with:
-          name: artifact
-          path: ./target/lanchonete-0.0.1-SNAPSHOT.jar
+      - uses: ./.github/actions/build
 
   create_pull_request:
-    name: Create Pull Request Develop
+    name: Create Pull Request to Develop
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -55,26 +37,8 @@ jobs:
       - name: Extract feature branch name
         run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
 
-      - name: Check if PR already exists
-        id: pr_check
-        run: |          
-          PR_EXISTING=$(gh pr list \
-                      --repo ${{ github.repository }} \
-                      -B develop \
-                      -H $FEATURE_BRANCH \
-                      --json number \
-                      --jq '.[0].number')
-          if (($PR_EXISTING > 0)); then
-              echo Existing PR number: $PR_EXISTING
-              echo "skip=true" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create pull request
-        if: '!steps.pr_check.outputs.skip'
-        run: |
-          echo "Creating a new pull request"
-          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into develop" --body "Created automatic Pull Request by Github action."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/create-pull-request
+        with:
+          source_branch: $FEATURE_BRANCH
+          target_branch: 'develop'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
