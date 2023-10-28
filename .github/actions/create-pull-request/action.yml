@@ -31,3 +31,12 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
+
+    - name: Create pull request
+      if: '!steps.pr_check.outputs.skip'
+      run: |
+        echo "Creating a new pull request"
+        gh pr create -B ${{ inputs.target_branch }} -H ${{ inputs.source_branch }} --title "Created automatic PR ${{ inputs.source_branch }} into ${{ inputs.target_branch }}" --body "Created automatic Pull Request by Github action."
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash

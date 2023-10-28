@@ -37,16 +37,8 @@ jobs:
       - name: Extract feature branch name
         run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
 
-      - uses: ./.github/actions/check-pr
+      - uses: ./.github/actions/create-pull-request
         with:
           source_branch: $FEATURE_BRANCH
           target_branch: "develop"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create pull request
-        if: '!steps.pr_check.outputs.skip'
-        run: |
-          echo "Creating a new pull request"
-          gh pr create -B develop -H $FEATURE_BRANCH --title "Created automatic PR $FEATURE_BRANCH into develop" --body "Created automatic Pull Request by Github action."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
