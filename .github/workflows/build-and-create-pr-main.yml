@@ -18,7 +18,6 @@ jobs:
       - uses: ./.github/actions/build
 
   create_pull_request:
-    if: github.event.pull_request.merged
     name: Create Pull Request to Main
     runs-on: ubuntu-latest
     permissions:
