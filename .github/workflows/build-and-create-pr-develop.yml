@@ -13,14 +13,7 @@ on:
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - uses: ./.github/actions/build
+    uses: ./.github/workflows/reusable-workflow-build.yml
 
   create_pull_request:
     name: Create Pull Request to Develop
