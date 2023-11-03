@@ -27,7 +27,7 @@ Podemos encontrar a imagem do projeto no seguinte repositório do Docker hub [vw
 
 Siga as instruções abaixo para executar o projeto via docker/docker-compose:
 
-1. Faça o clone deste repositório: `git clone https://github.com/diego-jo/tech-challenge`
+1. Faça o clone deste repositório: `https://github.com/fiap-pos/tech-challenge.git`
 2. Acesse o diretório do projeto: `cd tech-challenge`
 3. Execute o comando para iniciar o ambiente Docker: `docker-compose up -d`
 4. Aguarde até que os containers estejam prontos e em execução.
