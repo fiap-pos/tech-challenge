@@ -47,7 +47,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to EKS cluster
-        run: aws eks update-kubeconfig --name tech-challenge-k8s-cluster --region ${{ env.AWS_REGION }}
+        run: aws eks update-kubeconfig --name cluster-demo --region ${{ env.AWS_REGION }}
 
       - name: Login to DockerHub
         run: docker login -u pedroprj -p ${{ secrets.DOCKERHUB_TOKEN }}
