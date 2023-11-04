@@ -72,4 +72,4 @@ jobs:
           docker push vwnunes/tech-challenge-61
 
       - name: Deploy to EKS
-        run: kubectl apply -f deployment/
+        run: kubectl apply -f deployment/lanchonete-deployment.yaml
