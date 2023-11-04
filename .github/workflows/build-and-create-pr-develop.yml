@@ -84,4 +84,4 @@ jobs:
         with:
           command: "apply -f deployment/"
         env:
-          EKS_CLUSTER: cluster-demo
+          EKS_CLUSTER: 'cluster-demo'
