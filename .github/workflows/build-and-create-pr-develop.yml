@@ -11,27 +11,62 @@ on:
       - 'test**'
       - 'chore**'
 
-jobs:
-  build:
-    uses: ./.github/workflows/reusable-workflow-build.yml
+env:
+  AWS_REGION: us-east-1
+  ROLE_TO_ASSUME: arn:aws:iam::244071861643:user/gh-actions-pipeline
 
-  create_pull_request:
-    name: Create Pull Request to Develop
+jobs:
+#  build:
+#    uses: ./.github/workflows/reusable-workflow-build.yml
+#
+#  create_pull_request:
+#    name: Create Pull Request to Develop
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: write
+#      pull-requests: write
+#      repository-projects: write
+#    needs: build
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Get feature branch name
+#        run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+#
+#      - uses: ./.github/actions/create-pull-request
+#        with:
+#          source_branch: $FEATURE_BRANCH
+#          target_branch: 'develop'
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  #  TODO: alterar para executar depois do merge para main
+  deploy:
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
-    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Get feature branch name
-        run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
-
-      - uses: ./.github/actions/create-pull-request
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          source_branch: $FEATURE_BRANCH
-          target_branch: 'develop'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ env.ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to EKS cluster
+        run: aws eks update-kubeconfig --name cluster-demo --region ${{ env.AWS_REGION }}
+
+      - name: Login to DockerHub
+        run: docker login -u pedroprj -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t vwnunes/tech-challenge-61 .
+          docker tag vwnunes/tech-challenge-61:latest
+          docker push vwnunes/tech-challenge-61
+
+      - name: Deploy to EKS
+        run: kubectl apply -f deployment/
