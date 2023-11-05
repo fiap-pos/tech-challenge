@@ -80,7 +80,7 @@ jobs:
       - name: Deploy to EKS
         run: |
           pwd \
-            echo ~/.kube/config \
+            cat ~/.kube/config \
             export KUBECONFIG=~/.kube/config && \
             kubectl config get-contexts && \
             kubectl config current-context && \
