@@ -79,15 +79,16 @@ jobs:
 
       - name: Deploy to EKS
         run: |
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
           cat /github/home/.kube/config
           cat /root/.kube/config
           kubectl config current-context
           kubectl config use-context cluster-demo
           kubectl apply -f deployment/
 
-      - name: Deploy to EKS
-        uses: nikosch86/github-action-eks-kubectl@main
-        with:
-          command: "apply -f deployment/"
-        env:
-          EKS_CLUSTER: ${{ env.EKS_CLUSTER }}
+#      - name: Deploy to EKS
+#        uses: nikosch86/github-action-eks-kubectl@main
+#        with:
+#          command: "apply -f deployment/"
+#        env:
+#          EKS_CLUSTER: ${{ env.EKS_CLUSTER }}
