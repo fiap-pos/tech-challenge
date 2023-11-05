@@ -56,7 +56,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
 #      - name: Login to EKS cluster
-#        run: aws eks update-kubeconfig --name cluster-demo --region ${{ env.AWS_REGION }}
+#        run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
 
       - name: Login to DockerHub
         run: docker login -u pedroprj -p ${{ secrets.DOCKERHUB_TOKEN }}
@@ -77,10 +77,15 @@ jobs:
 #        with:
 #          cluster: cluster-demo
 
-#      - name: Deploy to EKS
-#        run: kubectl apply -f deployment/lanchonete-deployment.yaml
+      - name: Deploy to EKS
+        run: |
+          cat /github/home/.kube/config
+          cat /root/.kube/config
+          kubectl config current-context
+          kubectl config use-context cluster-demo
+          kubectl apply -f deployment/
 
-      - name: Run application deploy
+      - name: Deploy to EKS
         uses: nikosch86/github-action-eks-kubectl@main
         with:
           command: "apply -f deployment/"
