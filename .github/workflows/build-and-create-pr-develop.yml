@@ -79,14 +79,13 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          pwd
-          echo /.kube/config 
-          
-          # export KUBECONFIG=~/.kube/config && \
-          # kubectl config get-contexts && \
-          # kubectl config current-context && \
-          # kubectl config use-context arn:aws:eks:us-east-1:244071861643:cluster/cluster-demo && \
-          # kubectl apply -f deployment/
+          pwd \
+            echo ~/.kube/config \
+            export KUBECONFIG=~/.kube/config && \
+            kubectl config get-contexts && \
+            kubectl config current-context && \
+            kubectl config use-context arn:aws:eks:us-east-1:244071861643:cluster/cluster-demo && \
+            kubectl apply -f deployment/
 
 #      - name: Deploy to EKS
 #        uses: nikosch86/github-action-eks-kubectl@main
