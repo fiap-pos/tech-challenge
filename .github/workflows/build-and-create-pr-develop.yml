@@ -79,9 +79,9 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          pwd \
-            ls -la \
-            cat ~/.kube/config \
+          pwd && \
+          ls -la && \
+          cat ~/.kube/config
             # export KUBECONFIG=~/.kube/config && \
             # kubectl config get-contexts && \
             # kubectl config current-context && \
