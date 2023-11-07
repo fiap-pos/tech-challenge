@@ -13,7 +13,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  EKS_CLUSTER: cluster-demo
+  EKS_CLUSTER: tech-challenge-cluster
 
 jobs:
 #  build:
@@ -61,21 +61,16 @@ jobs:
       - name: Login to DockerHub
         run: docker login -u pedroprj -p ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        run: |
-          docker build -t vwnunes/tech-challenge-61:latest .
-          docker push vwnunes/tech-challenge-61
+#      - name: Build and push Docker image
+#        run: |
+#          docker build -t vwnunes/tech-challenge-61:latest .
+#          docker push vwnunes/tech-challenge-61
 
-#      - name: Install kubectl
-#        uses: azure/setup-kubectl@v2.0
-#        with:
-#          version: 'v1.27.0'
-#        id: install
-
-#      - name: Configure Kubernetes client
-#        uses: silverlyra/setup-aws-eks@v0.1
-#        with:
-#          cluster: cluster-demo
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v2.0
+        with:
+          version: 'v1.27.0'
+        id: install
 
       - name: Deploy to EKS
         run: |
@@ -84,6 +79,11 @@ jobs:
             kubectl config current-context && \
             kubectl config use-context arn:aws:eks:us-east-1:244071861643:cluster/cluster-demo && \
             kubectl apply -f deployment/
+
+#      - name: Configure Kubernetes client
+#        uses: silverlyra/setup-aws-eks@v0.1
+#        with:
+#          cluster: ${{ env.EKS_CLUSTER }}
 
 #      - name: Deploy to EKS
 #        uses: nikosch86/github-action-eks-kubectl@main
