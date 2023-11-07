@@ -77,7 +77,7 @@ jobs:
             export KUBECONFIG=~/.kube/config && \
             kubectl config get-contexts && \
             kubectl config current-context && \
-            kubectl config use-context arn:aws:eks:us-east-1:244071861643:cluster/cluster-demo && \
+            kubectl config use-context arn:aws:eks:us-east-1:244071861643:cluster/${{ env.EKS_CLUSTER }} && \
             kubectl apply -f deployment/
 
 #      - name: Configure Kubernetes client
