@@ -72,8 +72,9 @@ jobs:
 #          version: 'v1.27.0'
 #        id: install
 
-#      - name: Deploy to EKS
-#        run: |
+      - name: Deploy to EKS
+        run: |
+          kubectl get nodes -v=10
 #            cat /home/runner/.kube/config && \
 #            export KUBECONFIG=~/.kube/config && \
 #            kubectl config get-contexts && \
@@ -99,18 +100,18 @@ jobs:
 #          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
 #      - run: kubectl get pods
 
-      - name: Install and configure kubectl
-        run: |
-          VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-          curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
-              --progress-bar \
-              --location \
-              --remote-name
-          chmod +x kubectl
-          sudo mv kubectl /usr/local/bin/
-          sudo apt-get install gettext-base
+#      - name: Install and configure kubectl
+#        run: |
+#          VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+#          curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
+#              --progress-bar \
+#              --location \
+#              --remote-name
+#          chmod +x kubectl
+#          sudo mv kubectl /usr/local/bin/
+#          sudo apt-get install gettext-base
 
-      - name: Deploy to EKS
-        run: |
-          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
-          kubectl apply -f deployment/
+#      - name: Deploy to EKS
+#        run: |
+#          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
+#          kubectl apply -f deployment/
