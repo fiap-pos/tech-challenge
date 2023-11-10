@@ -75,4 +75,4 @@ jobs:
         env:
           DB_HOSTNAME: ${{ secrets.DB_HOST }}
           DB_USERNAME: ${{ secrets.DB_USER }}
-          DB_PASSWORD_TESTE: ${{ secrets.DB_PASS }}
+          DB_PASSWORD_TESTE: "teste"
