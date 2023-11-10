@@ -14,6 +14,7 @@ spec:
       containers:
         - name: lanchonete
           image: vwnunes/tech-challenge-61:latest
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8080
           envFrom:
