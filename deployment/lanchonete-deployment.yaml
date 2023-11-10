@@ -17,9 +17,6 @@ spec:
           imagePullPolicy: "Always"
           ports:
             - containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: configmap
           env:
             - name: DB_HOST
               value: ${DB_HOSTNAME}
