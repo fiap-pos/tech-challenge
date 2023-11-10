@@ -20,16 +20,12 @@ spec:
             - configMapRef:
                 name: configmap
           env:
+            - name: DB_HOST
+              value: ${DB_HOST}
             - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: mysql-user
+              value: ${DB_USERNAME}
             - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: mysql-password
+              value: ${DB_PASSWORD}
           volumeMounts:
             - mountPath: /lanchonete-volume
               name: lanchonete-volume

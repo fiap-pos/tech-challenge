@@ -68,5 +68,11 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          kubectl apply -f deployment/
+          kubectl apply -f deployment/lanchonete-deployment.yaml
+          kubectl apply -f deployment/lanchonete-service.yaml
+          kubectl apply -f deployment/alb-ingress.yaml
           kubectl get svc lanchonete-service
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
