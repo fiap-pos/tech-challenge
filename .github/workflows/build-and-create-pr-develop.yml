@@ -14,9 +14,6 @@ on:
 env:
   AWS_REGION: us-east-1
   EKS_CLUSTER: eks-tech-challenge
-  DB_HOSTNAME: ${{ secrets.DB_HOST }}
-  DB_USERNAME: ${{ secrets.DB_USER }}
-  DB_PASSWORD: ${{ secrets.DB_PASS }}
 
 jobs:
 #  build:
@@ -75,3 +72,6 @@ jobs:
           kubectl apply -f deployment/lanchonete-service.yaml
           kubectl apply -f deployment/alb-ingress.yaml
           kubectl get svc lanchonete-service
+          echo "${{ secrets.DB_HOST }}" >> $DB_HOSTNAME
+          echo "${{ secrets.DB_USER }}" >> $DB_USERNAME
+          echo "${{ secrets.DB_PASS }}" >> $DB_PASSWORD
