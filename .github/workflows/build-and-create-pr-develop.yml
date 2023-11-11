@@ -44,6 +44,12 @@ jobs:
   deploy:
 #    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
+
+    env:
+      DB_HOSTNAME: ${{ secrets.DB_HOST }}
+      DB_USERNAME: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASS }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -72,7 +78,3 @@ jobs:
           kubectl apply -f deployment/lanchonete-service.yaml
           kubectl apply -f deployment/alb-ingress.yaml
           kubectl get svc lanchonete-service
-        env:
-          DB_HOSTNAME: ${{ secrets.DB_HOST }}
-          DB_USERNAME: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASS }}
