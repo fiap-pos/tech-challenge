@@ -72,6 +72,6 @@ jobs:
           kubectl apply -f deployment/lanchonete-service.yaml
           kubectl apply -f deployment/alb-ingress.yaml
           kubectl get svc lanchonete-service
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
-          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
-          echo "DB_PASS=${{ secrets.DB_PASS }}" >> $GITHUB_ENV
+          echo "DB_HOST=$(echo ${{ secrets.DB_HOST }})" >> $GITHUB_ENV
+          echo "DB_USER=$(echo ${{ secrets.DB_USER }})" >> $GITHUB_ENV
+          echo "DB_PASS=$(echo ${{ secrets.DB_PASS }})" >> $GITHUB_ENV
