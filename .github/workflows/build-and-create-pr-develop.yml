@@ -1,0 +1,37 @@
+name: Build and Create PR to Develop
+
+on:
+  push:
+    branches:
+      - 'feature**'
+      - 'fix**'
+      - 'docs**'
+      - 'style**'
+      - 'refactor**'
+      - 'test**'
+      - 'chore**'
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-workflow-build.yml
+
+  create_pull_request:
+    name: Create Pull Request to Develop
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get feature branch name
+        run: echo "FEATURE_BRANCH=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+
+      - uses: ./.github/actions/create-pull-request
+        with:
+          source_branch: $FEATURE_BRANCH
+          target_branch: 'develop'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

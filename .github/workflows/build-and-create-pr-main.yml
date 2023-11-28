@@ -1,0 +1,69 @@
+name: Build and Create PR to Main
+
+on:
+  pull_request:
+    types: closed
+    branches: develop
+
+env:
+  AWS_REGION: us-east-1
+  EKS_CLUSTER: eks-tech-challenge
+
+jobs:
+  build:
+    if: github.event.pull_request.merged
+    uses: ./.github/workflows/reusable-workflow-build.yml
+
+  create_pull_request:
+    name: Create Pull Request to Main
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: ./.github/actions/create-pull-request
+        with:
+          source_branch: 'develop'
+          target_branch: 'main'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to EKS cluster
+        run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
+
+      - name: Login to DockerHub
+        run: docker login -u pedroprj -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t vwnunes/tech-challenge-61:latest .
+          docker push vwnunes/tech-challenge-61
+
+      # TODO: alterar a forma de criar as variáveis de ambiente abaixo pois o deployment da aplicação não está conseguindo enxergar ou pegar essas variáveis direto do ssm pela aplicação
+      - name: Deploy to EKS
+        run: |
+          kubectl apply -f deployment/lanchonete-deployment.yaml
+          kubectl apply -f deployment/lanchonete-service.yaml
+          kubectl apply -f deployment/alb-ingress.yaml
+          kubectl get svc lanchonete-service
+          echo "DB_HOST=$(echo ${{ secrets.DB_HOST }})" >> $GITHUB_ENV
+          echo "DB_USER=$(echo ${{ secrets.DB_USER }})" >> $GITHUB_ENV
+          echo "DB_PASS=$(echo ${{ secrets.DB_PASS }})" >> $GITHUB_ENV
