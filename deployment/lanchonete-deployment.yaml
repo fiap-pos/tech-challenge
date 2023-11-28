@@ -14,22 +14,16 @@ spec:
       containers:
         - name: lanchonete
           image: vwnunes/tech-challenge-61:latest
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: configmap
           env:
-            - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: mysql-user
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: mysql-password
+            - name: DB_HOST
+              value: ${DB_HOSTNAME}
+            - name: DB_USER
+              value: ${DB_USERNAME}
+            - name: DB_PASS
+              value: ${DB_PASSWORD}
           volumeMounts:
             - mountPath: /lanchonete-volume
               name: lanchonete-volume
