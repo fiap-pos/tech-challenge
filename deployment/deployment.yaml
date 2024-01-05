@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lanchonete
+  labels:
+    app: lanchonete
+spec:
+  template:
+    metadata:
+      name: lanchonete
+      labels:
+        app: lanchonete
+    spec:
+      serviceAccountName: lanchonete-sa
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: lanchonete-secrets
+        - name: lanchonete-volume
+          hostPath:
+            path: /home/lanchonete-volume
+            type: DirectoryOrCreate
+      containers:
+        - name: lanchonete
+          image: vwnunes/tech-challenge-61:latest
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: lanchonete-secrets-aws
+                  key: mysql_host
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: lanchonete-secrets-aws
+                  key: mysql_user
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: lanchonete-secrets-aws
+                  key: mysql_password
+          volumeMounts:
+            - name: lanchonete-volume
+              mountPath: "/mnt/lanchonete-volume"
+            - name: secrets-store-inline
+              mountPath: "/mnt/lanchonete-secrets"
+              readOnly: true
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lanchonete
