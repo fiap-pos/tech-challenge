@@ -34,17 +34,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: lanchonete-secrets-aws
-                  key: mysql_host
+                  key: mysqlHost
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: lanchonete-secrets-aws
-                  key: mysql_user
+                  key: mysqlUser
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
                   name: lanchonete-secrets-aws
-                  key: mysql_password
+                  key: mysqlPassword
           volumeMounts:
             - name: lanchonete-volume
               mountPath: "/mnt/lanchonete-volume"

@@ -11,4 +11,8 @@ jobs:
     name: Build and Deploy Application Image
     uses: ./.github/workflows/build-image.yaml
     secrets: inherit
-
+  deploy-to-eks:
+    name: Deploy Application
+    needs: build-image
+    uses: ./.github/workflows/deploy-to-eks.yaml
+    secrets: inherit
