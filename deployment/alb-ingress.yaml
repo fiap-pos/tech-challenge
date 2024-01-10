@@ -3,14 +3,14 @@ kind: Ingress
 metadata:
   name: lanchonete-ingress
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/scheme: internal
     alb.ingress.kubernetes.io/target-type: ip
 spec:
   ingressClassName: alb
   rules:
     - http:
         paths:
-        - path: /lanchonete
+        - path: /
           pathType: Prefix
           backend:
             service:
