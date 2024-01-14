@@ -27,6 +27,18 @@ services:
       - ./wiremock/mappings:/home/wiremock/mappings
       - ./wiremock/logs:/home/wiremock/logs
 
+  localstack:
+    container_name: lanchonete_localstack
+    image: localstack/localstack
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+      - "4510-4559:4510-4559"
+    networks:
+      - tech_challenge_app_network  # external services port range
+    environment:
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: admin
+      AWS_REGION: us-east-1:wq
 networks:
   tech_challenge_app_network:
     name: "tech_challenge_app_network"
