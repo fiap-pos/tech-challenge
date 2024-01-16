@@ -20,8 +20,8 @@ public abstract class ClienteHelper {
 
     public static List<ClienteDTO> getListaClienteDTO() {
         return List.of(
-                new ClienteDTO(NOME_1, CPF_1, EMAIL_1),
-                new ClienteDTO(NOME_2, CPF_2, EMAIL_2)
+                new ClienteDTO(1L, NOME_1, CPF_1, EMAIL_1),
+                new ClienteDTO(2L, NOME_2, CPF_2, EMAIL_2)
         );
     }
 
