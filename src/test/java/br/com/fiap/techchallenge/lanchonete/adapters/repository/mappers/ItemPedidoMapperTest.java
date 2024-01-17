@@ -2,7 +2,9 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +14,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getItemPedidoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getPedido;
+import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.*;
 import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProduto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -67,4 +68,23 @@ class ItemPedidoMapperTest {
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("Produto não encontrado");
     }
+
+    @Test
+    void dadoListaItemPedido_DeveFazerMapper_ListaItemPedidoDTO() {
+        var pedido = getPedido();
+        var itemPedidoList = List.of(getItemPedido(pedido));
+
+        List<ItemPedidoDTO> itemPedidoDTOList = itemPedidoMapper.toItemPedidoResponse(itemPedidoList);
+
+        assertThat(itemPedidoList).isNotNull();
+        assertThat(itemPedidoList).allSatisfy(itemPedido -> {
+            assertThat(itemPedido.getProduto()).isNotNull().isInstanceOf(Produto.class);
+            assertThat(itemPedido.getProduto().getId()).isEqualTo(itemPedidoList.get(0).getProduto().getId());
+            assertThat(itemPedido.getProduto().getDescricao()).isEqualTo(itemPedidoList.get(0).getProduto().getDescricao());
+            assertThat(itemPedido.getValorUnitario()).isEqualTo(itemPedidoList.get(0).getValorUnitario());
+            assertThat(itemPedido.getQuantidade()).isEqualTo(itemPedidoList.get(0).getQuantidade());
+        });
+
+    }
+
 }
