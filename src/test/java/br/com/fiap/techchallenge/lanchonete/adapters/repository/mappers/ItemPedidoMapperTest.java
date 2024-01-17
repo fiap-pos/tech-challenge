@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido;
+import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelp
 import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getPedido;
 import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProduto;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -54,6 +56,15 @@ class ItemPedidoMapperTest {
     }
 
     @Test
-    void toItemPedidoResponse() {
+    void dadoPedido_ListaItemPedidoDTO_DeveFazerMapper_ListaItemPedido_LancaExececao_SeProdutoNaoEncontrado() {
+        var pedido = getPedido();
+        var itemPedidoDTOList = List.of(getItemPedidoDTO());
+        var produto = getProduto();
+
+        when(produtoJpaRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> itemPedidoMapper.toItemPedido(pedido, itemPedidoDTOList))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Produto não encontrado");
     }
 }
