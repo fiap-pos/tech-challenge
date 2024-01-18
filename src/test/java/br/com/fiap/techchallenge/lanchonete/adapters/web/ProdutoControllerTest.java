@@ -1,7 +1,228 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import static org.junit.jupiter.api.Assertions.*;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ProdutoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ProdutoRequest;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.ProdutoResponse;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.data.web.JsonPath;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Collections;
+
+import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
+import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ProdutoControllerTest {
+
+    private MockMvc mockMvc;
+
+    @Mock
+    CriaProdutoInputPort criaProdutoInputPort;
+
+    @Mock
+    AtualizaImagemProdutoInputPort atualizaImagemProdutoInputPort;
+
+    @Mock
+    EditaProdutoInputPort editaProdutoInputPort;
+
+    @Mock
+    RemoveProdutoInputPort removeProdutoInputPort;
+
+    @Mock
+    BuscaProdutoPorIdInputPort buscaProdutoPorIdInputPort;
+
+    @Mock
+    BuscaTodosProdutosInputPort buscaTodosProdutosInputPort;
+
+    @Mock
+    BuscaProdutoPorCategoriaInputPort buscaProdutoPorCategoriaInputPort;
+
+    ProdutoMapper produtoMapper;
+
+    AutoCloseable mock;
+
+    ProdutoRequest produtoRequest = new ProdutoRequest();
+
+    @BeforeEach
+    void setup() {
+        produtoRequest.setNome("Produto Teste");
+        produtoRequest.setDescricao("Descrição do Produto Teste");
+        produtoRequest.setPreco(BigDecimal.valueOf(10.00));
+        produtoRequest.setCategoria(CategoriaEnum.LANCHE);
+
+        this.produtoMapper = new ProdutoMapper();
+        mock = MockitoAnnotations.openMocks(this);
+        ProdutoController produtoController = new ProdutoController(
+                criaProdutoInputPort,
+                atualizaImagemProdutoInputPort,
+                editaProdutoInputPort,
+                removeProdutoInputPort,
+                buscaProdutoPorIdInputPort,
+                buscaTodosProdutosInputPort,
+                buscaProdutoPorCategoriaInputPort,
+                produtoMapper
+        );
+
+        mockMvc = MockMvcBuilders.standaloneSetup(produtoController).build();
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mock.close();
+    }
+
+    @Nested
+    class Produto {
+
+        @Test
+        void criaUmNovoProduto() throws Exception {
+            var produtoDTO = getProdutoDTO();
+
+            when(criaProdutoInputPort.criar(any(ProdutoDTO.class))).thenReturn(produtoDTO);
+
+            ResultActions result = mockMvc.perform(post("/produtos")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(produtoRequest))
+            );
+
+            result.andExpect(status().isCreated());
+
+            verify(criaProdutoInputPort, times(1)).criar(any(ProdutoDTO.class));
+            verifyNoMoreInteractions(criaProdutoInputPort);
+        }
+
+        @Test
+        void deveAtualizarImagemProduto() throws Exception {
+            MultipartFile imagem = Instancio.create(MockMultipartFile.class);
+
+            doAnswer(invocation -> {
+                byte[] imageBytes = invocation.getArgument(0);
+                Long id = invocation.getArgument(1);
+                return null;
+            }).when(atualizaImagemProdutoInputPort).atualizar(any(AtualizaImagemProdutoDTO.class), any(Long.class));
+
+            mockMvc.perform(patch("/produtos/{id}", 1L)
+                            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                            .content(imagem.getBytes()));
+
+        }
+
+        @Test
+        void editaUmProdutoPorId() throws Exception {
+            var id = 1L;
+            var produtoDTO = getProdutoDTO();
+
+            when(editaProdutoInputPort.editar(any(ProdutoDTO.class), any(Long.class))).thenReturn(produtoDTO);
+
+            ResultActions result = mockMvc.perform(put("/produtos/{id}", id)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(produtoRequest))
+            );
+
+            result.andExpect(status().isOk());
+
+            verify(editaProdutoInputPort, times(1)).editar(any(ProdutoDTO.class), any(Long.class));
+            verifyNoMoreInteractions(editaProdutoInputPort);
+        }
+
+        @Test
+        void removeUmProdutoPorId() throws Exception {
+            var id = 1L;
+            var produtoDTO = getProdutoDTO();
+
+            when(removeProdutoInputPort.remover(any(Long.class))).thenReturn(produtoDTO);
+
+            ResultActions result = mockMvc.perform(delete("/produtos/{id}", id)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(produtoRequest))
+            );
+
+            result.andExpect(status().isOk());
+
+            verify(removeProdutoInputPort, times(1)).remover(any(Long.class));
+            verifyNoMoreInteractions(removeProdutoInputPort);
+        }
+
+        @Test
+        void buscaUmProdutoPorId() throws Exception {
+            var id = 1L;
+            var produtoDTO = getProdutoDTO();
+
+            when(buscaProdutoPorIdInputPort.buscarPorId(any(Long.class))).thenReturn(produtoDTO);
+
+            ResultActions result = mockMvc.perform(get("/produtos/{id}", id)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(produtoRequest))
+            );
+
+            result.andExpect(status().isOk());
+
+            verify(buscaProdutoPorIdInputPort, times(1)).buscarPorId(any(Long.class));
+            verifyNoMoreInteractions(buscaProdutoPorIdInputPort);
+        }
+
+        @Test
+        void buscaTodosProdutos() throws Exception {
+            var id = 1L;
+            var produtoDTO = getProdutoDTO();
+
+            when(buscaTodosProdutosInputPort.buscartodos()).thenReturn(Collections.singletonList(produtoDTO));
+
+            ResultActions result = mockMvc.perform(get("/produtos")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(Collections.singletonList(produtoRequest)))
+            );
+
+            result.andExpect(status().isOk());
+
+            verify(buscaTodosProdutosInputPort, times(1)).buscartodos();
+            verifyNoMoreInteractions(buscaTodosProdutosInputPort);
+        }
+
+        @Test
+        void buscaTodosProdutosPorCategoria() throws Exception {
+            var categoria = CategoriaEnum.LANCHE;
+            var produtoDTO = getProdutoDTO();
+
+            when(buscaProdutoPorCategoriaInputPort.buscarPorCategoria(any(CategoriaEnum.class))).thenReturn(Collections.singletonList(produtoDTO));
+
+            ResultActions result = mockMvc.perform(get("/produtos/categoria/{categoria}", categoria)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJsonString(Collections.singletonList(produtoRequest)))
+            );
+
+            result.andExpect(status().isOk());
+
+            verify(buscaProdutoPorCategoriaInputPort, times(1)).buscarPorCategoria(any(CategoriaEnum.class));
+            verifyNoMoreInteractions(buscaProdutoPorCategoriaInputPort);
+        }
+    }
 
 }
