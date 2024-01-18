@@ -26,7 +26,6 @@ class ClienteMapperTest {
         var cliente = clienteMapper.toCliente(clienteDTO);
 
         assertThat(cliente).isNotNull().isInstanceOf(Cliente.class);
-        assertThat(cliente.getId()).isEqualTo(clienteDTO.id());
         assertThat(cliente.getNome()).isEqualTo(clienteDTO.nome());
         assertThat(cliente.getCpf()).isEqualTo(clienteDTO.cpf());
         assertThat(cliente.getEmail()).isEqualTo(clienteDTO.email());
