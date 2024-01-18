@@ -2,14 +2,10 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ProdutoRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.ProdutoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,18 +13,13 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.web.JsonPath;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collections;
 
