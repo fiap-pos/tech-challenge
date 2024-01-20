@@ -1,16 +1,17 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases.pedido;
 
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cliente;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.ItemPedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Pedido;
-import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cliente;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.*;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaItemPedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaPedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.CriaPedidoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClienteOutputPort;
-import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.BuscaProdutoPorIdOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.CriaPedidoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.BuscaProdutoPorIdOutputPort;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class CriaPedidoUseCase implements CriaPedidoInputPort {
