@@ -36,14 +36,14 @@ public class CobrancaController extends ControllerBase {
         CriaCobrancaInputPort criaCobrancaInputPort,
         BuscaCobrancaPorIdInputPort buscaCobrancaPorIdInputPort,
         AtualizaStatusCobrancaInputPort atualizaStatusCobrancaInputPort,
-        CobrancaMapper cobrancaMapper,
-        BuscaStatusPagamentoInputPort buscaStatusPagamentoInputPort
-    ) {
+        BuscaStatusPagamentoInputPort buscaStatusPagamentoInputPort,
+        CobrancaMapper cobrancaMapper
+        ) {
         this.criaCobrancaInputPort = criaCobrancaInputPort;
         this.buscaCobrancaPorIdInputPort = buscaCobrancaPorIdInputPort;
         this.atualizaStatusCobrancaInputPort = atualizaStatusCobrancaInputPort;
-        this.cobrancaMapper = cobrancaMapper;
         this.buscaStatusPagamentoInputPort = buscaStatusPagamentoInputPort;
+        this.cobrancaMapper = cobrancaMapper;
     }
 
     @Operation(summary = "Cria uma nova Cobrança")
