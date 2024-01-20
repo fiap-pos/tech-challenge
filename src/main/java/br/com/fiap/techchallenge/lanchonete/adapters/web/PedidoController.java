@@ -88,11 +88,11 @@ public class PedidoController extends ControllerBase{
     @Operation(summary = "Atualiza status de um  pedido")
     @PatchMapping("/{id}/status")
     public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
-                                                         @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
-        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest.toAtualizaStatusPedidoDTO());
+                                                         @RequestBody AtualizaStatusPedidoRequest atualizaStatusPedidoRequest){
+        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, atualizaStatusPedidoRequest.toAtualizaStatusPedidoDTO());
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
-        return ResponseEntity.created(uri).body(pedidoResponse);
+        return ResponseEntity.accepted().body(pedidoResponse);
     }
 
     @Operation(summary = "Busca todos os pedidos por status")
