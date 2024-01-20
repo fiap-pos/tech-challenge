@@ -31,7 +31,7 @@ public abstract class PedidoHelper {
     }
 
     public static ItemPedidoDTO getItemPedidoDTO() {
-        return new ItemPedidoDTO(PRODUTO_ID, PRODUTO_NOME, PRODUTO_DESCRICAO, BigDecimal.valueOf(45.9), 2);
+        return new ItemPedidoDTO(1L, PRODUTO_NOME, PRODUTO_DESCRICAO, BigDecimal.valueOf(45.9), 2);
     }
 
     public static List<PedidoDTO> getListaPedidoDTO() {
@@ -57,7 +57,11 @@ public abstract class PedidoHelper {
         return new CriaPedidoDTO(1L, Collections.singletonList(getCriaItemPedidoDTO()));
     }
 
+    public static CriaPedidoDTO getCriaPedidoDTOSemCliente() {
+        return new CriaPedidoDTO(null, Collections.singletonList(getCriaItemPedidoDTO()));
+    }
+
     public static CriaItemPedidoDTO getCriaItemPedidoDTO() {
-        return new CriaItemPedidoDTO(1L, 10);
+        return new CriaItemPedidoDTO(1L, 2);
     }
 }
