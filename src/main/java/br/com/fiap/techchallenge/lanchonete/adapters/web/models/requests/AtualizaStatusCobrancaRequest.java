@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class AtualizaStatusCobrancaRequest {
     private StatusCobrancaEnum status;
 
-    AtualizaStatusCobrancaRequest() {
+    public AtualizaStatusCobrancaRequest() {
 
     }
 
