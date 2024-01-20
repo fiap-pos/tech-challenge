@@ -16,7 +16,6 @@ import java.util.List;
 
 public class CriaPedidoUseCase implements CriaPedidoInputPort {
 
-
     private final CriaPedidoOutputPort criaPedidoOutputPort;
     private final BuscaProdutoPorIdOutputPort buscaProdutoPorIdOutputPort;
     private final BuscaClienteOutputPort buscaClienteOutputPort;
@@ -62,6 +61,4 @@ public class CriaPedidoUseCase implements CriaPedidoInputPort {
             );
         });
     }
-
-
 }
