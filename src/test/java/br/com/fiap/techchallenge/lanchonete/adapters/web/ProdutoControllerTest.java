@@ -90,7 +90,7 @@ class ProdutoControllerTest {
     }
 
     @Nested
-    class Produto {
+    class testaProdutoController {
 
         @Test
         void criaUmNovoProduto() throws Exception {
