@@ -1,10 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ClienteMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.ProdutoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ClienteRequest;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.AtualizaClienteInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaClientePorInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cliente.BuscaTodosClientesInputPort;
@@ -24,10 +22,8 @@ import java.util.Collections;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
 import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getClienteDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -87,7 +83,6 @@ class ClienteControllerTest {
 
             ResultActions result = mockMvc.perform(get("/clientes/{cpf}", cpf)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(asJsonString(clienteRequest))
             );
 
             result.andExpect(status().isOk());
@@ -104,7 +99,6 @@ class ClienteControllerTest {
 
             ResultActions result = mockMvc.perform(get("/clientes")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(asJsonString(Collections.singletonList(clienteRequest)))
             );
 
             result.andExpect(status().isOk());

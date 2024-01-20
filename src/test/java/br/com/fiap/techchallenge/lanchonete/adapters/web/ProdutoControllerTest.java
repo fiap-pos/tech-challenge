@@ -170,7 +170,6 @@ class ProdutoControllerTest {
 
             ResultActions result = mockMvc.perform(get("/produtos/{id}", id)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(asJsonString(produtoRequest))
             );
 
             result.andExpect(status().isOk());
