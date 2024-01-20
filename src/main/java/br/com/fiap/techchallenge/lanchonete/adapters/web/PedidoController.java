@@ -1,20 +1,13 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
+//import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
+
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.PedidoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.awspring.cloud.sqs.annotation.SqsListener;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
-import io.awspring.cloud.sqs.operations.SqsTemplateBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import software.amazon.awssdk.services.sqs.model.Message;
 
 import java.util.List;
 
@@ -38,9 +30,9 @@ public class PedidoController extends ControllerBase{
     private final BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
-    private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
+//    private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
     private final PedidoMapper pedidoMapper;
-    private final CobrancaMapper cobrancaMapper;
+//    private final CobrancaMapper cobrancaMapper;
     private final SqsTemplate sqsTemplate;
 
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
@@ -49,9 +41,9 @@ public class PedidoController extends ControllerBase{
                             BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
-                            BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
+//                            BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
                             PedidoMapper pedidoMapper,
-                            CobrancaMapper cobrancaMapper,
+//                            CobrancaMapper cobrancaMapper,
                             SqsTemplate sqsTemplate
     ) {
         this.criaPedidoInputPort = criaPedidoInputPort;
@@ -60,9 +52,9 @@ public class PedidoController extends ControllerBase{
         this.buscaPedidosOrdenadosPorPrioridadeInputPort = buscaPedidosOrdenadosPorPrioridadeInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
-        this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
+//        this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
         this.pedidoMapper = pedidoMapper;
-        this.cobrancaMapper = cobrancaMapper;
+//        this.cobrancaMapper = cobrancaMapper;
         this.sqsTemplate = sqsTemplate;
     }
 
@@ -124,14 +116,14 @@ public class PedidoController extends ControllerBase{
         return ResponseEntity.ok(pedidosOut);
     }
 
-    @Operation(summary = "Busca cobrança pelo id do pedido")
-    @GetMapping(value = "/{id}/cobranca")
-    ResponseEntity<CobrancaResponse> buscarCobrancaPorPedidoId(
-            @PathVariable("id") Long id
-    ) {
-        var cobrancaOut = buscaCobrancaPorPedidoIdInputPort.buscarPorPedidoId(id);
-        var cobrancaResponse = cobrancaMapper.toCobrancaResponse(cobrancaOut);
-        return ResponseEntity.ok().body(cobrancaResponse);
-    }
+//    @Operation(summary = "Busca cobrança pelo id do pedido")
+//    @GetMapping(value = "/{id}/cobranca")
+//    ResponseEntity<CobrancaResponse> buscarCobrancaPorPedidoId(
+//            @PathVariable("id") Long id
+//    ) {
+//        var cobrancaOut = buscaCobrancaPorPedidoIdInputPort.buscarPorPedidoId(id);
+//        var cobrancaResponse = cobrancaMapper.toCobrancaResponse(cobrancaOut);
+//        return ResponseEntity.ok().body(cobrancaResponse);
+//    }
 
 }

@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.messages;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.CobrancaRequest;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,22 +24,11 @@ public class Listeners {
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
     }
 
-//    @SqsListener(value = "sqsPagamentos")
-//    public void receiveMessage(Message message) {
-//
-//        try{
-//            logger.info("Message: " + message.body());
-//        }
-//        catch (Exception e)
-//        {
-//            logger.error(e.getMessage(), e);
-//        }
-//    }
-
     @SqsListener("sqsPagamentos")
     public void receberMensagem(Message mensagem) throws JsonProcessingException {
+        logger.info("Recebendo mensagem: {}", mensagem);
         ObjectMapper om = new ObjectMapper();
-        var statusPedidoRequest = om.readValue(mensagem.body(), AtualizaStatusPedidoRequest.class);
-        atualizaStatusPedidoInputPort.atualizarStatus(statusPedidoRequest.getPedidoId(), statusPedidoRequest.getStatus());
+        var cobrancaDTO = om.readValue(mensagem.body(), CobrancaDTO.class);
+        atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.id(), cobrancaDTO.status());
     }
 }
