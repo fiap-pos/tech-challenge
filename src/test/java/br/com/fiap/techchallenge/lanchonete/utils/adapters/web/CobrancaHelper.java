@@ -3,7 +3,10 @@ package br.com.fiap.techchallenge.lanchonete.utils.adapters.web;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.QrCode;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaCobrancaDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.StatusPagamentoDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,5 +28,13 @@ public abstract class CobrancaHelper {
 
     public static Cobranca getCobranca() {
         return new Cobranca(ID, PEDIDO_ID, STATUS, VALOR, QR_CODE.getDecodedBase64Value(), CREATED_AT, UPDATED_AT);
+    }
+
+    public static CriaCobrancaDTO getCriaCobrancaDTO() {
+        return new CriaCobrancaDTO(1L);
+    }
+
+    public static StatusPagamentoDTO getStatusPagamentoPagoDTO() {
+        return new StatusPagamentoDTO(1L, StatusPedidoEnum.RECEBIDO.getDescricao(), StatusCobrancaEnum.PAGO);
     }
 }
