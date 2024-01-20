@@ -4,12 +4,11 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedid
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getCliente;
@@ -52,5 +51,13 @@ public abstract class PedidoHelper {
 
     public static ItemPedido getItemPedido(Pedido pedido) {
         return new ItemPedido(pedido, getProduto(), 2, BigDecimal.valueOf(45.9));
+    }
+
+    public static CriaPedidoDTO getCriaPedidoDTO() {
+        return new CriaPedidoDTO(1L, Collections.singletonList(getCriaItemPedidoDTO()));
+    }
+
+    public static CriaItemPedidoDTO getCriaItemPedidoDTO() {
+        return new CriaItemPedidoDTO(1L, 10);
     }
 }
