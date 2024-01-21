@@ -16,4 +16,12 @@ public record CobrancaDTO(Long id, Long pedidoId, BigDecimal valor, StatusCobran
             cobranca.getQrCode()
         );
     }
+
+    public CobrancaDTO(Long id, Long pedidoId, BigDecimal valor, StatusCobrancaEnum status, QrCode qrCode) {
+        this.id = id;
+        this.pedidoId = pedidoId;
+        this.valor = valor;
+        this.status = status;
+        this.qrCode = qrCode;
+    }
 }

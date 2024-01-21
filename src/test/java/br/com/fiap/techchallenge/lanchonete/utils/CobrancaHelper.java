@@ -11,6 +11,8 @@ import br.com.fiap.techchallenge.lanchonete.core.dtos.StatusPagamentoDTO;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
+
 public abstract class CobrancaHelper {
 
     private static final Long ID = 1L;
@@ -37,4 +39,22 @@ public abstract class CobrancaHelper {
     public static StatusPagamentoDTO getStatusPagamentoPagoDTO() {
         return new StatusPagamentoDTO(1L, StatusPedidoEnum.RECEBIDO.getDescricao(), StatusCobrancaEnum.PAGO);
     }
+
+    public static QrCode getQrCode() {
+            var pedidoDTO = getPedidoDTO();
+            return new QrCode("{pedidoId:"+pedidoDTO.id()+",valor:"+pedidoDTO.valorTotal()+"}");
+    }
+
+    public static  CobrancaDTO getCobrancaDTOcomStatusPendente() {
+        var cobrancaDTO = getCobrancaDTO();
+        var cobrancaDTOcomStatusPendente = new CobrancaDTO(
+                cobrancaDTO.id(),
+                cobrancaDTO.pedidoId(),
+                cobrancaDTO.valor(),
+                StatusCobrancaEnum.PENDENTE,
+                cobrancaDTO.qrCode()
+        );
+        return cobrancaDTOcomStatusPendente;
+    }
+
 }

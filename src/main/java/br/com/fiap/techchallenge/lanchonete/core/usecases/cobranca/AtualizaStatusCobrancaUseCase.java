@@ -5,6 +5,7 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPed
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusCobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusCobrancaEnum;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.AtualizaStatusPedidoOutputPort;

@@ -29,6 +29,10 @@ public abstract class PedidoHelper {
         return new PedidoDTO(PEDIDO_ID, CLIENTE_NOME, ITENS, PEDIDO_STATUS, BigDecimal.valueOf(106.8), DATA_CRIACAO);
     }
 
+    public static PedidoDTO getPedidoDTOcomStatus(StatusPedidoEnum status) {
+        return new PedidoDTO(PEDIDO_ID, CLIENTE_NOME, ITENS, status, BigDecimal.valueOf(106.8), DATA_CRIACAO);
+    }
+
     public static ItemPedidoDTO getItemPedidoDTO() {
         return new ItemPedidoDTO(1L, PRODUTO_NOME, PRODUTO_DESCRICAO, BigDecimal.valueOf(45.9), 2);
     }
