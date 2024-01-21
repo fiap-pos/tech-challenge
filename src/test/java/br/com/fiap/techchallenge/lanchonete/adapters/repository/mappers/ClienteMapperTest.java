@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.*;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ClienteMapperTest {

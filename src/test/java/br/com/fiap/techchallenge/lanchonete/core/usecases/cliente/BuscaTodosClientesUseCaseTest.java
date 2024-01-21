@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getClienteDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 

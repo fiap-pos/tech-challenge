@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

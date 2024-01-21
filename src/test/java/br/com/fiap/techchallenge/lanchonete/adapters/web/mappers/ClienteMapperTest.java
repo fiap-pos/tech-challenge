@@ -3,8 +3,8 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getClienteDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getListaClienteDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getListaClienteDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ClienteMapperTest {

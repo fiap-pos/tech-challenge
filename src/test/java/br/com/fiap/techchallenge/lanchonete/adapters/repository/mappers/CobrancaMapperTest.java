@@ -1,17 +1,14 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cobranca;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
-import br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getCobranca;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getCobrancaDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobranca;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CobrancaMapperTest {
 

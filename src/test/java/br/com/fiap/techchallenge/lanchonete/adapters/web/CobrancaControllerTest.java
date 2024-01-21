@@ -25,9 +25,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getCobrancaDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getCriaCobrancaDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getStatusPagamentoPagoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCriaCobrancaDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getStatusPagamentoPagoDTO;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
