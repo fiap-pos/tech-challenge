@@ -24,8 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Collections;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getCobrancaDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getPedidoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

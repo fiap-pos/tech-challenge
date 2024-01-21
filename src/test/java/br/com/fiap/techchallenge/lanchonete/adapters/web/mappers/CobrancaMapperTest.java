@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.CobrancaHelper.getCobrancaDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CobrancaMapperTest {

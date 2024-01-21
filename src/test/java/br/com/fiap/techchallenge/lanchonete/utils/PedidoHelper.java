@@ -1,8 +1,7 @@
-package br.com.fiap.techchallenge.lanchonete.utils.adapters.web;
+package br.com.fiap.techchallenge.lanchonete.utils;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.ItemPedido;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.*;
 
@@ -11,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getCliente;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getClienteDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProduto;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getCliente;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProduto;
 
 public abstract class PedidoHelper {
     private static final Long PEDIDO_ID = 1L;
@@ -63,5 +62,9 @@ public abstract class PedidoHelper {
 
     public static CriaItemPedidoDTO getCriaItemPedidoDTO() {
         return new CriaItemPedidoDTO(1L, 2);
+    }
+
+    public static AtualizaStatusPedidoDTO getAtualizaStatusPedidoDTO(StatusPedidoEnum status) {
+        return new AtualizaStatusPedidoDTO(status);
     }
 }

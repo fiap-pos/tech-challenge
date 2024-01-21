@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ClienteHelper.getClienteDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;

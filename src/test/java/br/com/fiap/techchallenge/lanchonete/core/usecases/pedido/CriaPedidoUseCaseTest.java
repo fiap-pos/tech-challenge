@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getCriaPedidoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getCriaPedidoDTOSemCliente;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getPedidoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getCriaPedidoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getCriaPedidoDTOSemCliente;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;

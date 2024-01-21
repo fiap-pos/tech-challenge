@@ -1,18 +1,16 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases.produto;
 
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.AtualizaImagemProdutoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.AtualizaImagemProdutoOutputPort;
-import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getAtualizaImagemProdutoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getAtualizaImagemProdutoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;

@@ -5,8 +5,8 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.Pedido
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getListaPedidoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.getPedidoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getListaPedidoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PedidoMapperTest {

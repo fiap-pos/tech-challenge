@@ -14,8 +14,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.PedidoHelper.*;
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProduto;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.*;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProduto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;

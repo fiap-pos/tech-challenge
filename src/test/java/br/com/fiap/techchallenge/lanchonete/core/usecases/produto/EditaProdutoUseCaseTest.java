@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.adapters.web.ProdutoHelper.getProdutoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;

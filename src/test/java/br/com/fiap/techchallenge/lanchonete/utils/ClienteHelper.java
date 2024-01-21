@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.utils.adapters.web;
+package br.com.fiap.techchallenge.lanchonete.utils;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cliente;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
