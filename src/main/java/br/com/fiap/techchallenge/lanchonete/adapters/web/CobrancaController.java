@@ -66,6 +66,7 @@ public class CobrancaController extends ControllerBase {
 
     @Operation(summary = "Atualiza o status de uma cobrança para Pago ou Cancelado")
     @PostMapping(value = "/{id}/status")
+    // TODO: Adiocionar transactional para garantir que o status do pedido e da cobrança sejam atualizados juntos
     ResponseEntity<CobrancaResponse> updateStatus(
             @PathVariable("id") Long id,
             @Valid @RequestBody AtualizaStatusCobrancaRequest atualizaStatusCobrancaRequest
@@ -91,16 +92,13 @@ public class CobrancaController extends ControllerBase {
             return response;
         }
 
-        try {
-            StatusPagamentoDTO statusPedidoPagamento = buscaStatusPagamentoInputPort.buscaStatus(request.getData().getId());
-            AtualizaStatusCobrancaRequest atualizaStatusCobrancaRequest =
-                    new AtualizaStatusCobrancaRequest(statusPedidoPagamento.statusPagamento());
 
-            atualizaStatusCobrancaInputPort.atualizarStatus(id, atualizaStatusCobrancaRequest.toAtualizaStatusCobrancaDTO());
-            return response;
-        } catch (Exception ex) {
-            logger.error(Arrays.toString(ex.getStackTrace()));
-            return response;
-        }
+        StatusPagamentoDTO statusPedidoPagamento = buscaStatusPagamentoInputPort.buscaStatus(request.getData().getId());
+        AtualizaStatusCobrancaRequest atualizaStatusCobrancaRequest =
+                new AtualizaStatusCobrancaRequest(statusPedidoPagamento.statusPagamento());
+
+        atualizaStatusCobrancaInputPort.atualizarStatus(id, atualizaStatusCobrancaRequest.toAtualizaStatusCobrancaDTO());
+        return response;
+
     }
 }
