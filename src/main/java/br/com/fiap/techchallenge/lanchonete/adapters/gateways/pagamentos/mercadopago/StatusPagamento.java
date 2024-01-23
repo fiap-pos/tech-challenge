@@ -6,9 +6,9 @@ import br.com.fiap.techchallenge.lanchonete.core.dtos.StatusPagamentoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaStatusPagamentoOutputPort;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -22,13 +22,16 @@ public class StatusPagamento implements BuscaStatusPagamentoOutputPort {
     @Value("${mercadopago.api.token}")
     private String token;
 
+    private final OkHttpClient okHttpClient;
+
+    public StatusPagamento(OkHttpClient okHttpClient){
+        this.okHttpClient = okHttpClient;
+    }
 
     @Override
     public StatusPagamentoDTO buscaStatus(Long id) {
         ObjectMapper mapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //TODO: Extrair configuração OkHttp e injetar no construtor
-        OkHttpClient httpClient = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url(UrlMercadoPagoApiPagamentos + id)
@@ -36,7 +39,7 @@ public class StatusPagamento implements BuscaStatusPagamentoOutputPort {
                 .build();
 
         try {
-            Response response = httpClient.newCall(request).execute();
+            Response response = okHttpClient.newCall(request).execute();
             if (!response.isSuccessful())
                 throw new PaymentErrorException(response.message());
 

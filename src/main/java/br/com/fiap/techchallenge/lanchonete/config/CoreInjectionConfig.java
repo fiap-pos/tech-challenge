@@ -144,12 +144,14 @@ public class CoreInjectionConfig {
     AtualizaStatusCobrancaInputPort atualiStatusCobranca(
             AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
             BuscaCobrancaOutputPort buscaCobrancaOutputPort,
-            AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort
+            AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort,
+            EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort
     ) {
         return new AtualizaStatusCobrancaUseCase(
                 buscaCobrancaOutputPort,
                 atualizaStatusCobrancaOutputPort,
-                atualizaStatusPedidoOutputPort
+                atualizaStatusPedidoOutputPort,
+                enviaPedidoFilaProducaoOutputPort
         );
     }
 
