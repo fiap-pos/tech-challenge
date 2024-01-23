@@ -9,6 +9,7 @@ import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatu
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.AtualizaStatusPedidoOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaCobrancaOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.EnviaPedidoFilaProducaoOutputPort;
 
 public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInputPort {
 
@@ -18,14 +19,18 @@ public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInpu
 
     private final AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort;
 
+    private final EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort;
+
     public AtualizaStatusCobrancaUseCase(
         BuscaCobrancaOutputPort buscaCobrancaOutputPort,
         AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
-        AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort
+        AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort,
+        EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort
     ) {
         this.buscaCobrancaOutputPort = buscaCobrancaOutputPort;
         this.atualizaStatusCobrancaOutputPort = atualizaStatusCobrancaOutputPort;
         this.atualizaStatusPedidoOutputPort = atualizaStatusPedidoOutputPort;
+        this.enviaPedidoFilaProducaoOutputPort = enviaPedidoFilaProducaoOutputPort;
     }
     @Override
     public CobrancaDTO atualizarStatus(Long id, AtualizaStatusCobrancaDTO cobrancaStatusIn) {
@@ -34,10 +39,16 @@ public class AtualizaStatusCobrancaUseCase implements AtualizaStatusCobrancaInpu
             throw new BadRequestException("Cobranca "+id+" não pode mais ser atualizada.");
         }
         var novoStatusPedido = getStatusPedido(cobrancaStatusIn.status());
+
         if (novoStatusPedido != null) {
-            atualizaStatusPedidoOutputPort.atualizarStatus(cobrancaOut.pedidoId(), novoStatusPedido);
+            var pedidoDTO = atualizaStatusPedidoOutputPort.atualizarStatus(cobrancaOut.pedidoId(), novoStatusPedido);
+            if (novoStatusPedido == StatusPedidoEnum.RECEBIDO) {
+                enviaPedidoFilaProducaoOutputPort.enviarPedido(pedidoDTO);
+            }
+            return atualizaStatusCobrancaOutputPort.atualizarStatus(id, cobrancaStatusIn);
         }
-        return atualizaStatusCobrancaOutputPort.atualizarStatus(id, cobrancaStatusIn);
+
+        return cobrancaOut;
     }
 
     private StatusPedidoEnum getStatusPedido(StatusCobrancaEnum statusCobranca) {
