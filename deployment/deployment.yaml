@@ -45,6 +45,8 @@ spec:
                 secretKeyRef:
                   name: lanchonete-secrets-aws
                   key: mysqlPassword
+            - name: PRODUCAO_URL
+              value: "http://nlb-producao-service"
           volumeMounts:
             - name: lanchonete-volume
               mountPath: "/mnt/lanchonete-volume"
