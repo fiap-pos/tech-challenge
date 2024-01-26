@@ -5,9 +5,12 @@ import java.util.Base64;
 
 public class QrCode {
 
-    private final String value;
+    private String value;
 
     private final String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
+
+    public QrCode() {
+    }
 
     public QrCode(String value) {
         this.value = value;
