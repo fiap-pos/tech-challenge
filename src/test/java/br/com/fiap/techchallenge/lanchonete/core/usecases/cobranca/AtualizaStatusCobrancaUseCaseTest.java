@@ -5,7 +5,6 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPed
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.BadRequestException;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusCobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.AtualizaStatusCobrancaInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.AtualizaStatusCobrancaOutputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cobranca.BuscaCobrancaOutputPort;
@@ -17,25 +16,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
-
-import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobranca;
 import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTOcomStatusPendente;
-import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCriaCobrancaDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getQrCode;
-import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getAtualizaStatusPedidoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTOcomStatus;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 class AtualizaStatusCobrancaUseCaseTest {
