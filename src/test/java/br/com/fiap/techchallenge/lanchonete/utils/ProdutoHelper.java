@@ -29,6 +29,10 @@ public abstract class ProdutoHelper {
         return new Produto(ID, NOME, CATEGORIA, PRECO, DESCRICAO);
     }
 
+    public static Produto getProdutoSemID() {
+        return new Produto(null, NOME, CATEGORIA, PRECO, DESCRICAO);
+    }
+
     public static AtualizaImagemProdutoDTO getAtualizaImagemProdutoDTO() {
         return Instancio.create(AtualizaImagemProdutoDTO.class);
     }
