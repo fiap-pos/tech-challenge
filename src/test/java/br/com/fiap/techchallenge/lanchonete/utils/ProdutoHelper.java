@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.utils;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ProdutoRequest;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaImagemProdutoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
@@ -31,6 +32,10 @@ public abstract class ProdutoHelper {
 
     public static Produto getProdutoSemID() {
         return new Produto(null, NOME, CATEGORIA, PRECO, DESCRICAO);
+    }
+
+    public static ProdutoRequest getProdutoRequest(String nome, CategoriaEnum categoria, BigDecimal preco, String descricao) {
+        return new ProdutoRequest(nome, categoria, preco, descricao);
     }
 
     public static AtualizaImagemProdutoDTO getAtualizaImagemProdutoDTO() {

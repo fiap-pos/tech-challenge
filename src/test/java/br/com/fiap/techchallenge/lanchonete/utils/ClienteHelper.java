@@ -1,6 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.utils;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cliente;
+import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ClienteRequest;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 
 import java.util.List;
@@ -27,6 +28,10 @@ public abstract class ClienteHelper {
 
     public static Cliente getCliente() {
         return new Cliente(NOME_1, CPF_1, EMAIL_1);
+    }
+
+    public static ClienteRequest getClienteRequest(String nome, String cpf, String email) {
+        return new ClienteRequest(nome, cpf, email);
     }
 
     public static List<Cliente> getListaCliente() {
