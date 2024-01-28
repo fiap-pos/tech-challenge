@@ -62,7 +62,7 @@ class PedidoControllerIT {
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value())
-                .body(matchesJsonSchemaInClasspath("schemas/pedido.schema.json"));
+                .body(matchesJsonSchemaInClasspath("schemas/pedido-com-cliente.schema.json"));
     }
 
     @Test
