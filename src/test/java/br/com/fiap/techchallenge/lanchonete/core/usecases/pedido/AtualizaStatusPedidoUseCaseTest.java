@@ -53,7 +53,7 @@ class AtualizaStatusPedidoUseCaseTest {
 
             when(atualizaStatusPedidoOutputPort.atualizarStatus(anyLong(), any(StatusPedidoEnum.class))).thenReturn(pedidoDTO);
 
-            var pedidoAtualizado = atualizaStatusPedidoInputPort.atualizarStatus(id, atualizaStatusPedidoDTO);
+            var pedidoAtualizado = atualizaStatusPedidoInputPort.atualizarStatus(id, atualizaStatusPedidoDTO.status());
 
             assertThat(pedidoAtualizado).isNotNull();
             assertThat(pedidoAtualizado.itens()).allSatisfy( item -> {

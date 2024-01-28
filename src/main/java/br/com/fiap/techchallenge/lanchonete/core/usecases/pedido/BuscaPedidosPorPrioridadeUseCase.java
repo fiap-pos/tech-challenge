@@ -22,7 +22,7 @@ public class BuscaPedidosPorPrioridadeUseCase implements BuscaPedidosOrdenadosPo
     }
 
     private static List<PedidoDTO> ordenaPedidosPorPrioridade(List<PedidoDTO> pedidos) {
-        List<PedidoDTO> pedidosOrdenadosPorPrioridade = new ArrayList<PedidoDTO>();
+        List<PedidoDTO> pedidosOrdenadosPorPrioridade = new ArrayList<>();
 
         pedidos.forEach(
                 pedidoOut -> {

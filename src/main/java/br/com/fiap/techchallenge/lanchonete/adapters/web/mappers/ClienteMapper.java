@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component("ClienteMapperWeb")
+@Component("clienteMapperWeb")
 public class ClienteMapper {
 
     public ClienteResponse toClienteResponse(ClienteDTO cliente) {

@@ -54,13 +54,13 @@ public class FilaProducaoGateway implements EnviaPedidoFilaProducaoOutputPort {
             if (!response.isSuccessful())
                 throw new IIOException("Falha ao enviar pedido para fila de produção");
 
-            var filaProducaoResponse = objectMapper.readValue(response.body().string(), FilaProducaoResponse.class);
+            objectMapper.readValue(response.body().string(), FilaProducaoResponse.class);
 
             response.close();
 
-        } catch (IOException $ex) {
-            logger.error("Falha ao enviar pedido para fila de produção", $ex);
-            throw new RuntimeException($ex);
+        } catch (IOException ex) {
+            logger.error("Falha ao enviar pedido para fila de produção", ex);
+            throw new RuntimeException(ex);
         }
     }
 }

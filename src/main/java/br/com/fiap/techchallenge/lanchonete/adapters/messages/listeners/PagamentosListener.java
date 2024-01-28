@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.lanchonete.adapters.messages;
+package br.com.fiap.techchallenge.lanchonete.adapters.messages.listeners;
 
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
@@ -10,14 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sqs.model.Message;
 
-
 @Component
-public class Listeners {
+public class PagamentosListener {
 
-    private static Logger logger = LoggerFactory.getLogger(Listeners.class);
+    private static Logger logger = LoggerFactory.getLogger(PagamentosListener.class);
 
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
-    public Listeners(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort) {
+    public PagamentosListener(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort) {
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
     }
 

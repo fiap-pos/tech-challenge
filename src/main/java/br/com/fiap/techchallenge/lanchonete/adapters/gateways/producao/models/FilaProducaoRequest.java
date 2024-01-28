@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;

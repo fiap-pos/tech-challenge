@@ -1,14 +1,10 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ItemPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaPedidoDTO;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Collections;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
-import static br.com.fiap.techchallenge.lanchonete.utils.CobrancaHelper.getCobrancaDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -52,20 +47,13 @@ class PedidoControllerTest {
     @Mock
     BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
 
-    @Mock
-    BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
-
     PedidoMapper pedidoMapper;
-
-    CobrancaMapper cobrancaMapper;
 
     AutoCloseable mock;
 
     PedidoRequest pedidoRequest = new PedidoRequest();
 
     ItemPedidoRequest itemPedidoRequest = new ItemPedidoRequest();
-
-    AtualizaStatusPedidoRequest atualizaStatusPedidoRequest = new AtualizaStatusPedidoRequest();
 
     @BeforeEach
     void setUp() {
@@ -75,21 +63,15 @@ class PedidoControllerTest {
         pedidoRequest.setClienteId(1L);
         pedidoRequest.setItens(Collections.singletonList(itemPedidoRequest));
 
-        atualizaStatusPedidoRequest.setStatus(StatusPedidoEnum.FINALIZADO);
-
         this.pedidoMapper = new PedidoMapper();
-        this.cobrancaMapper = new CobrancaMapper();
         mock = MockitoAnnotations.openMocks(this);
         PedidoController pedidoController = new PedidoController(
                 criaPedidoInputPort,
-                atualizaStatusPedidoInputPort,
                 buscaTodosPedidosInputPort,
                 buscaPedidosOrdenadosPorPrioridadeInputPort,
                 buscarPedidoPorIdInputPort,
                 buscaTodosPedidosPorStatusInputPort,
-                buscaCobrancaPorPedidoIdInputPort,
-                pedidoMapper,
-                cobrancaMapper
+                pedidoMapper
         );
 
         mockMvc = MockMvcBuilders.standaloneSetup(pedidoController).build();
@@ -170,24 +152,6 @@ class PedidoControllerTest {
         }
 
         @Test
-        void atualizaStatusDoPedido() throws Exception {
-            var pedidoDTO = getPedidoDTO();
-            var id = 1L;
-
-            when(atualizaStatusPedidoInputPort.atualizarStatus(any(Long.class), any(AtualizaStatusPedidoDTO.class))).thenReturn(pedidoDTO);
-
-            ResultActions result = mockMvc.perform(patch("/pedidos/{id}/status", id, atualizaStatusPedidoRequest)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(asJsonString(atualizaStatusPedidoRequest))
-            );
-
-            result.andExpect(status().isAccepted());
-
-            verify(atualizaStatusPedidoInputPort, times(1)).atualizarStatus(any(Long.class), any(AtualizaStatusPedidoDTO.class));
-            verifyNoMoreInteractions(atualizaStatusPedidoInputPort);
-        }
-
-        @Test
         void buscarTodosPedidosPorStatus() throws Exception {
             var status = "PENDENTE_DE_PAGAMENTO";
             var pedidoDTO = getPedidoDTO();
@@ -202,23 +166,6 @@ class PedidoControllerTest {
 
             verify(buscaTodosPedidosPorStatusInputPort, times(1)).buscarTodosStatus(any(StatusPedidoEnum.class));
             verifyNoMoreInteractions(buscaTodosPedidosPorStatusInputPort);
-        }
-
-        @Test
-        void buscarCobrancaPorPedidoId() throws Exception {
-            var id = 1L;
-            var cobrancaDTO = getCobrancaDTO();
-
-            when(buscaCobrancaPorPedidoIdInputPort.buscarPorPedidoId(any(Long.class))).thenReturn(cobrancaDTO);
-
-            ResultActions result = mockMvc.perform(get("/pedidos/{id}/cobranca", id)
-                    .contentType(MediaType.APPLICATION_JSON)
-            );
-
-            result.andExpect(status().isOk());
-
-            verify(buscaCobrancaPorPedidoIdInputPort, times(1)).buscarPorPedidoId(any(Long.class));
-            verifyNoMoreInteractions(buscaCobrancaPorPedidoIdInputPort);
         }
 
     }
