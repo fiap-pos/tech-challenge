@@ -16,11 +16,12 @@ public class PagamentosListener {
     private static Logger logger = LoggerFactory.getLogger(PagamentosListener.class);
 
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
+
     public PagamentosListener(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort) {
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
     }
 
-    @SqsListener("${aws.sqs.queue.pagamentos}")
+    @SqsListener("${aws.sqs.queues.pagamentos}")
     public void receberMensagem(Message mensagem) throws JsonProcessingException {
         logger.info("Recebendo mensagem: {}", mensagem);
         ObjectMapper om = new ObjectMapper();

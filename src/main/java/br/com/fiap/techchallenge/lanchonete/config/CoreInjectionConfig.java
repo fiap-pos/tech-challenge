@@ -107,8 +107,4 @@ public class CoreInjectionConfig {
         return new BuscaTodosPedidosPorStatusUseCase(buscaTodosPedidosOutputPort);
     }
 
-    @Bean
-    BuscaPedidosOrdenadosPorPrioridadeInputPort ordenaPorPrioridade(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
-        return new BuscaPedidosPorPrioridadeUseCase(buscaTodosPedidosOutputPort);
-    }
 }

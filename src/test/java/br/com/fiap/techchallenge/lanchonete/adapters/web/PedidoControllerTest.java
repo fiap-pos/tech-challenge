@@ -39,9 +39,6 @@ class PedidoControllerTest {
     BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
 
     @Mock
-    BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort;
-
-    @Mock
     BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
 
     @Mock
@@ -68,7 +65,6 @@ class PedidoControllerTest {
         PedidoController pedidoController = new PedidoController(
                 criaPedidoInputPort,
                 buscaTodosPedidosInputPort,
-                buscaPedidosOrdenadosPorPrioridadeInputPort,
                 buscarPedidoPorIdInputPort,
                 buscaTodosPedidosPorStatusInputPort,
                 pedidoMapper
@@ -99,22 +95,6 @@ class PedidoControllerTest {
 
             verify(buscaTodosPedidosInputPort, times(1)).buscarTodos();
             verifyNoMoreInteractions(buscaTodosPedidosInputPort);
-        }
-
-        @Test
-        void buscaPedidosParaSeremExibidosNaFilaDePreparacao() throws Exception {
-            var pedidoDTO = getPedidoDTO();
-
-            when(buscaPedidosOrdenadosPorPrioridadeInputPort.buscarPorPrioridade()).thenReturn(Collections.singletonList(pedidoDTO));
-
-            ResultActions result = mockMvc.perform(get("/pedidos/fila-producao")
-                    .contentType(MediaType.APPLICATION_JSON)
-            );
-
-            result.andExpect(status().isOk());
-
-            verify(buscaPedidosOrdenadosPorPrioridadeInputPort, times(1)).buscarPorPrioridade();
-            verifyNoMoreInteractions(buscaPedidosOrdenadosPorPrioridadeInputPort);
         }
 
         @Test

@@ -20,21 +20,18 @@ public class PedidoController extends ControllerBase{
 
     private final CriaPedidoInputPort criaPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
-    private final BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
     private final PedidoMapper pedidoMapper;
 
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
-                            BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
                             PedidoMapper pedidoMapper
     ) {
         this.criaPedidoInputPort = criaPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
-        this.buscaPedidosOrdenadosPorPrioridadeInputPort = buscaPedidosOrdenadosPorPrioridadeInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
         this.pedidoMapper = pedidoMapper;
@@ -44,14 +41,6 @@ public class PedidoController extends ControllerBase{
     @GetMapping
     public ResponseEntity<List<PedidoResponse>> buscarTodos(){
         var pedidosOut = buscaTodosPedidosInputPort.buscarTodos();
-        var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
-        return ResponseEntity.ok(listPedidoResponse);
-    }
-
-    @Operation(summary = "Busca pedidos para serem exibidos na fila de preparação")
-    @GetMapping("/fila-producao")
-    public ResponseEntity<List<PedidoResponse>> buscarTodosPedidosPorPrioridade(){
-        var pedidosOut = buscaPedidosOrdenadosPorPrioridadeInputPort.buscarPorPrioridade();
         var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
         return ResponseEntity.ok(listPedidoResponse);
     }
