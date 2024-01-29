@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.core.usecases.pedido;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusPedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.AtualizaStatusPedidoOutputPort;
@@ -13,7 +13,7 @@ public class AtualizaStatusPedidoUseCase implements AtualizaStatusPedidoInputPor
     }
 
     @Override
-    public PedidoDTO atualizarStatus(Long id, AtualizaStatusPedidoDTO pedidoStatusIn) {
-        return atualizaStatusPedidoOutputPort.atualizarStatus(id, pedidoStatusIn.status());
+    public PedidoDTO atualizarStatus(Long id, StatusPedidoEnum status) {
+        return atualizaStatusPedidoOutputPort.atualizarStatus(id, status);
     }
 }

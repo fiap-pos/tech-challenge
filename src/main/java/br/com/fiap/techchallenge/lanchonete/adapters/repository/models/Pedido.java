@@ -31,7 +31,6 @@ public class Pedido {
     protected void onCreate() {
         data = LocalDateTime.now();
         status = StatusPedidoEnum.PENDENTE_DE_PAGAMENTO;
-        setValorTotal();
     }
 
     public Pedido() {
@@ -105,7 +104,7 @@ public class Pedido {
         return valorTotal;
     }
 
-    public BigDecimal setValorTotal() {
-        return valorTotal;
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }

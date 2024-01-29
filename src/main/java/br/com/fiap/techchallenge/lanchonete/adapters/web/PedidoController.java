@@ -1,13 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.CobrancaMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.mappers.PedidoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.AtualizaStatusPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
-import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.CobrancaResponse;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.PedidoResponse;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
-import br.com.fiap.techchallenge.lanchonete.core.ports.in.cobranca.BuscaCobrancaPorPedidoIdInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,49 +17,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController extends ControllerBase{
+
     private final CriaPedidoInputPort criaPedidoInputPort;
-    private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
     private final BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
-    private final BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort;
     private final BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort;
     private final BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort;
-    private final BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort;
     private final PedidoMapper pedidoMapper;
-    private final CobrancaMapper cobrancaMapper;
 
     public PedidoController(CriaPedidoInputPort criaPedidoInputPort,
-                            AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort,
                             BuscaTodosPedidosInputPort buscaTodosPedidosInputPort,
-                            BuscaPedidosOrdenadosPorPrioridadeInputPort buscaPedidosOrdenadosPorPrioridadeInputPort,
                             BuscarPedidoPorIdInputPort buscarPedidoPorIdInputPort,
                             BuscaTodosPedidosPorStatusInputPort buscaTodosPedidosPorStatusInputPort,
-                            BuscaCobrancaPorPedidoIdInputPort buscaCobrancaPorPedidoIdInputPort,
-                            PedidoMapper pedidoMapper,
-                            CobrancaMapper cobrancaMapper
+                            PedidoMapper pedidoMapper
     ) {
         this.criaPedidoInputPort = criaPedidoInputPort;
-        this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
         this.buscaTodosPedidosInputPort = buscaTodosPedidosInputPort;
-        this.buscaPedidosOrdenadosPorPrioridadeInputPort = buscaPedidosOrdenadosPorPrioridadeInputPort;
         this.buscarPedidoPorIdInputPort = buscarPedidoPorIdInputPort;
         this.buscaTodosPedidosPorStatusInputPort = buscaTodosPedidosPorStatusInputPort;
-        this.buscaCobrancaPorPedidoIdInputPort = buscaCobrancaPorPedidoIdInputPort;
         this.pedidoMapper = pedidoMapper;
-        this.cobrancaMapper = cobrancaMapper;
     }
 
     @Operation(summary = "Busca todos os pedidos")
     @GetMapping
     public ResponseEntity<List<PedidoResponse>> buscarTodos(){
         var pedidosOut = buscaTodosPedidosInputPort.buscarTodos();
-        var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
-        return ResponseEntity.ok(listPedidoResponse);
-    }
-
-    @Operation(summary = "Busca pedidos para serem exibidos na fila de preparação")
-    @GetMapping("/fila-producao")
-    public ResponseEntity<List<PedidoResponse>> buscarTodosPedidosPorPrioridade(){
-        var pedidosOut = buscaPedidosOrdenadosPorPrioridadeInputPort.buscarPorPrioridade();
         var listPedidoResponse = pedidoMapper.toPedidoListResponse(pedidosOut);
         return ResponseEntity.ok(listPedidoResponse);
     }
@@ -85,16 +62,6 @@ public class PedidoController extends ControllerBase{
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
 
-    @Operation(summary = "Atualiza status de um  pedido")
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<PedidoResponse> atualizaStatus(@PathVariable("id") Long id,
-                                                         @RequestBody AtualizaStatusPedidoRequest pedidoRequest){
-        var pedidoOut = atualizaStatusPedidoInputPort.atualizarStatus(id, pedidoRequest.toAtualizaStatusPedidoDTO());
-        var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
-        var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
-        return ResponseEntity.created(uri).body(pedidoResponse);
-    }
-
     @Operation(summary = "Busca todos os pedidos por status")
     @GetMapping(value = "/status/{status}")
     public ResponseEntity<List<PedidoResponse>> buscarTodos(@PathVariable("status") String status){
@@ -104,15 +71,4 @@ public class PedidoController extends ControllerBase{
                 .toList();
         return ResponseEntity.ok(pedidosOut);
     }
-
-    @Operation(summary = "Busca cobrança pelo id do pedido")
-    @GetMapping(value = "/{id}/cobranca")
-    ResponseEntity<CobrancaResponse> buscarCobrancaPorPedidoId(
-            @PathVariable("id") Long id
-    ) {
-        var cobrancaOut = buscaCobrancaPorPedidoIdInputPort.buscarPorPedidoId(id);
-        var cobrancaResponse = cobrancaMapper.toCobrancaResponse(cobrancaOut);
-        return ResponseEntity.ok().body(cobrancaResponse);
-    }
-
 }

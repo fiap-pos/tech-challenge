@@ -13,32 +13,18 @@ services:
       - tech_challenge_app_network
     expose:
       - 3306
-
-  mock:
-    build:
-      context: wiremock
-    image: wiremock/wiremock
-    ports:
-      - "8081:8080"
-    networks:
-      - tech_challenge_app_network
-    volumes:
-      - ./wiremock/__files:/home/wiremock/__files
-      - ./wiremock/mappings:/home/wiremock/mappings
-      - ./wiremock/logs:/home/wiremock/logs
-
   localstack:
-    container_name: lanchonete_localstack
+    container_name: tech-challenge-localstack
     image: localstack/localstack
     ports:
-      - "4566:4566"            # LocalStack Gateway
+      - "4566:4566"
       - "4510-4559:4510-4559"
-    networks:
-      - tech_challenge_app_network  # external services port range
     environment:
       AWS_ACCESS_KEY_ID: admin
       AWS_SECRET_ACCESS_KEY: admin
       AWS_REGION: us-east-1
+    volumes:
+      - './docker/localstack/setup-queues.sh:/etc/localstack/init/ready.d/init-sqs.sh'
 networks:
   tech_challenge_app_network:
     name: "tech_challenge_app_network"

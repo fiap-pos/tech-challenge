@@ -17,12 +17,6 @@ public class ItemPedido {
         this.quantidade = quantidade;
     }
 
-    public ItemPedido(Long produtoId, BigDecimal valorUnitario, Integer quantidade) {
-        this.produtoId = produtoId;
-        this.valorUnitario = valorUnitario;
-        this.quantidade = quantidade;
-    }
-
     public Long getProdutoId() {
         return produtoId;
     }
@@ -41,10 +35,6 @@ public class ItemPedido {
 
     public Integer getQuantidade() {
         return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public BigDecimal getValorTotal() {
