@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.messages.listeners;
 
-import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
 import br.com.fiap.techchallenge.producao.core.dtos.PedidoDTO;
 import io.awspring.cloud.sqs.annotation.SqsListener;
@@ -18,7 +17,7 @@ public class FilaProducaoListener {
     public void listen(PedidoDTO pedidoDTO) {
         atualizaStatusPedidoInputPort.atualizarStatus(
                 pedidoDTO.codigo(),
-                new AtualizaStatusPedidoDTO(pedidoDTO.status())
+                pedidoDTO.status()
         );
     }
 }

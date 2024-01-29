@@ -102,59 +102,9 @@ public class CoreInjectionConfig {
         return new BuscaTodosPedidosUseCase(buscaTodosPedidosOutputPort);
     }
 
-//    @Bean
-//    CriaQrCodeOutputPort criaQrCodeInputPort(){
-//        return new PagamentoMock();
-//    }
-//
-//    @Bean
-//    BuscaCobrancaPorIdInputPort buscaCobrancaPorId(BuscaCobrancaOutputPort buscaCobrancaOutputPort) {
-//        return new BuscaCobrancaPorIdUseCase(buscaCobrancaOutputPort);
-//    }
-//
-//    @Bean
-//    BuscaCobrancaPorPedidoIdInputPort buscarCobrancaPorPedidoId(BuscaCobrancaOutputPort buscaCobrancaOutputPort) {
-//        return new BuscaCobrancaPorPedidoIdUseCase(buscaCobrancaOutputPort);
-//    }
-//    @Bean
-//    CriaCobrancaInputPort criarCobranca(
-//            CriaCobrancaOutputPort criaCobrancaOutputPort,
-//            CriaQrCodeOutputPort criaQrCodeOutputPort,
-//            BuscarPedidoPorIdOutputPort buscarPedidoPorIdOutputPort,
-//            BuscaCobrancaOutputPort buscaCobrancaOutputPort
-//    ) {
-//        return new CriaCobrancaUseCase(
-//                criaCobrancaOutputPort,
-//                criaQrCodeOutputPort,
-//                buscarPedidoPorIdOutputPort,
-//                buscaCobrancaOutputPort
-//        );
-//    }
-
-//    @Bean
-//    AtualizaStatusCobrancaInputPort atualiStatusCobranca(
-//            AtualizaStatusCobrancaOutputPort atualizaStatusCobrancaOutputPort,
-//            BuscaCobrancaOutputPort buscaCobrancaOutputPort,
-//            AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort
-//    ) {
-//        return new AtualizaStatusCobrancaUseCase(
-//                buscaCobrancaOutputPort,
-//                atualizaStatusCobrancaOutputPort,
-//                atualizaStatusPedidoOutputPort
-//        );
-//    }
-
     @Bean
     BuscaTodosPedidosPorStatusInputPort buscarPorStatus(BuscaTodosPedidosPorStatusOutputPort buscaTodosPedidosOutputPort) {
         return new BuscaTodosPedidosPorStatusUseCase(buscaTodosPedidosOutputPort);
     }
 
-//    @Bean
-//    BuscaStatusPagamentoInputPort buscaStatusPagamento(BuscaStatusPagamentoOutputPort buscaStatusPagamentoOutputPort) {
-//        return new BuscaStatusPagamentoUseCase(buscaStatusPagamentoOutputPort);
-//    }
-    @Bean
-    BuscaPedidosOrdenadosPorPrioridadeInputPort ordenaPorPrioridade(BuscaTodosPedidosOutputPort buscaTodosPedidosOutputPort) {
-        return new BuscaPedidosPorPrioridadeUseCase(buscaTodosPedidosOutputPort);
-    }
 }

@@ -1,9 +1,8 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.PedidoJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ClienteMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
@@ -16,15 +15,11 @@ import java.util.List;
 public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPedidoOutputPort,
         BuscaTodosPedidosOutputPort, BuscarPedidoPorIdOutputPort, BuscaTodosPedidosPorStatusOutputPort {
     private final PedidoMapper pedidoMapper;
-    private final ClienteMapper clienteMapper;
-    private final ClienteJpaRepository clienteJpaRepository;
+
     private final PedidoJpaRepository pedidoJpaRepository;
 
-    public PedidoRepository(PedidoMapper pedidoMapper, PedidoJpaRepository pedidoJpaRepository,
-                            ClienteMapper clienteMapper, ClienteJpaRepository clienteJpaRepository) {
+    public PedidoRepository(PedidoMapper pedidoMapper, PedidoJpaRepository pedidoJpaRepository) {
         this.pedidoMapper = pedidoMapper;
-        this.clienteMapper = clienteMapper;
-        this.clienteJpaRepository = clienteJpaRepository;
         this.pedidoJpaRepository = pedidoJpaRepository;
     }
 
@@ -57,7 +52,7 @@ public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPed
     }
 
 
-    private br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido buscarPedidoPorId(Long id){
+    private Pedido buscarPedidoPorId(Long id){
         return pedidoJpaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido " + id + " não encontrado"));
     }

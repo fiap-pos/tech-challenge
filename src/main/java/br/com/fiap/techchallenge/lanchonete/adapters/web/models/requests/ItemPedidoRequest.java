@@ -28,7 +28,4 @@ public class ItemPedidoRequest {
         this.produtoId = produtoId;
     }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
 }

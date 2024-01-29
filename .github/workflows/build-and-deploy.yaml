@@ -7,7 +7,12 @@ on:
   workflow_dispatch:
 
 jobs:
+  quality-gate:
+    name: Quality Gate
+    uses: ./.github/workflows/quality-gate.yaml
+    secrets: inherit
   build-image:
+    needs: quality-gate
     name: Build and Deploy Application Image
     uses: ./.github/workflows/build-image.yaml
     secrets: inherit

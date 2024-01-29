@@ -15,6 +15,16 @@ public class ProdutoRequest {
     private BigDecimal preco;
     private String descricao;
 
+    public ProdutoRequest() {
+    }
+
+    public ProdutoRequest(String nome, CategoriaEnum categoria, BigDecimal preco, String descricao) {
+        this.nome = nome;
+        this.categoria = categoria;
+        this.preco = preco;
+        this.descricao = descricao;
+    }
+
     public ProdutoDTO toProdutoDTO() {
         return new ProdutoDTO(
             nome,

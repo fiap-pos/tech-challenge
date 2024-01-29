@@ -8,6 +8,15 @@ public class ClienteRequest {
     private String cpf;
     private String email;
 
+    public ClienteRequest() {
+    }
+
+    public ClienteRequest(String nome, String cpf, String email) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+    }
+
     public ClienteDTO toClienteDTO() {
         return new ClienteDTO(this.nome, this.cpf, this.email);
     }
