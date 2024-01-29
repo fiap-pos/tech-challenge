@@ -181,6 +181,11 @@
 								</configuration>
 							</execution>
 						</executions>
+						<configuration>
+							<excludes>
+								<exclude>**/lanchonete/config/*</exclude>
+							</excludes>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
