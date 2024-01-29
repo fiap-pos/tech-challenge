@@ -22,7 +22,7 @@
 		<sonar.language>java</sonar.language>
 		<sonar.organization>fiap-pos</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.exclusions>**/lanchonete/config/*, **/lanchonete/core/dtos/*, **/lanchonete/**/models/*</sonar.exclusions>
+		<sonar.exclusions>**/lanchonete/config/*, **/lanchonete/core/dtos/*</sonar.exclusions>
 	</properties>
 
 	<dependencyManagement>
@@ -184,7 +184,7 @@
 						</executions>
 						<configuration>
 							<excludes>
-								<exclude>**/lanchonete/config/*, **/lanchonete/core/dtos/*, **/lanchonete/**/models/*</exclude>
+								<exclude>**/lanchonete/config/*, **/lanchonete/core/dtos/*</exclude>
 							</excludes>
 						</configuration>
 					</plugin>
