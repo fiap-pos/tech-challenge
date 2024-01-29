@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.PedidoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.PedidoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
@@ -51,7 +52,7 @@ public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPed
     }
 
 
-    private br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido buscarPedidoPorId(Long id){
+    private Pedido buscarPedidoPorId(Long id){
         return pedidoJpaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido " + id + " não encontrado"));
     }

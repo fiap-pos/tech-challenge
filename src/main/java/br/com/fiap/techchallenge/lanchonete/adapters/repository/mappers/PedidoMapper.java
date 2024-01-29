@@ -20,7 +20,7 @@ public class PedidoMapper {
     public Pedido toPedido(PedidoDTO pedidoIn){
         var cliente = pedidoIn.cliente() != null
                 ? clienteJpaRepository.findById(pedidoIn.cliente().id())
-                    .orElseThrow(() -> new EntityNotFoundException("Cliente "+pedidoIn.id()+" não encontrado"))
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente "+pedidoIn.cliente().id()+" não encontrado"))
                 : null;
 
         var pedido = cliente != null

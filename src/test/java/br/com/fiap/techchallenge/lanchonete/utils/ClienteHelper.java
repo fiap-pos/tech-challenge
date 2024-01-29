@@ -19,6 +19,10 @@ public abstract class ClienteHelper {
         return new ClienteDTO(1L, NOME_1, CPF_1, EMAIL_1);
     }
 
+    public static ClienteDTO getClienteDTOSemId() {
+        return new ClienteDTO(NOME_1, CPF_1, EMAIL_1);
+    }
+
     public static List<ClienteDTO> getListaClienteDTO() {
         return List.of(
                 new ClienteDTO(1L, NOME_1, CPF_1, EMAIL_1),

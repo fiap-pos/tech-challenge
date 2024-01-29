@@ -16,7 +16,7 @@ import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdut
 
 public abstract class PedidoHelper {
     private static final Long PEDIDO_ID = 1L;
-    private static final ClienteDTO CLIENTE_NOME = getClienteDTO();
+    private static final ClienteDTO CLIENTE_DTO = getClienteDTO();
     private static final List<ItemPedidoDTO> ITENS = List.of(getItemPedidoDTO());
     private static final StatusPedidoEnum PEDIDO_STATUS = StatusPedidoEnum.PENDENTE_DE_PAGAMENTO;
     private static final LocalDateTime DATA_CRIACAO = LocalDateTime.parse("2024-01-08T20:31:51.620293057");
@@ -26,11 +26,15 @@ public abstract class PedidoHelper {
     private static final String PRODUTO_DESCRICAO = "X Tudo mostro com hamburger, salcicha, bacon, ovo, salada, queijo";
 
     public static PedidoDTO getPedidoDTO() {
-        return new PedidoDTO(PEDIDO_ID, CLIENTE_NOME, ITENS, PEDIDO_STATUS, BigDecimal.valueOf(106.8), DATA_CRIACAO);
+        return new PedidoDTO(PEDIDO_ID, CLIENTE_DTO, ITENS, PEDIDO_STATUS, BigDecimal.valueOf(106.8), DATA_CRIACAO);
+    }
+
+    public static PedidoDTO getPedidoDTOSemCliente() {
+        return new PedidoDTO(PEDIDO_ID, null, ITENS, PEDIDO_STATUS, BigDecimal.valueOf(106.8), DATA_CRIACAO);
     }
 
     public static PedidoDTO getPedidoDTOcomStatus(StatusPedidoEnum status) {
-        return new PedidoDTO(PEDIDO_ID, CLIENTE_NOME, ITENS, status, BigDecimal.valueOf(106.8), DATA_CRIACAO);
+        return new PedidoDTO(PEDIDO_ID, CLIENTE_DTO, ITENS, status, BigDecimal.valueOf(106.8), DATA_CRIACAO);
     }
 
     public static ItemPedidoDTO getItemPedidoDTO() {
@@ -49,6 +53,16 @@ public abstract class PedidoHelper {
         pedido.setValorTotal(BigDecimal.valueOf(106.8));
         pedido.setData(DATA_CRIACAO);
         pedido.setCliente(getCliente());
+        return pedido;
+    }
+
+    public static Pedido getPedidoSemCliente() {
+        var pedido = new Pedido();
+        pedido.setId(PEDIDO_ID);
+        pedido.setStatus(PEDIDO_STATUS);
+        pedido.setValorTotal(BigDecimal.valueOf(106.8));
+        pedido.setData(DATA_CRIACAO);
+        pedido.setCliente(null);
         return pedido;
     }
 

@@ -47,11 +47,11 @@ class ClienteControllerTest {
 
     AutoCloseable mock;
 
-    ClienteRequest clienteRequest = new ClienteRequest();
+    ClienteRequest clienteRequest;
 
     @BeforeEach
     void setup() {
-        clienteRequest.setNome("Produto Teste");
+        clienteRequest = new ClienteRequest("Nome", "99999999999", "email1@email.com");
 
         this.clienteMapper = new ClienteMapper();
         mock = MockitoAnnotations.openMocks(this);

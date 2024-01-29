@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
+import java.util.List;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
@@ -48,17 +49,14 @@ class PedidoControllerTest {
 
     AutoCloseable mock;
 
-    PedidoRequest pedidoRequest = new PedidoRequest();
+    private ItemPedidoRequest itemPedidoRequest;
 
-    ItemPedidoRequest itemPedidoRequest = new ItemPedidoRequest();
+    private PedidoRequest pedidoRequest;
 
     @BeforeEach
     void setUp() {
-        itemPedidoRequest.setProdutoId(1L);
-        itemPedidoRequest.setQuantidade(10);
-
-        pedidoRequest.setClienteId(1L);
-        pedidoRequest.setItens(Collections.singletonList(itemPedidoRequest));
+        itemPedidoRequest = new ItemPedidoRequest(1L, 10);
+        pedidoRequest = new PedidoRequest(1L , Collections.singletonList(itemPedidoRequest));
 
         this.pedidoMapper = new PedidoMapper();
         mock = MockitoAnnotations.openMocks(this);

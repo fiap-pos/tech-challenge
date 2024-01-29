@@ -9,9 +9,6 @@ public class QrCode {
 
     private static final String BASE_64_PATTERN = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
-    public QrCode() {
-    }
-
     public QrCode(String value) {
         this.value = value;
     }
@@ -21,13 +18,6 @@ public class QrCode {
             return new String(Base64.getDecoder().decode(value));
         }
         return value;
-    }
-
-    public String getEncodedBase64Value() {
-        if (valueIsBase64Encoded()) {
-            return value;
-        }
-        return Base64.getEncoder().encodeToString(value.getBytes(StandardCharsets.UTF_8));
     }
 
     private Boolean valueIsBase64Encoded() {

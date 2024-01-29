@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,9 +22,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.Base64;
 import java.util.Collections;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
+import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getAtualizaImagemProdutoDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -59,14 +62,11 @@ class ProdutoControllerTest {
 
     AutoCloseable mock;
 
-    ProdutoRequest produtoRequest = new ProdutoRequest();
+    ProdutoRequest produtoRequest;
 
     @BeforeEach
     void setup() {
-        produtoRequest.setNome("Produto Teste");
-        produtoRequest.setDescricao("Descrição do Produto Teste");
-        produtoRequest.setPreco(BigDecimal.valueOf(10.00));
-        produtoRequest.setCategoria(CategoriaEnum.LANCHE);
+        produtoRequest = new ProdutoRequest("Produto Teste", CategoriaEnum.LANCHE, BigDecimal.valueOf(10.00), "Descrição do Produto Teste");
 
         this.produtoMapper = new ProdutoMapper();
         mock = MockitoAnnotations.openMocks(this);
@@ -107,6 +107,28 @@ class ProdutoControllerTest {
 
             verify(criaProdutoInputPort, times(1)).criar(any(ProdutoDTO.class));
             verifyNoMoreInteractions(criaProdutoInputPort);
+        }
+
+        @Test
+        void upload() throws Exception {
+            var id = 1L;
+            var imagem = getAtualizaImagemProdutoDTO();
+            var produdoDTO = getProdutoDTO();
+
+            MockMultipartFile image = new MockMultipartFile(
+                    "image",
+                    "image.jpeg",
+                    MediaType.IMAGE_JPEG_VALUE,
+                    Instancio.create(String.class).getBytes()
+            );
+
+            when(atualizaImagemProdutoInputPort.atualizar(imagem, id)).thenReturn(produdoDTO);
+
+            mockMvc.perform(multipart(HttpMethod.PATCH, "/produtos/{id}", id)
+                    .file(image)
+                    .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+            );
+
         }
 
         @Test

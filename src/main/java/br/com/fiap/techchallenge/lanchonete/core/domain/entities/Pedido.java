@@ -15,12 +15,6 @@ public class Pedido {
 
     private LocalDateTime dataCriacao;
 
-    public Pedido(Long id, List<ItemPedido> itens, StatusPedidoEnum status, LocalDateTime dataCriacao) {
-        this.id = id;
-        this.itens = List.copyOf(itens);
-        this.status = status;
-        this.dataCriacao = dataCriacao;
-    }
     public Pedido(StatusPedidoEnum status) {
         this.itens = new ArrayList<>();
         this.status = status;
