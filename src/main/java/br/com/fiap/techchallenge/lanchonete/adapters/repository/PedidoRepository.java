@@ -40,7 +40,8 @@ public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPed
     @Override
     public PedidoDTO atualizarStatus(Long id, StatusPedidoEnum status) {
         var pedidoBuscado = buscarPedidoPorId(id);
-        pedidoBuscado.setStatus(status);
+        var novoStatus = getNovoStatus(status);
+        pedidoBuscado.setStatus(novoStatus);
         var pedido = pedidoJpaRepository.save(pedidoBuscado);
         return pedidoMapper.toPedidoDTO(pedido);
     }
@@ -62,5 +63,19 @@ public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPed
         return pedidoJpaRepository.findByStatus(status).stream()
                 .map(pedidoMapper::toPedidoDTO)
                 .toList();
+    }
+
+    private StatusPedidoEnum getNovoStatus(StatusPedidoEnum status){
+        switch (status){
+            case PAGO:
+                status = StatusPedidoEnum.RECEBIDO;
+                break;
+            case CANCELADO, RECUSADO:
+                status = StatusPedidoEnum.CANCELADO;
+                break;
+            default:
+                status = null;
+        }
+        return status;
     }
 }
