@@ -1,5 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.messages.listeners;
 
+import br.com.fiap.techchallenge.lanchonete.core.dtos.CobrancaDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,14 +23,17 @@ class PagamentosListenerTest {
     private PagamentosListener pagamentosListener;
 
     @Mock
-    AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
+    private AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
+
+    @Mock
+    private ObjectMapper objectMapper;
 
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
-        pagamentosListener = new PagamentosListener(atualizaStatusPedidoInputPort);
+        pagamentosListener = new PagamentosListener(atualizaStatusPedidoInputPort, objectMapper);
     }
 
     @AfterEach
@@ -42,9 +46,11 @@ class PagamentosListenerTest {
         var cobrancaDTO = getCobrancaDTO();
         var pedidoDTO = getPedidoDTO();
         var message = mock(Message.class);
+        var objMapper = new ObjectMapper();
+        var cobrancaDTOJson = objMapper.writeValueAsString(cobrancaDTO);
 
-        var objectMapper = new ObjectMapper();
-        when(message.body()).thenReturn(objectMapper.writeValueAsString(cobrancaDTO));
+        when(message.body()).thenReturn(cobrancaDTOJson);
+        when(objectMapper.readValue(cobrancaDTOJson, CobrancaDTO.class)).thenReturn(cobrancaDTO);
         when(atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.id(), cobrancaDTO.status())).thenReturn(pedidoDTO);
 
         pagamentosListener.receberMensagem(message);

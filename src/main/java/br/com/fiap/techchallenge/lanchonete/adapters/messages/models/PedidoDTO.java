@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.producao.core.dtos;
+package br.com.fiap.techchallenge.lanchonete.adapters.messages.models;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 

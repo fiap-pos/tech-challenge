@@ -17,15 +17,18 @@ public class PagamentosListener {
 
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
 
-    public PagamentosListener(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort) {
+    private final ObjectMapper objectMapper;
+
+    public PagamentosListener(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort, ObjectMapper objectMapper) {
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
+        this.objectMapper = objectMapper;
     }
 
     @SqsListener("${aws.sqs.queues.pagamentos}")
     public void receberMensagem(Message mensagem) throws JsonProcessingException {
         logger.info("Recebendo mensagem: {}", mensagem);
-        ObjectMapper om = new ObjectMapper();
-        var cobrancaDTO = om.readValue(mensagem.body(), CobrancaDTO.class);
+
+        var cobrancaDTO = objectMapper.readValue(mensagem.body(), CobrancaDTO.class);
         atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.id(), cobrancaDTO.status());
     }
 }
