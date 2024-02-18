@@ -49,20 +49,22 @@ class BuscaTodosPedidosPorStatusUseCaseTest {
 
             var listaPedidosBuscados = buscaTodosPedidosPorStatusInputPort.buscarTodosStatus(status);
 
-            assertThat(listaPedidosBuscados).isNotNull();
-            assertThat(listaPedidosBuscados).allSatisfy( pedidoBuscado -> {
-                assertThat(pedidoBuscado.id()).isEqualTo(pedidosDTO.get(0).id());
-                assertThat(pedidoBuscado.itens()).allSatisfy( item -> {
-                    assertThat(item.produtoNome()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoNome());
-                    assertThat(item.produtoDescricao()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoDescricao());
-                    assertThat(item.valorUnitario()).isEqualTo(pedidosDTO.get(0).itens().get(0).valorUnitario());
-                    assertThat(item.quantidade()).isEqualTo(pedidosDTO.get(0).itens().get(0).quantidade());
-                    assertThat(item.getValorTotal()).isEqualTo(pedidosDTO.get(0).itens().get(0).getValorTotal());
-                });
-                assertThat(pedidoBuscado.status()).isEqualTo(pedidosDTO.get(0).status());
-                assertThat(pedidoBuscado.valorTotal()).isEqualTo(pedidosDTO.get(0).valorTotal());
-                assertThat(pedidoBuscado.dataCriacao()).isEqualTo(pedidosDTO.get(0).dataCriacao());
-            });
+            assertThat(listaPedidosBuscados)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .allSatisfy( pedidoBuscado -> {
+                        assertThat(pedidoBuscado.id()).isEqualTo(pedidosDTO.get(0).id());
+                        assertThat(pedidoBuscado.itens()).allSatisfy( item -> {
+                            assertThat(item.produtoNome()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoNome());
+                            assertThat(item.produtoDescricao()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoDescricao());
+                            assertThat(item.valorUnitario()).isEqualTo(pedidosDTO.get(0).itens().get(0).valorUnitario());
+                            assertThat(item.quantidade()).isEqualTo(pedidosDTO.get(0).itens().get(0).quantidade());
+                            assertThat(item.getValorTotal()).isEqualTo(pedidosDTO.get(0).itens().get(0).getValorTotal());
+                        });
+                        assertThat(pedidoBuscado.status()).isEqualTo(pedidosDTO.get(0).status());
+                        assertThat(pedidoBuscado.valorTotal()).isEqualTo(pedidosDTO.get(0).valorTotal());
+                        assertThat(pedidoBuscado.dataCriacao()).isEqualTo(pedidosDTO.get(0).dataCriacao());
+                    });
 
             verify(buscaTodosPedidosPorStatusOutputPort, times(1)).buscarPedidosPorStatus(any(StatusPedidoEnum.class));
             verifyNoMoreInteractions(buscaTodosPedidosPorStatusOutputPort);

@@ -45,11 +45,13 @@ class BuscaProdutoPorCategoriaUseCaseTest {
 
             var produtosPorCategoria = buscaProdutoPorCategoriaInputPort.buscarPorCategoria(CategoriaEnum.LANCHE);
 
-            assertThat(produtosPorCategoria).isNotNull();
-            assertThat(produtosPorCategoria).allSatisfy(produto -> {
-                assertThat(produto.categoria()).isEqualTo(listaProdutos.get(0).categoria());
-                assertThat(produto.nome()).isEqualTo(listaProdutos.get(0).nome());
-            });
+            assertThat(produtosPorCategoria)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .allSatisfy(produto -> {
+                        assertThat(produto.categoria()).isEqualTo(listaProdutos.get(0).categoria());
+                        assertThat(produto.nome()).isEqualTo(listaProdutos.get(0).nome());
+                    });
         }
     }
 

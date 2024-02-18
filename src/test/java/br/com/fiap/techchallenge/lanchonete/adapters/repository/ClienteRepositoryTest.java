@@ -229,13 +229,15 @@ class ClienteRepositoryTest {
 
             var todosClientesEncontrados = clienteRepository.buscarTodos();
 
-            assertThat(todosClientesEncontrados).isNotNull();
-            assertThat(todosClientesEncontrados).allSatisfy( clienteEncontrado -> {
-                assertThat(clienteEncontrado.id()).isEqualTo(todosClientes.get(0).getId());
-                assertThat(clienteEncontrado.nome()).isEqualTo(todosClientes.get(0).getNome());
-                assertThat(clienteEncontrado.cpf()).isEqualTo(todosClientes.get(0).getCpf());
-                assertThat(clienteEncontrado.email()).isEqualTo(todosClientes.get(0).getEmail());
-            });
+            assertThat(todosClientesEncontrados)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .allSatisfy( clienteEncontrado -> {
+                        assertThat(clienteEncontrado.id()).isEqualTo(todosClientes.get(0).getId());
+                        assertThat(clienteEncontrado.nome()).isEqualTo(todosClientes.get(0).getNome());
+                        assertThat(clienteEncontrado.cpf()).isEqualTo(todosClientes.get(0).getCpf());
+                        assertThat(clienteEncontrado.email()).isEqualTo(todosClientes.get(0).getEmail());
+                    });
 
             verify(clienteJpaRepository, times(1)).findAll();
             verify(mapper, times(1)).toClienteListDTO(todosClientes);

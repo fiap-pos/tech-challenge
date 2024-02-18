@@ -45,10 +45,12 @@ class BuscaTodosClientesUseCaseTest {
 
             var clientesBuscados = buscaTodosClientesInputPort.buscarTodos();
 
-            assertThat(clientesBuscados).isNotNull();
-            assertThat(clientesBuscados).allSatisfy(produto -> {
-                assertThat(produto.nome()).isEqualTo(clientes.get(0).nome());
-            });
+            assertThat(clientesBuscados)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .allSatisfy(produto -> {
+                        assertThat(produto.nome()).isEqualTo(clientes.get(0).nome());
+                    });
         }
 
     }

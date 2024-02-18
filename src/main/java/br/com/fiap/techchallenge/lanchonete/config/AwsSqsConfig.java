@@ -12,16 +12,14 @@ public class AwsSqsConfig {
 
     @Bean
     public SqsTemplate sqsTemplate(SqsAsyncClient sqsAsyncClient, ObjectMapper objectMapper) {
-        return SqsTemplate.builder().configureDefaultConverter(converter -> {
-                    converter.setObjectMapper(objectMapper);
-                }).sqsAsyncClient(sqsAsyncClient)
+        return SqsTemplate.builder().configureDefaultConverter(converter ->
+                    converter.setObjectMapper(objectMapper)
+                ).sqsAsyncClient(sqsAsyncClient)
                 .build();
     }
 
     @Bean
     SqsListenerConfigurer configurer(ObjectMapper objectMapper) {
-        return registrar -> {
-            registrar.setObjectMapper(objectMapper);
-        };
+        return registrar -> registrar.setObjectMapper(objectMapper);
     }
 }
