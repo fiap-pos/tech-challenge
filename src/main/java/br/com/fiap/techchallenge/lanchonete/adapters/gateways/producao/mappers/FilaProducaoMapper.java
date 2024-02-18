@@ -11,7 +11,6 @@ public class FilaProducaoMapper {
     public FilaProducaoRequest toRequest(PedidoDTO pedidoDTO) {
         return new FilaProducaoRequest(
                 pedidoDTO.id(),
-                pedidoDTO.getNomeCliente(),
                 pedidoDTO.itens().stream().map(
                     item -> new FilaProducaoItem(
                         item.produtoNome(),

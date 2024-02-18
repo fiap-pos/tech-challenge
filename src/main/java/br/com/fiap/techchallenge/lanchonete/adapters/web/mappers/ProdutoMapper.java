@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses.Produt
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ProdutoDTO;
 import org.springframework.stereotype.Component;
 
-@Component("ProdutoMapperWeb")
+@Component("produtoMapperWeb")
 public class ProdutoMapper {
 
     public ProdutoResponse toProdutoResponse(ProdutoDTO produtoOut) {

@@ -47,20 +47,22 @@ class BuscaTodosPedidosUseCaseTest {
 
             var pedidosBuscados = buscaTodosPedidosInputPort.buscarTodos();
 
-            assertThat(pedidosBuscados).isNotNull();
-            assertThat(pedidosBuscados).allSatisfy( pedidoBuscado -> {
-                assertThat(pedidoBuscado.id()).isEqualTo(pedidosDTO.get(0).id());
-                assertThat(pedidoBuscado.itens()).allSatisfy( item -> {
-                    assertThat(item.produtoNome()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoNome());
-                    assertThat(item.produtoDescricao()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoDescricao());
-                    assertThat(item.valorUnitario()).isEqualTo(pedidosDTO.get(0).itens().get(0).valorUnitario());
-                    assertThat(item.quantidade()).isEqualTo(pedidosDTO.get(0).itens().get(0).quantidade());
-                    assertThat(item.getValorTotal()).isEqualTo(pedidosDTO.get(0).itens().get(0).getValorTotal());
-                });
-                assertThat(pedidoBuscado.status()).isEqualTo(pedidosDTO.get(0).status());
-                assertThat(pedidoBuscado.valorTotal()).isEqualTo(pedidosDTO.get(0).valorTotal());
-                assertThat(pedidoBuscado.dataCriacao()).isEqualTo(pedidosDTO.get(0).dataCriacao());
-            });
+            assertThat(pedidosBuscados)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .allSatisfy( pedidoBuscado -> {
+                        assertThat(pedidoBuscado.id()).isEqualTo(pedidosDTO.get(0).id());
+                        assertThat(pedidoBuscado.itens()).allSatisfy( item -> {
+                            assertThat(item.produtoNome()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoNome());
+                            assertThat(item.produtoDescricao()).isEqualTo(pedidosDTO.get(0).itens().get(0).produtoDescricao());
+                            assertThat(item.valorUnitario()).isEqualTo(pedidosDTO.get(0).itens().get(0).valorUnitario());
+                            assertThat(item.quantidade()).isEqualTo(pedidosDTO.get(0).itens().get(0).quantidade());
+                            assertThat(item.getValorTotal()).isEqualTo(pedidosDTO.get(0).itens().get(0).getValorTotal());
+                        });
+                        assertThat(pedidoBuscado.status()).isEqualTo(pedidosDTO.get(0).status());
+                        assertThat(pedidoBuscado.valorTotal()).isEqualTo(pedidosDTO.get(0).valorTotal());
+                        assertThat(pedidoBuscado.dataCriacao()).isEqualTo(pedidosDTO.get(0).dataCriacao());
+                    });
 
             verify(buscaTodosPedidosOutputPort, times(1)).buscarTodos();
             verifyNoMoreInteractions(buscaTodosPedidosOutputPort);

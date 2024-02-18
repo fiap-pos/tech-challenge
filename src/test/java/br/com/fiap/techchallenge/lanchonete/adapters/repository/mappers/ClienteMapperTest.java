@@ -52,14 +52,17 @@ class ClienteMapperTest {
 
         var listaClienteDTO = clienteMapper.toClienteListDTO(listaCliente);
 
-        assertThat(listaClienteDTO).isNotNull().isInstanceOf(List.class);
-        assertThat(listaClienteDTO).allSatisfy(clienteDTO -> {
-            assertThat(clienteDTO).isNotNull().isInstanceOf(ClienteDTO.class);
-            assertThat(clienteDTO.id()).isEqualTo(listaCliente.get(0).getId());
-            assertThat(clienteDTO.nome()).isEqualTo(listaCliente.get(0).getNome());
-            assertThat(clienteDTO.cpf()).isEqualTo(listaCliente.get(0).getCpf());
-            assertThat(clienteDTO.email()).isEqualTo(listaCliente.get(0).getEmail());
-        });
+        assertThat(listaClienteDTO)
+                .isNotNull()
+                .isInstanceOf(List.class)
+                .isNotEmpty()
+                .allSatisfy(clienteDTO -> {
+                    assertThat(clienteDTO).isNotNull().isInstanceOf(ClienteDTO.class);
+                    assertThat(clienteDTO.id()).isEqualTo(listaCliente.get(0).getId());
+                    assertThat(clienteDTO.nome()).isEqualTo(listaCliente.get(0).getNome());
+                    assertThat(clienteDTO.cpf()).isEqualTo(listaCliente.get(0).getCpf());
+                    assertThat(clienteDTO.email()).isEqualTo(listaCliente.get(0).getEmail());
+                });
     }
 
 }

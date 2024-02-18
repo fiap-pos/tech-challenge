@@ -44,10 +44,12 @@ class BuscaTodosProdutosUseCaseTest {
 
             var listaProdutosBuscados = buscaTodosProdutosInputPort.buscartodos();
 
-            assertThat(listaProdutosBuscados).isNotNull();
-            assertThat(listaProdutosBuscados).allSatisfy(produto -> {
-                assertThat(produto.nome()).isEqualTo(listaProdutos.get(0).nome());
-            });
+            assertThat(listaProdutosBuscados)
+                    .isNotNull()
+                    .isNotEmpty()
+                    .allSatisfy(produto -> {
+                        assertThat(produto.nome()).isEqualTo(listaProdutos.get(0).nome());
+                    });
         }
     }
 }

@@ -76,14 +76,16 @@ class ItemPedidoMapperTest {
 
         List<ItemPedidoDTO> itemPedidoDTOList = itemPedidoMapper.toItemPedidoResponse(itemPedidoList);
 
-        assertThat(itemPedidoList).isNotNull();
-        assertThat(itemPedidoList).allSatisfy(itemPedido -> {
-            assertThat(itemPedido.getProduto()).isNotNull().isInstanceOf(Produto.class);
-            assertThat(itemPedido.getProduto().getId()).isEqualTo(itemPedidoList.get(0).getProduto().getId());
-            assertThat(itemPedido.getProduto().getDescricao()).isEqualTo(itemPedidoList.get(0).getProduto().getDescricao());
-            assertThat(itemPedido.getValorUnitario()).isEqualTo(itemPedidoList.get(0).getValorUnitario());
-            assertThat(itemPedido.getQuantidade()).isEqualTo(itemPedidoList.get(0).getQuantidade());
-        });
+        assertThat(itemPedidoList)
+                .isNotNull()
+                .isNotEmpty()
+                .allSatisfy(itemPedido -> {
+                    assertThat(itemPedido.getProduto()).isNotNull().isInstanceOf(Produto.class);
+                    assertThat(itemPedido.getProduto().getId()).isEqualTo(itemPedidoList.get(0).getProduto().getId());
+                    assertThat(itemPedido.getProduto().getDescricao()).isEqualTo(itemPedidoList.get(0).getProduto().getDescricao());
+                    assertThat(itemPedido.getValorUnitario()).isEqualTo(itemPedidoList.get(0).getValorUnitario());
+                    assertThat(itemPedido.getQuantidade()).isEqualTo(itemPedidoList.get(0).getQuantidade());
+                });
 
     }
 }

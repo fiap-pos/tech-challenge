@@ -25,7 +25,6 @@ class FilaProducaoMapperTest {
         assertThat(filaProducaoRequest).isNotNull().isInstanceOf(FilaProducaoRequest.class);
 
         assertThat(filaProducaoRequest.codigo()).isEqualTo(pedidoDTO.id());
-        assertThat(filaProducaoRequest.clienteNome()).isEqualTo(pedidoDTO.getNomeCliente());
         assertThat(filaProducaoRequest.itens()).allSatisfy( item -> {
             assertThat(item.nome()).isEqualTo(pedidoDTO.itens().get(0).produtoNome());
             assertThat(item.descricao()).isEqualTo(pedidoDTO.itens().get(0).produtoDescricao());
