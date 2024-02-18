@@ -2,21 +2,22 @@ package br.com.fiap.techchallenge.lanchonete.adapters.messages.listeners;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
-import br.com.fiap.techchallenge.producao.core.dtos.ItemPedidoDTO;
-import br.com.fiap.techchallenge.producao.core.dtos.PedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.adapters.messages.models.ItemPedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.adapters.messages.models.PedidoDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import software.amazon.awssdk.services.sqs.model.Message;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 class FilaProducaoListenerTest {
@@ -24,14 +25,17 @@ class FilaProducaoListenerTest {
     private FilaProducaoListener filaProducaoListener;
 
     @Mock
-    AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
+    private AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
+
+    @Mock
+    private ObjectMapper objectMapper;
 
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
-        filaProducaoListener = new FilaProducaoListener(atualizaStatusPedidoInputPort);
+        filaProducaoListener = new FilaProducaoListener(atualizaStatusPedidoInputPort, objectMapper);
     }
 
     @AfterEach
@@ -40,7 +44,7 @@ class FilaProducaoListenerTest {
     }
 
     @Test
-    void listenTest() {
+    void listenTest() throws JsonProcessingException {
         var nome = "nome";
         var descricao = "descricao";
         var quantidade = 1;
@@ -50,18 +54,25 @@ class FilaProducaoListenerTest {
         var status = StatusPedidoEnum.RECEBIDO;
         var dataCriacao = LocalDateTime.now();
         var pedidoDTO = new PedidoDTO(codigo, itens, status, dataCriacao);
-
+        var peditoDTOJson = getPedidoJson(pedidoDTO);
+        var message = mock(Message.class);
         var pedidoDTORetorno = getPedidoDTO();
 
+        when(objectMapper.readValue(peditoDTOJson, PedidoDTO.class)).thenReturn(pedidoDTO);
         when(atualizaStatusPedidoInputPort.atualizarStatus(
                 pedidoDTO.codigo(),
                 pedidoDTO.status())).thenReturn(pedidoDTORetorno);
+        when(message.body()).thenReturn(peditoDTOJson);
 
-        filaProducaoListener.listen(pedidoDTO);
+        filaProducaoListener.listen(message);
 
         verify(atualizaStatusPedidoInputPort, times(1))
                 .atualizarStatus(pedidoDTO.codigo(), pedidoDTO.status());
     }
 
-
+    private String getPedidoJson(PedidoDTO pedidoDTO) throws JsonProcessingException {
+        var objMapper = new ObjectMapper();
+        objMapper.findAndRegisterModules();
+        return objMapper.writeValueAsString(pedidoDTO);
+    }
 }
