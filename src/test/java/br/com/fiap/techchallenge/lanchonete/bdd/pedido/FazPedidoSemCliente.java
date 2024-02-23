@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.lanchonete.bdd.pedido;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ItemPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
-import br.com.fiap.techchallenge.lanchonete.bdd.SpringIntegrationTest;
+import br.com.fiap.techchallenge.lanchonete.bdd.CucumberSpringIntegrationTest;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
@@ -15,7 +15,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class FazPedidoSemCliente extends SpringIntegrationTest {
+public class FazPedidoSemCliente extends CucumberSpringIntegrationTest {
 
     private Response response;
 
@@ -26,9 +26,11 @@ public class FazPedidoSemCliente extends SpringIntegrationTest {
         var itemPedidoRequest1 = new ItemPedidoRequest(1L, 2);
         var itemPedidoRequest2 = new ItemPedidoRequest(2L, 2);
         var pedidoRequest = new PedidoRequest(List.of(itemPedidoRequest1, itemPedidoRequest2));
+        var authorization = "Bearer token";
 
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", authorization)
                 .body(pedidoRequest)
                 .post(ENDPOINT_API_PEDIDOS);
     }

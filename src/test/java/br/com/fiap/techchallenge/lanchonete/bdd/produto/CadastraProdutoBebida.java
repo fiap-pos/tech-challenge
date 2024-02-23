@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.bdd.produto;
 
-import br.com.fiap.techchallenge.lanchonete.bdd.SpringIntegrationTest;
+import br.com.fiap.techchallenge.lanchonete.bdd.CucumberSpringIntegrationTest;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Então;
@@ -15,7 +15,7 @@ import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdut
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class CadastraProdutoBebida extends SpringIntegrationTest {
+public class CadastraProdutoBebida extends CucumberSpringIntegrationTest {
 
     private Response response;
 

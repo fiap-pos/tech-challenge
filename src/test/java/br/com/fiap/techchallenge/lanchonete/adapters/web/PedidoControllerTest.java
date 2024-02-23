@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
-import java.util.List;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.JsonToStringHelper.asJsonString;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
@@ -32,9 +31,6 @@ class PedidoControllerTest {
 
     @Mock
     CriaPedidoInputPort criaPedidoInputPort;
-
-    @Mock
-    AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
 
     @Mock
     BuscaTodosPedidosInputPort buscaTodosPedidosInputPort;
@@ -56,7 +52,7 @@ class PedidoControllerTest {
     @BeforeEach
     void setUp() {
         itemPedidoRequest = new ItemPedidoRequest(1L, 10);
-        pedidoRequest = new PedidoRequest(1L , Collections.singletonList(itemPedidoRequest));
+        pedidoRequest = new PedidoRequest(Collections.singletonList(itemPedidoRequest));
 
         this.pedidoMapper = new PedidoMapper();
         mock = MockitoAnnotations.openMocks(this);
@@ -115,17 +111,19 @@ class PedidoControllerTest {
         @Test
         void criaUmPedido() throws Exception {
             var pedidoDTO = getPedidoDTO();
+            var authorization = "Bearer token";
 
-            when(criaPedidoInputPort.criar(any(CriaPedidoDTO.class))).thenReturn(pedidoDTO);
+            when(criaPedidoInputPort.criar(any(CriaPedidoDTO.class), eq(authorization))).thenReturn(pedidoDTO);
 
             ResultActions result = mockMvc.perform(post("/pedidos")
                     .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", authorization)
                     .content(asJsonString(pedidoRequest))
             );
 
             result.andExpect(status().isCreated());
 
-            verify(criaPedidoInputPort, times(1)).criar(any(CriaPedidoDTO.class));
+            verify(criaPedidoInputPort, times(1)).criar(any(CriaPedidoDTO.class), eq(authorization));
             verifyNoMoreInteractions(criaPedidoInputPort);
         }
 

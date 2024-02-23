@@ -2,13 +2,13 @@ package br.com.fiap.techchallenge.lanchonete.core.dtos;
 
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.Cliente;
 
-public record ClienteDTO(Long id, String nome, String cpf, String email) {
+public record ClienteDTO(String id, String nome, String cpf, String email) {
 
     public ClienteDTO(String nome, String cpf, String email) {
         this(null, nome, cpf, email);
     }
 
-    public ClienteDTO(Long id) {
+    public ClienteDTO(String id) {
         this(id, null, null, null);
     }
 

@@ -1,61 +1,52 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.web;
 
+import br.com.fiap.techchallenge.lanchonete.SpringIntegrationTest;
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.auth.AuthGateway;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.ItemPedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.adapters.web.models.requests.PedidoRequest;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
-import io.restassured.RestAssured;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeEach;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-
 import java.math.BigDecimal;
 import java.util.List;
-
-import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteRequest;
 import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoRequest;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase
-@ActiveProfiles("test")
-@Transactional
-class PedidoControllerIT {
+class PedidoControllerIT extends SpringIntegrationTest {
 
-    @LocalServerPort
-    private int port;
-
-    private String nome = "Nome do Cliente 1";
-    private String cpf = "64406282084";
-    private String email = "email1@email.com";
-
-    @BeforeEach
-    void setup() {
-        RestAssured.port = port;
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-    }
+    @MockBean
+    private AuthGateway authGateway;
 
     @Test
     void criaUmPedidoComLancheEBebidaComClienteCadastrado() throws Exception {
+        var authorization = "Bearer token";
+
+
         cadastraUmNovoProdutoLanche();
         cadastraUmNovoProdutoBebida();
-        nome = "Novo Cliente";
-        cpf = "76728342079";
-        email = "novocliente@email.com";
-        cadastraUmNovoCliente();
+
+        var clienteDTO = new ClienteDTO(
+                "id-cliente",
+                "Novo Cliente",
+                "12345678901",
+                "email@cliente.com"
+        );
+
+        when(authGateway.buscarPorToken(authorization)).thenReturn(clienteDTO);
+        when(authGateway.buscarPorId(clienteDTO.id())).thenReturn(clienteDTO);
 
         var itemPedidoRequest1 = new ItemPedidoRequest(1L, 2);
         var itemPedidoRequest2 = new ItemPedidoRequest(2L, 2);
-        var pedidoRequest = new PedidoRequest(1L, List.of(itemPedidoRequest1, itemPedidoRequest2));
+        var pedidoRequest = new PedidoRequest(List.of(itemPedidoRequest1, itemPedidoRequest2));
 
         given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", authorization)
                 .body(pedidoRequest)
         .when()
                 .post("/pedidos")
@@ -73,30 +64,17 @@ class PedidoControllerIT {
         var itemPedidoRequest1 = new ItemPedidoRequest(1L, 2);
         var itemPedidoRequest2 = new ItemPedidoRequest(2L, 2);
         var pedidoRequest = new PedidoRequest(List.of(itemPedidoRequest1, itemPedidoRequest2));
+        var authorization = "Bearer token";
 
         given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("Authorization", authorization)
                 .body(pedidoRequest)
         .when()
                 .post("/pedidos")
         .then()
                 .log().all()
                 .statusCode(HttpStatus.CREATED.value());
-    }
-
-    @Test
-    void cadastraUmNovoCliente() {
-        var cliente = getClienteRequest(nome, cpf, email);
-
-        given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(cliente)
-        .when()
-                .post("/clientes")
-        .then()
-                .log().all()
-                .statusCode(HttpStatus.CREATED.value())
-                .body(matchesJsonSchemaInClasspath("schemas/cliente.schema.json"));
     }
 
     @Test

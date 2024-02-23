@@ -30,27 +30,24 @@ public class CriaPedidoUseCase implements CriaPedidoInputPort {
     }
 
     @Override
-    public PedidoDTO criar(CriaPedidoDTO pedidoIn) {
+    public PedidoDTO criar(CriaPedidoDTO pedidoIn, String authorization) {
 
         var pedido = new Pedido(StatusPedidoEnum.PENDENTE_DE_PAGAMENTO);
 
-        pedido.setCliente(getCliente(pedidoIn));
+        pedido.setCliente(getCliente(authorization));
         adicionaItemsPedido(pedido, pedidoIn.itens());
 
         return criaPedidoOutputPort.criar(new PedidoDTO(pedido));
     }
 
-    private Cliente getCliente(CriaPedidoDTO pedidoIn) {
-        if (pedidoIn.clientId() != null) {
-            var clienteDTO = buscaClienteOutputPort.buscar(pedidoIn.clientId());
-            return new Cliente(
-                    clienteDTO.id(),
-                    clienteDTO.nome(),
-                    clienteDTO.cpf(),
-                    clienteDTO.email()
-            );
-        }
-        return null;
+    private Cliente getCliente(String authorization) {
+        var clienteDTO = buscaClienteOutputPort.buscarPorToken(authorization);
+        return clienteDTO != null ? new Cliente(
+                clienteDTO.id(),
+                clienteDTO.nome(),
+                clienteDTO.cpf(),
+                clienteDTO.email()
+        ) : null;
     }
 
     private void adicionaItemsPedido(Pedido pedido, List<CriaItemPedidoDTO> listaPedidosItem) {

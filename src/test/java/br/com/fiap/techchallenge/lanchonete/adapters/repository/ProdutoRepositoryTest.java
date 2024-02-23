@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.ProdutoMapper;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cliente;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;

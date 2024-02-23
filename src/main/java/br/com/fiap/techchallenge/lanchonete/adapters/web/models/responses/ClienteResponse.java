@@ -2,23 +2,23 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.models.responses;
 
 public class ClienteResponse {
 
-    private Long id;
+    private String id;
     private String nome;
     private String cpf;
     private String email;
 
-    public ClienteResponse(Long id, String nome, String cpf, String email) {
+    public ClienteResponse(String id, String nome, String cpf, String email) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

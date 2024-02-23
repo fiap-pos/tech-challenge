@@ -8,22 +8,15 @@ CREATE TABLE IF NOT EXISTS produto (
 	primary key (id)
 );
 
-CREATE TABLE IF NOT EXISTS cliente (
-    id bigint NOT NULL AUTO_INCREMENT,
-    nome varchar(255) NOT NULL,
-    cpf varchar(14) NOT NULL UNIQUE,
-    email varchar(255) NOT NULL UNIQUE,
-    primary key (id)
-);
 
 CREATE TABLE IF NOT EXISTS pedido (
   id bigint AUTO_INCREMENT,
   status enum ('PENDENTE_DE_PAGAMENTO','PAGO','RECEBIDO','EM_PREPARACAO','PRONTO','FINALIZADO','CANCELADO'),
   data timestamp NOT NULL,
-  cliente_id bigint DEFAULT NULL,
+  cliente_id VARCHAR(255) DEFAULT NULL,
   valor_total double,
   primary key (id),
-  FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+  index(cliente_id)
 );
 
 CREATE TABLE IF NOT EXISTS item_pedido (
