@@ -5,8 +5,6 @@ import br.com.fiap.techchallenge.lanchonete.adapters.gateways.auth.models.UserRe
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.auth.models.UserRole;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClienteOutputPort;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
