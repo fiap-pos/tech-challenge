@@ -19,7 +19,7 @@ public class CadastraProdutoBebida extends CucumberSpringIntegrationTest {
 
     private Response response;
 
-    private final String ENDPOINT_API_PRODUTOS = "http://localhost:8080/produtos";
+    private final String ENDPOINT_API_PRODUTOS = "/produtos";
 
     @Quando("criar cadastrar um novo produto do tipo bebida")
     public void criar_cadastrar_um_novo_produto_do_tipo_bebida() {
