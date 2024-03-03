@@ -8,7 +8,6 @@ import br.com.fiap.techchallenge.lanchonete.adapters.repository.sqs.PedidoCriado
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -22,7 +21,6 @@ import java.util.Optional;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedido;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTOcomStatus;
-import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;

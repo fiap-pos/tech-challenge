@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getAtualizaStatusPedidoDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTOStatusPago;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -51,14 +52,13 @@ class AtualizaStatusPedidoUseCaseTest {
     void atualizaStatusPedido() {
         var id = 1L;
         var status = StatusPedidoEnum.PAGO;
-        var pedidoDTO = getPedidoDTO();
+        var pedidoDTO = getPedidoDTOStatusPago();
         AtualizaStatusPedidoDTO atualizaStatusPedidoDTO = getAtualizaStatusPedidoDTO(status);
 
         when(atualizaStatusPedidoOutputPort.atualizarStatus(anyLong(), any(StatusPedidoEnum.class))).thenReturn(pedidoDTO);
-        doNothing().when(enviaPedidoFilaProducaoOutputPort).enviarPedido(any(PedidoDTO.class));
+        doNothing().when(enviaPedidoFilaProducaoOutputPort).enviarPedido(pedidoDTO);
 
         var pedidoAtualizado = atualizaStatusPedidoInputPort.atualizarStatus(id, atualizaStatusPedidoDTO.status());
-        enviaPedidoFilaProducaoOutputPort.enviarPedido(pedidoDTO);
 
         assertThat(pedidoAtualizado).isNotNull();
         assertThat(pedidoAtualizado.itens()).allSatisfy( item -> {
@@ -75,6 +75,7 @@ class AtualizaStatusPedidoUseCaseTest {
         verify(atualizaStatusPedidoOutputPort, times(1)).atualizarStatus(anyLong(), any(StatusPedidoEnum.class));
         verify(enviaPedidoFilaProducaoOutputPort, times(1)).enviarPedido(any(PedidoDTO.class));
         verifyNoMoreInteractions(atualizaStatusPedidoOutputPort);
+        verifyNoMoreInteractions(enviaPedidoFilaProducaoOutputPort);
     }
 
 }
