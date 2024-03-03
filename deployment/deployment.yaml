@@ -47,6 +47,8 @@ spec:
                   key: mysqlPassword
             - name: PRODUCAO_URL
               value: "http://nlb-producao-service"
+            - name: AUTH_URL
+              value: "http://nlb-auth-service"
           volumeMounts:
             - name: lanchonete-volume
               mountPath: "/mnt/lanchonete-volume"

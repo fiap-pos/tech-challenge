@@ -1,7 +1,6 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers;
 
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ClienteJpaRepository;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Cliente;
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.auth.AuthGateway;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
@@ -14,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getCliente;
+import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getItemPedido;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedido;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
@@ -35,7 +34,7 @@ class PedidoMapperTest {
     ItemPedidoMapper itemPedidoMapper;
 
     @Mock
-    ClienteJpaRepository clienteJpaRepository;
+    AuthGateway authGateway;
 
     private PedidoMapper pedidoMapper;
 
@@ -44,7 +43,7 @@ class PedidoMapperTest {
     @BeforeEach
     void setUp() {
         mock = MockitoAnnotations.openMocks(this);
-        this.pedidoMapper = new PedidoMapper(itemPedidoMapper, clienteJpaRepository);
+        this.pedidoMapper = new PedidoMapper(itemPedidoMapper, authGateway);
     }
 
     @AfterEach
@@ -55,33 +54,18 @@ class PedidoMapperTest {
     @Test
     void toPedido() {
         var pedidoDTO = getPedidoDTO();
-        var cliente = getCliente();
+        var clienteDTO = getClienteDTO();
         var pedido = getPedido();
         var listaItemPedido = List.of(getItemPedido(pedido));
         var listaItemPedidoDTO = pedidoDTO.itens();
 
-        when(clienteJpaRepository.findById(pedidoDTO.cliente().id())).thenReturn(Optional.of(cliente));
+        when(authGateway.buscarPorId(pedidoDTO.cliente().id())).thenReturn(clienteDTO);
         when(itemPedidoMapper.toItemPedido(pedido, listaItemPedidoDTO)).thenReturn(listaItemPedido);
 
         Pedido mapperPedido = pedidoMapper.toPedido(pedidoDTO);
         assertThat(mapperPedido).isNotNull();
 
-        verify(clienteJpaRepository, times(1)).findById(pedidoDTO.cliente().id());
-    }
-
-    @Test
-    void toPedido_ClienteNaoEncontrado_LancaExcecao() {
-        var pedidoDTO = getPedidoDTO();
-        var clienteId = pedidoDTO.cliente().id();
-
-        when(clienteJpaRepository.findById(clienteId)).thenReturn(Optional.empty());
-
-        assertThatThrownBy(() -> pedidoMapper.toPedido(pedidoDTO))
-                .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("Cliente "+clienteId+" não encontrado");
-
-        verify(clienteJpaRepository, times(1)).findById(anyLong());
-        verify(clienteJpaRepository, never()).save(any(Cliente.class));
+        verify(authGateway, times(1)).buscarPorId(pedidoDTO.cliente().id());
     }
 
     @Test
