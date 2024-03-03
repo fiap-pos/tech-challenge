@@ -111,6 +111,10 @@ class PedidoRepositoryTest {
         }
 
         @Test
+        void enviarPedido() {
+        }
+
+        @Test
         void atualizarStatus() {
             var id = 1L;
             var pedido = getPedido();
