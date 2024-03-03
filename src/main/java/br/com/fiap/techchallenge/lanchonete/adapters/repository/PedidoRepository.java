@@ -85,12 +85,6 @@ public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPed
 
     @Override
     public void enviarPedido(PedidoDTO pedidoDTO) {
-        var pedido = pedidoMapper.toPedido(pedidoDTO);
-        publicaFilaProducao(pedido);
-    }
-
-    private PedidoDTO publicaFilaProducao(Pedido pedido) {
-        var pedidoDTO = pedidoMapper.toPedidoDTO(pedido);
         try {
             var filaProducaoDTO = filaProducaoMapper.toFilaProducaoDTO(pedidoDTO);
             pedidoCriadoSqsPublisher.publicaFilaPedidoCriado(filaProducaoDTO);
@@ -98,6 +92,5 @@ public class PedidoRepository implements CriaPedidoOutputPort, AtualizaStatusPed
             logger.error(e.getMessage(), e);
             throw new UnexpectedDomainException("Erro ao publicar pedido na fila de produção");
         }
-        return pedidoDTO;
     }
 }

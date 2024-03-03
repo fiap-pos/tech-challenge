@@ -17,6 +17,10 @@ public class FilaProducaoHelper {
         return new FilaProducaoDTO(codigo, itens);
     }
 
+    public static FilaProducaoDTO getFilaProducaoDTO_semItens() {
+        return new FilaProducaoDTO(codigo, null);
+    }
+
     private static List<FilaProducaoItemDTO> getFilaProducaoItemDTO() {
         return List.of(new FilaProducaoItemDTO(nome, descricao, quantidade));
     }
