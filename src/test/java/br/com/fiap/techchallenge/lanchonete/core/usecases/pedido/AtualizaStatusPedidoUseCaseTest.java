@@ -4,6 +4,7 @@ import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPed
 import br.com.fiap.techchallenge.lanchonete.core.dtos.AtualizaStatusPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusPedidoInputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.AtualizaStatusPedidoOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.EnviaPedidoFilaProducaoOutputPort;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -28,12 +29,15 @@ class AtualizaStatusPedidoUseCaseTest {
     @Mock
     AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort;
 
+    @Mock
+    EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort;
+
     AutoCloseable mock;
 
     @BeforeEach
     void setUp() {
         mock = MockitoAnnotations.openMocks(this);
-        atualizaStatusPedidoInputPort = new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort);
+        atualizaStatusPedidoInputPort = new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort, enviaPedidoFilaProducaoOutputPort);
     }
 
     @AfterEach

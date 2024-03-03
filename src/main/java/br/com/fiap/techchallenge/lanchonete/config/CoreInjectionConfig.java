@@ -58,8 +58,8 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort){
-        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort);
+    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort, EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort){
+        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort, enviaPedidoFilaProducaoOutputPort);
     }
 
     @Bean
