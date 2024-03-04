@@ -49,20 +49,22 @@ class PedidoMapperTest {
         var listaPedidoResponse = pedidoMapper.toPedidoListResponse(listaPedidoDTO);
 
         // Assert
-        assertThat(listaPedidoResponse).isNotNull();
-        assertThat(listaPedidoResponse).allSatisfy(pedidoResponse -> {
-           assertThat(pedidoResponse).isNotNull().isInstanceOf(PedidoResponse.class);
-           assertThat(pedidoResponse.getId()).isEqualTo(listaPedidoDTO.get(0).id());
-           assertThat(pedidoResponse.getClienteNome()).isEqualTo(listaPedidoDTO.get(0).cliente().nome());
-            assertThat(pedidoResponse.getItens()).allSatisfy(item -> {
-                assertThat(item).isNotNull().isInstanceOf(ItemPedidoResponse.class);
-            });
-            assertThat(pedidoResponse.getItens().get(0).getProdutoNome()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).produtoNome());
-            assertThat(pedidoResponse.getItens().get(0).getProdutoDescricao()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).produtoDescricao());
-            assertThat(pedidoResponse.getItens().get(0).getValorUnitario()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).valorUnitario());
-            assertThat(pedidoResponse.getItens().get(0).getQuantidade()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).quantidade());
-            assertThat(pedidoResponse.getItens().get(0).getValorTotal()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).getValorTotal());
-        });
+        assertThat(listaPedidoResponse)
+                .isNotNull()
+                .isNotEmpty()
+                .allSatisfy(pedidoResponse -> {
+                    assertThat(pedidoResponse).isNotNull().isInstanceOf(PedidoResponse.class);
+                    assertThat(pedidoResponse.getId()).isEqualTo(listaPedidoDTO.get(0).id());
+                    assertThat(pedidoResponse.getClienteNome()).isEqualTo(listaPedidoDTO.get(0).cliente().nome());
+                    assertThat(pedidoResponse.getItens()).allSatisfy(item -> {
+                        assertThat(item).isNotNull().isInstanceOf(ItemPedidoResponse.class);
+                    });
+                    assertThat(pedidoResponse.getItens().get(0).getProdutoNome()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).produtoNome());
+                    assertThat(pedidoResponse.getItens().get(0).getProdutoDescricao()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).produtoDescricao());
+                    assertThat(pedidoResponse.getItens().get(0).getValorUnitario()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).valorUnitario());
+                    assertThat(pedidoResponse.getItens().get(0).getQuantidade()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).quantidade());
+                    assertThat(pedidoResponse.getItens().get(0).getValorTotal()).isEqualTo(listaPedidoDTO.get(0).itens().get(0).getValorTotal());
+                });
     }
 
 }

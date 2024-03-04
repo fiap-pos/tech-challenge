@@ -4,5 +4,5 @@ import br.com.fiap.techchallenge.lanchonete.core.dtos.CriaPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 
 public interface CriaPedidoInputPort {
-    PedidoDTO criar(CriaPedidoDTO pedidoIn);
+    PedidoDTO criar(CriaPedidoDTO pedidoIn, String authorization);
 }

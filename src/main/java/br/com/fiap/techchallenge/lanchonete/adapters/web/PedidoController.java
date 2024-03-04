@@ -55,8 +55,8 @@ public class PedidoController extends ControllerBase{
 
     @Operation(summary = "Cria um pedido")
     @PostMapping
-    public ResponseEntity<PedidoResponse> criarPedido(@Valid @RequestBody PedidoRequest pedidoRequest){
-        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest.toCriaItemPedidoDTO());
+    public ResponseEntity<PedidoResponse> criarPedido(@Valid @RequestBody PedidoRequest pedidoRequest, @RequestHeader("Authorization") String authorization){
+        var pedidoOut = criaPedidoInputPort.criar(pedidoRequest.toCriaItemPedidoDTO(), authorization);
         var pedidoResponse = pedidoMapper.toPedidoResponse(pedidoOut);
         var uri = getExpandedCurrentUri("/{id}", pedidoResponse.getId());
         return ResponseEntity.created(uri).body(pedidoResponse);

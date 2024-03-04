@@ -1,24 +1,15 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
+import br.com.fiap.techchallenge.lanchonete.SpringIntegrationTest;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.ProdutoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-
 import java.math.BigDecimal;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@AutoConfigureTestDatabase
-@Transactional
-class ProdutoRepositoryIT {
+class ProdutoRepositoryIT extends SpringIntegrationTest {
 
     @Autowired
     ProdutoJpaRepository produtoJpaRepository;
@@ -73,7 +64,6 @@ class ProdutoRepositoryIT {
         assertThat(produtoCriado.getCategoria()).isEqualTo(produto.getCategoria());
         assertThat(produtoCriado.getPreco()).isEqualTo(produto.getPreco());
         assertThat(produtoCriado.getDescricao()).isEqualTo(produto.getDescricao());
-
     }
 
 }

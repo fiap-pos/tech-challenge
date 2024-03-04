@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getCriaPedidoDTO;
-import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getCriaPedidoDTOSemCliente;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,16 +64,18 @@ class CriaPedidoUseCaseTest {
             var novoPedido = getCriaPedidoDTO();
             var produtoDTO = getProdutoDTO();
             var clienteNovoPedido = new ClienteDTO(
-                    1L,
+                    "id-cliente-1",
                     "NOME DO CLIENTE",
                     "11122233399",
                     "cliente1@email.com"
             );
+            var authorization = "authorization-cliente-1";
+
             when(criaPedidoOutputPort.criar(any(PedidoDTO.class))).thenReturn(pedidoDTO);
-            when(buscaClienteOutputPort.buscar(novoPedido.clientId())).thenReturn(clienteNovoPedido);
+            when(buscaClienteOutputPort.buscarPorToken(authorization)).thenReturn(clienteNovoPedido);
             when(buscaProdutoPorIdOutputPort.buscarPorId(pedidoDTO.itens().get(0).produtoId())).thenReturn(produtoDTO);
 
-            var pedidoCriado = criaPedidoInputPort.criar(novoPedido);
+            var pedidoCriado = criaPedidoInputPort.criar(novoPedido, authorization);
 
             assertThat(pedidoCriado).isNotNull();
             assertThat(pedidoCriado.id()).isEqualTo(pedidoDTO.id());
@@ -91,43 +92,11 @@ class CriaPedidoUseCaseTest {
             assertThat(pedidoCriado.dataCriacao()).isEqualTo(pedidoDTO.dataCriacao());
 
             verify(criaPedidoOutputPort, times(1)).criar(any(PedidoDTO.class));
-            verify(buscaClienteOutputPort, times(1)).buscar(anyLong());
+            verify(buscaClienteOutputPort, times(1)).buscarPorToken(authorization);
             verify(buscaProdutoPorIdOutputPort, times(1)).buscarPorId(anyLong());
             verifyNoMoreInteractions(criaPedidoOutputPort);
             verifyNoMoreInteractions(buscaClienteOutputPort);
             verifyNoMoreInteractions(buscaProdutoPorIdOutputPort);
         }
-
-        @Test
-        void criarPedidoSemCliente() {
-            var pedidoDTO = getPedidoDTO();
-            var novoPedido = getCriaPedidoDTOSemCliente();
-
-            var produtoDTO = getProdutoDTO();
-            when(criaPedidoOutputPort.criar(any(PedidoDTO.class))).thenReturn(pedidoDTO);
-            when(buscaProdutoPorIdOutputPort.buscarPorId(pedidoDTO.itens().get(0).produtoId())).thenReturn(produtoDTO);
-
-            var pedidoCriado = criaPedidoInputPort.criar(novoPedido);
-
-            assertThat(pedidoCriado).isNotNull();
-            assertThat(pedidoCriado.id()).isEqualTo(pedidoDTO.id());
-            assertThat(pedidoCriado.getNomeCliente()).isEqualTo(pedidoDTO.getNomeCliente());
-            assertThat(pedidoCriado.itens()).allSatisfy(item -> {
-                assertThat(item.produtoNome()).isEqualTo(pedidoDTO.itens().get(0).produtoNome());
-                assertThat(item.produtoDescricao()).isEqualTo(pedidoDTO.itens().get(0).produtoDescricao());
-                assertThat(item.valorUnitario()).isEqualTo(pedidoDTO.itens().get(0).valorUnitario());
-                assertThat(item.quantidade()).isEqualTo(pedidoDTO.itens().get(0).quantidade());
-                assertThat(item.getValorTotal()).isEqualTo(pedidoDTO.itens().get(0).getValorTotal());
-            });
-            assertThat(pedidoCriado.status()).isEqualTo(pedidoDTO.status());
-            assertThat(pedidoCriado.valorTotal()).isEqualTo(pedidoDTO.valorTotal());
-            assertThat(pedidoCriado.dataCriacao()).isEqualTo(pedidoDTO.dataCriacao());
-
-            verify(criaPedidoOutputPort, times(1)).criar(any(PedidoDTO.class));
-            verify(buscaProdutoPorIdOutputPort, times(1)).buscarPorId(anyLong());
-            verifyNoMoreInteractions(criaPedidoOutputPort);
-            verifyNoMoreInteractions(buscaProdutoPorIdOutputPort);
-        }
-
     }
 }

@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.lanchonete.core.domain.entities;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class QrCode {

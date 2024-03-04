@@ -1,15 +1,16 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.repository;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.mappers.FilaProducaoMapper;
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoDTO;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.jpa.PedidoJpaRepository;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.mappers.PedidoMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Pedido;
-import br.com.fiap.techchallenge.lanchonete.adapters.repository.models.Produto;
-import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.CategoriaEnum;
+import br.com.fiap.techchallenge.lanchonete.adapters.repository.sqs.PedidoCriadoSqsPublisher;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ClienteDTO;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.ItemPedidoDTO;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.exceptions.UnexpectedDomainException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -17,20 +18,22 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.fiap.techchallenge.lanchonete.utils.FilaProducaoHelper.getFilaProducaoDTO;
+import static br.com.fiap.techchallenge.lanchonete.utils.FilaProducaoHelper.getFilaProducaoDTO_semItens;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedido;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.PedidoHelper.getPedidoDTOcomStatus;
-import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProduto;
-import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProdutoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -46,12 +49,18 @@ class PedidoRepositoryTest {
     @Mock
     PedidoMapper pedidoMapper;
 
+    @Mock
+    FilaProducaoMapper filaProducaoMapper;
+
+    @Mock
+    PedidoCriadoSqsPublisher pedidoCriadoSqsPublisher;
+
     AutoCloseable openMocks;
 
     @BeforeEach
     void setup() {
         openMocks = MockitoAnnotations.openMocks(this);
-        pedidoRepository = new PedidoRepository(pedidoMapper, pedidoJpaRepository);
+        pedidoRepository = new PedidoRepository(pedidoMapper, filaProducaoMapper, pedidoJpaRepository, pedidoCriadoSqsPublisher);
     }
 
     @AfterEach
@@ -191,6 +200,36 @@ class PedidoRepositoryTest {
 
             verify(pedidoJpaRepository, times(1)).findByStatus(status);
             verify(pedidoMapper, times(1)).toPedidoDTO(any(Pedido.class));
+        }
+
+        @Test
+        void enviarPedido() throws JsonProcessingException {
+            var pedidoDTO = getPedidoDTO();
+            var filaProducaoDTO = getFilaProducaoDTO();
+
+            when(filaProducaoMapper.toFilaProducaoDTO(pedidoDTO)).thenReturn(filaProducaoDTO);
+            doNothing().when(pedidoCriadoSqsPublisher).publicaFilaPedidoCriado(filaProducaoDTO);
+
+            pedidoRepository.enviarPedido(pedidoDTO);
+
+            verify(filaProducaoMapper, times(1)).toFilaProducaoDTO(pedidoDTO);
+            verify(pedidoCriadoSqsPublisher, times(1)).publicaFilaPedidoCriado(filaProducaoDTO);
+        }
+
+        @Test
+        void enviarPedido_ErroJson_LancaExcecao() throws JsonProcessingException {
+            var pedidoDTO = getPedidoDTO();
+            var filaProducaoDTO = getFilaProducaoDTO();
+
+            when(filaProducaoMapper.toFilaProducaoDTO(pedidoDTO)).thenReturn(filaProducaoDTO);
+            doNothing().when(pedidoCriadoSqsPublisher).publicaFilaPedidoCriado(filaProducaoDTO);
+
+            doThrow(JsonProcessingException.class).when(pedidoCriadoSqsPublisher).publicaFilaPedidoCriado(filaProducaoDTO);
+
+            assertThrows(UnexpectedDomainException.class, () -> pedidoRepository.enviarPedido(pedidoDTO));
+
+            verify(filaProducaoMapper, times(1)).toFilaProducaoDTO(pedidoDTO);
+            verify(pedidoCriadoSqsPublisher, times(1)).publicaFilaPedidoCriado(filaProducaoDTO);
         }
 
     }

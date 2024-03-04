@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getCliente;
 import static br.com.fiap.techchallenge.lanchonete.utils.ClienteHelper.getClienteDTO;
 import static br.com.fiap.techchallenge.lanchonete.utils.ProdutoHelper.getProduto;
 
@@ -27,6 +26,10 @@ public abstract class PedidoHelper {
 
     public static PedidoDTO getPedidoDTO() {
         return new PedidoDTO(PEDIDO_ID, CLIENTE_DTO, ITENS, PEDIDO_STATUS, BigDecimal.valueOf(106.8), DATA_CRIACAO);
+    }
+
+    public static PedidoDTO getPedidoDTOStatusPago() {
+        return new PedidoDTO(PEDIDO_ID, CLIENTE_DTO, ITENS, StatusPedidoEnum.PAGO, BigDecimal.valueOf(106.8), DATA_CRIACAO);
     }
 
     public static PedidoDTO getPedidoDTOSemCliente() {
@@ -52,7 +55,7 @@ public abstract class PedidoHelper {
         pedido.setStatus(PEDIDO_STATUS);
         pedido.setValorTotal(BigDecimal.valueOf(106.8));
         pedido.setData(DATA_CRIACAO);
-        pedido.setCliente(getCliente());
+        pedido.setClienteId(CLIENTE_DTO.id());
         return pedido;
     }
 
@@ -62,7 +65,6 @@ public abstract class PedidoHelper {
         pedido.setStatus(PEDIDO_STATUS);
         pedido.setValorTotal(BigDecimal.valueOf(106.8));
         pedido.setData(DATA_CRIACAO);
-        pedido.setCliente(null);
         return pedido;
     }
 
@@ -71,11 +73,7 @@ public abstract class PedidoHelper {
     }
 
     public static CriaPedidoDTO getCriaPedidoDTO() {
-        return new CriaPedidoDTO(1L, Collections.singletonList(getCriaItemPedidoDTO()));
-    }
-
-    public static CriaPedidoDTO getCriaPedidoDTOSemCliente() {
-        return new CriaPedidoDTO(null, Collections.singletonList(getCriaItemPedidoDTO()));
+        return new CriaPedidoDTO(Collections.singletonList(getCriaItemPedidoDTO()));
     }
 
     public static CriaItemPedidoDTO getCriaItemPedidoDTO() {

@@ -5,6 +5,7 @@ import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.AtualizaStatusP
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.awspring.cloud.sqs.annotation.SqsListener;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,15 +18,19 @@ public class PagamentosListener {
 
     private final AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort;
 
-    public PagamentosListener(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort) {
+    private final ObjectMapper objectMapper;
+
+    public PagamentosListener(AtualizaStatusPedidoInputPort atualizaStatusPedidoInputPort, ObjectMapper objectMapper) {
         this.atualizaStatusPedidoInputPort = atualizaStatusPedidoInputPort;
+        this.objectMapper = objectMapper;
     }
 
+    @Transactional
     @SqsListener("${aws.sqs.queues.pagamentos}")
     public void receberMensagem(Message mensagem) throws JsonProcessingException {
         logger.info("Recebendo mensagem: {}", mensagem);
-        ObjectMapper om = new ObjectMapper();
-        var cobrancaDTO = om.readValue(mensagem.body(), CobrancaDTO.class);
-        atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.id(), cobrancaDTO.status());
+
+        var cobrancaDTO = objectMapper.readValue(mensagem.body(), CobrancaDTO.class);
+        atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.pedidoId(), cobrancaDTO.status());
     }
 }

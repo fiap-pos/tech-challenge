@@ -21,9 +21,9 @@ public class Pedido {
     private BigDecimal valorTotal;
 
     private LocalDateTime data;
-    @ManyToOne
+
     @Nullable
-    private Cliente cliente;
+    private String clienteId;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, targetEntity = ItemPedido.class)
     private List<ItemPedido> itens = new ArrayList<>();
 
@@ -36,10 +36,10 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(StatusPedidoEnum status, LocalDateTime data, @Nullable Cliente cliente, List<ItemPedido> itens) {
+    public Pedido(StatusPedidoEnum status, LocalDateTime data, @Nullable String clienteId, List<ItemPedido> itens) {
         this.status = status;
         this.data = data;
-        this.cliente = cliente;
+        this.clienteId = clienteId;
         this.itens = itens;
     }
     public Pedido(StatusPedidoEnum status, LocalDateTime data, List<ItemPedido> itens) {
@@ -48,9 +48,9 @@ public class Pedido {
         this.itens = itens;
     }
 
-    public Pedido(StatusPedidoEnum status, Cliente cliente, LocalDateTime data, BigDecimal valorTotal) {
+    public Pedido(StatusPedidoEnum status, String clienteId, LocalDateTime data, BigDecimal valorTotal) {
         this.status = status;
-        this.cliente = cliente;
+        this.clienteId = clienteId;
         this.data = data;
         this.valorTotal = valorTotal;
     }
@@ -84,12 +84,12 @@ public class Pedido {
     }
 
     @Nullable
-    public Cliente getCliente() {
-        return cliente;
+    public String getClienteId() {
+        return clienteId;
     }
 
-    public void setCliente(@Nullable Cliente cliente) {
-        this.cliente = cliente;
+    public void setClienteId(@Nullable String clienteId) {
+        this.clienteId = clienteId;
     }
 
     public List<ItemPedido> getItens() {
