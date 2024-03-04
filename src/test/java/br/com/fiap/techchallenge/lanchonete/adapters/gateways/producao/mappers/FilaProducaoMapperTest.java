@@ -1,6 +1,9 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.mappers;
 
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoDTO;
+import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoItemDTO;
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoRequest;
+import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,4 +36,20 @@ class FilaProducaoMapperTest {
 
     }
 
+    @Test
+    void toFilaProducaoDTO() {
+
+        var pedidoDTO = getPedidoDTO();
+
+        FilaProducaoDTO filaProducaoDTO = filaProducaoMapper.toFilaProducaoDTO(pedidoDTO);
+
+        assertThat(filaProducaoDTO).isNotNull().isInstanceOf(FilaProducaoDTO.class);
+
+        assertThat(filaProducaoDTO.codigo()).isEqualTo(pedidoDTO.id());
+        assertThat(filaProducaoDTO.itens()).allSatisfy( item -> {
+            assertThat(item.nome()).isEqualTo(pedidoDTO.itens().get(0).produtoNome());
+            assertThat(item.descricao()).isEqualTo(pedidoDTO.itens().get(0).produtoDescricao());
+            assertThat(item.quantidade()).isEqualTo(pedidoDTO.itens().get(0).quantidade());
+        });
+    }
 }
