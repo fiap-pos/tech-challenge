@@ -31,6 +31,6 @@ public class PagamentosListener {
         logger.info("Recebendo mensagem: {}", mensagem);
 
         var cobrancaDTO = objectMapper.readValue(mensagem.body(), CobrancaDTO.class);
-        atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.id(), cobrancaDTO.status());
+        atualizaStatusPedidoInputPort.atualizarStatus(cobrancaDTO.pedidoId(), cobrancaDTO.status());
     }
 }
