@@ -77,7 +77,8 @@ public class MailGateway implements NotificaClienteOuputPort {
             Response response = okHttpClient.newCall(request).execute();
 
             if (!response.isSuccessful()) {
-                logger.error("Erro ao enviar e-mail: "+ response.body().string());
+                var responseString = response.body().string();
+                logger.error("Erro ao enviar e-mail: {}", responseString);
             }
 
         } catch (JsonProcessingException e) {
@@ -89,7 +90,8 @@ public class MailGateway implements NotificaClienteOuputPort {
 
     private void logNotifica(Mail mail) {
         try {
-            logger.info("Enviando e-mail: {}", objectMapper.writeValueAsString(mail));
+            var jsonValue = objectMapper.writeValueAsString(mail);
+            logger.info("Enviando e-mail: {}", jsonValue);
         } catch (JsonProcessingException e) {
             logger.error("Erro ao converter objeto para JSON", e);
         }
