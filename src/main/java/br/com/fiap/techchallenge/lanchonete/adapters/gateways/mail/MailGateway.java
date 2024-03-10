@@ -4,6 +4,7 @@ package br.com.fiap.techchallenge.lanchonete.adapters.gateways.mail;
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.mail.mappers.MailMapper;
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.mail.models.Mail;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.NotificaClienteOuputPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class MailGateway {
+public class MailGateway implements NotificaClienteOuputPort {
 
-    @Value("${services.mail.url}")
+    @Value("${services.mailtrap.url}")
     private String mailApiUrl;
 
-    @Value("${services.mail.api-key}")
+    @Value("${services.mailtrap.api-key}")
     private String mailApiKey;
 
     @Value("${services.mail.from-mail}")
@@ -76,13 +77,13 @@ public class MailGateway {
             Response response = okHttpClient.newCall(request).execute();
 
             if (!response.isSuccessful()) {
-                logger.error("Erro ao enviar e-mail", response.body().string());
+                logger.error("Erro ao enviar e-mail: "+ response.body().string());
             }
 
         } catch (JsonProcessingException e) {
             logger.error("Erro ao converter objeto para JSON", e);
         } catch (IOException | NullPointerException e) {
-            logger.error("Erro ao enviar e-mail", e);
+            logger.error("Erro ao enviar e-mail: " + e.getMessage(), e);
         }
     }
 

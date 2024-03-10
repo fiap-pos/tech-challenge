@@ -36,6 +36,10 @@ public abstract class PedidoHelper {
         return new PedidoDTO(PEDIDO_ID, null, ITENS, PEDIDO_STATUS, BigDecimal.valueOf(106.8), DATA_CRIACAO);
     }
 
+    public static PedidoDTO getPedidoDTOSemClienteComStatus(StatusPedidoEnum status) {
+        return new PedidoDTO(PEDIDO_ID, null, ITENS, status, BigDecimal.valueOf(106.8), DATA_CRIACAO);
+    }
+
     public static PedidoDTO getPedidoDTOcomStatus(StatusPedidoEnum status) {
         return new PedidoDTO(PEDIDO_ID, CLIENTE_DTO, ITENS, status, BigDecimal.valueOf(106.8), DATA_CRIACAO);
     }

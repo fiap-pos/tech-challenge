@@ -45,6 +45,16 @@ spec:
                 secretKeyRef:
                   name: lanchonete-secrets-aws
                   key: mysqlPassword
+            - name: MAIL_API_URL
+              valueFrom:
+                  secretKeyRef:
+                  name: lanchonete-secrets-aws
+                  key:
+            - name: MAIL_API_KEY
+              valueFrom:
+                  secretKeyRef:
+                  name: lanchonete-secrets-aws
+                  key: mailtrapApiKey
             - name: PRODUCAO_URL
               value: "http://nlb-producao-service"
             - name: AUTH_URL

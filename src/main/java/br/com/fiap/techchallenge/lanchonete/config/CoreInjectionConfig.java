@@ -3,6 +3,7 @@ package br.com.fiap.techchallenge.lanchonete.config;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.pedido.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.in.produto.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.BuscaClienteOutputPort;
+import br.com.fiap.techchallenge.lanchonete.core.ports.out.cliente.NotificaClienteOuputPort;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.pedido.*;
 import br.com.fiap.techchallenge.lanchonete.core.ports.out.produto.*;
 import br.com.fiap.techchallenge.lanchonete.core.usecases.pedido.*;
@@ -58,8 +59,12 @@ public class CoreInjectionConfig {
     }
 
     @Bean
-    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort, EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort){
-        return new AtualizaStatusPedidoUseCase(atualizaStatusPedidoOutputPort, enviaPedidoFilaProducaoOutputPort);
+    AtualizaStatusPedidoInputPort atualizaStatusPedido(AtualizaStatusPedidoOutputPort atualizaStatusPedidoOutputPort, EnviaPedidoFilaProducaoOutputPort enviaPedidoFilaProducaoOutputPort, NotificaClienteOuputPort notificaClienteOuputPort) {
+        return new AtualizaStatusPedidoUseCase(
+                atualizaStatusPedidoOutputPort,
+                enviaPedidoFilaProducaoOutputPort,
+                notificaClienteOuputPort
+        );
     }
 
     @Bean

@@ -144,6 +144,28 @@ class MailGatewayTest {
         verify(objectMapper, times(1)).writeValueAsString(mail);
     }
 
+    @Test
+    void deveriaTratarRespostaNaoSucesso() throws IOException {
+        var pedidoDTO = getPedidoDTO();
+        var mail = mock(Mail.class);
+        var response = mock(okhttp3.Response.class);
+
+        when(mailMapper.toMailStatusPedido(pedidoDTO, "mailFrom", "mailFromName")).thenReturn(mail);
+        when(objectMapper.writeValueAsString(mail)).thenReturn("mailJson");
+
+        mockHttpClient(response);
+        when(response.isSuccessful()).thenReturn(false);
+        when(response.body()).thenReturn(mock(okhttp3.ResponseBody.class));
+
+        mailGateway.notificaClienteStatusPedido(pedidoDTO);
+
+        verify(mailMapper, times(1)).toMailStatusPedido(pedidoDTO, "mailFrom", "mailFromName");
+        verify(objectMapper, times(1)).writeValueAsString(mail);
+        verify(okHttpClient, times(1)).newCall(any());
+        verify(response, times(1)).isSuccessful();
+        verify(response, times(1)).body();
+    }
+
     private void setGatewayValues(Boolean mailApiEnabled) {
         ReflectionTestUtils.setField(mailGateway, "mailApiUrl", "http://localhost:8080");
         ReflectionTestUtils.setField(mailGateway, "mailApiKey", "asdf-123456");

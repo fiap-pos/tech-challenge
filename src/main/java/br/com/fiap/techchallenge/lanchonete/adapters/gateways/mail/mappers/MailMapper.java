@@ -4,9 +4,11 @@ import br.com.fiap.techchallenge.lanchonete.adapters.gateways.mail.models.Mail;
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.mail.models.MailId;
 import br.com.fiap.techchallenge.lanchonete.core.domain.entities.enums.StatusPedidoEnum;
 import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class MailMapper {
 
     public Mail toMailStatusPedido(PedidoDTO pedidoDTO, String mailFrom, String mailFromName) {
