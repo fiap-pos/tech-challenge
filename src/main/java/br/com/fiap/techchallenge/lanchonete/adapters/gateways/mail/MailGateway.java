@@ -18,10 +18,10 @@ import java.io.IOException;
 @Service
 public class MailGateway implements NotificaClienteOuputPort {
 
-    @Value("${services.mailtrap.url}")
+    @Value("${services.mail.url}")
     private String mailApiUrl;
 
-    @Value("${services.mailtrap.api-key}")
+    @Value("${services.mail.api-key}")
     private String mailApiKey;
 
     @Value("${services.mail.from-mail}")
