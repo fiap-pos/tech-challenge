@@ -1,9 +1,7 @@
 package br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.mappers;
 
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoDTO;
-import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoItemDTO;
 import br.com.fiap.techchallenge.lanchonete.adapters.gateways.producao.models.FilaProducaoRequest;
-import br.com.fiap.techchallenge.lanchonete.core.dtos.PedidoDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
