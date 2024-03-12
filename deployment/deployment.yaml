@@ -47,12 +47,12 @@ spec:
                   key: mysqlPassword
             - name: MAIL_API_URL
               valueFrom:
-                  secretKeyRef:
+                secretKeyRef:
                   name: lanchonete-secrets-aws
                   key: mailApiUrl
             - name: MAIL_API_KEY
               valueFrom:
-                  secretKeyRef:
+                secretKeyRef:
                   name: lanchonete-secrets-aws
                   key: mailApiKey
             - name: PRODUCAO_URL
