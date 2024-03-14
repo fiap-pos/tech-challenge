@@ -104,7 +104,7 @@ class ExceptionsHandlerTest {
         Assertions.assertThat(response).isNotNull().isInstanceOf(ResponseEntity.class);
         Assertions.assertThat(response.getBody()).isNotNull().isInstanceOf(ErrorDetails.class);
         Assertions.assertThat(response.getBody().message()).isEqualTo(exception.getMessage());
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
     }
     @Test
     void shouldHandleRuntimeException() {
