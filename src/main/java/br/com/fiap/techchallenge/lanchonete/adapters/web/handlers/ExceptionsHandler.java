@@ -83,7 +83,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ResponseEntity<ErrorDetails> handlerNoResourceFoundException(IllegalArgumentException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorDetails> handlerIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
         var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
                 .message(e.getMessage())
@@ -96,7 +96,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
-    public ResponseEntity<ErrorDetails> handlerNoResourceFoundException(ConnectException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorDetails> handlerRuntimeException(ConnectException e, HttpServletRequest request) {
         var errorDetails = new ErrorDetails.Builder()
                 .status(HttpStatus.SERVICE_UNAVAILABLE.value())
                 .message(e.getMessage())
