@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.net.ConnectException;
 import java.util.Objects;
 
 @ControllerAdvice
@@ -78,6 +79,32 @@ public class ExceptionsHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity<ErrorDetails> handlerIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
+        var errorDetails = new ErrorDetails.Builder()
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .message(e.getMessage())
+                .timestamp(System.currentTimeMillis())
+                .build();
+        logger.error(e.getMessage(), e);
+
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorDetails);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ResponseEntity<ErrorDetails> handlerRuntimeException(ConnectException e, HttpServletRequest request) {
+        var errorDetails = new ErrorDetails.Builder()
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .message(e.getMessage())
+                .timestamp(System.currentTimeMillis())
+                .build();
+        logger.error(e.getMessage(), e);
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorDetails);
     }
 
     @ExceptionHandler(Exception.class)

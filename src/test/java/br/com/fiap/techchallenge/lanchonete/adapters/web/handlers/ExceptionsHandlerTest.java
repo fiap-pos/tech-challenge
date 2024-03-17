@@ -3,13 +3,17 @@ package br.com.fiap.techchallenge.lanchonete.adapters.web.handlers;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.BadRequestException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityAlreadyExistException;
 import br.com.fiap.techchallenge.lanchonete.core.domain.exceptions.EntityNotFoundException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpInputMessage;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import java.net.ConnectException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
@@ -91,5 +95,26 @@ class ExceptionsHandlerTest {
         assertThat(response.getBody().message()).isEqualTo("Requisição inválida.");
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
+    @Test
+    void shouldHandleIllegalArgumentException() {
+        var exception = new IllegalArgumentException("Erro");
+        var httpservletRequest = new MockHttpServletRequest();
+        var response = exceptionsHandler.handlerIllegalArgumentException(exception, httpservletRequest);
 
+        Assertions.assertThat(response).isNotNull().isInstanceOf(ResponseEntity.class);
+        Assertions.assertThat(response.getBody()).isNotNull().isInstanceOf(ErrorDetails.class);
+        Assertions.assertThat(response.getBody().message()).isEqualTo(exception.getMessage());
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+    @Test
+    void shouldHandleRuntimeException() {
+        var exception = new ConnectException("Serviço Indisponível");
+        var httpservletRequest = new MockHttpServletRequest();
+        var response = exceptionsHandler.handlerRuntimeException(exception, httpservletRequest);
+
+        Assertions.assertThat(response).isNotNull().isInstanceOf(ResponseEntity.class);
+        Assertions.assertThat(response.getBody()).isNotNull().isInstanceOf(ErrorDetails.class);
+        Assertions.assertThat(response.getBody().message()).isEqualTo(exception.getMessage());
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }
